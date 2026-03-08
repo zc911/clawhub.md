@@ -1,14 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import clawhubAPI from '../services/clawhub'
 
 const Skills = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
+  const [skills, setSkills] = useState([])
+  const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        const response = await clawhubAPI.getSkills()
+        setSkills(response.data)
+      } catch (error) {
+        console.error('Failed to fetch skills:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchSkills()
+  }, [])
 
   const categories = [
     'all', 'Development', 'Productivity', 'Utilities', 'Media', 'Creative', 'Business', 'LifeStyle'
   ]
-
-  const skills = [
     {
       name: 'GitHub',
       category: 'Development',
@@ -214,8 +232,21 @@ const Skills = () => {
 
         {/* Skills Grid */}
         <div className="skills-grid">
-          {filteredSkills.map((skill, index) => (
-            <div key={index} className="skill-card">
+          {loading ? (
+            <div style={{ 
+              gridColumn: '1 / -1', 
+              textAlign: 'center', 
+              padding: '4rem 2rem', 
+              color: '#94a3b8' 
+            }}>
+              Loading skills...
+            </div>
+          ) : filteredSkills.map((skill, index) => (
+            <div 
+              key={index} 
+              className="skill-card"
+              onClick={() => navigate(`/skills/${skill.id}`)}
+            >
               <div className="skill-header">
                 <div>
                   <div className="skill-name">{skill.name}</div>
@@ -249,7 +280,10 @@ const Skills = () => {
               </div>
               <button 
                 className="install-btn"
-                onClick={() => copyToClipboard(skill.installCommand)}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  copyToClipboard(skill.installCommand)
+                }}
               >
                 <i className="fas fa-terminal" style={{ marginRight: '0.5rem' }}></i>
                 {skill.installCommand}

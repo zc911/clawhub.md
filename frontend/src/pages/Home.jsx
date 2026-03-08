@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Home = () => {
+  const navigate = useNavigate()
   const features = [
     {
       icon: 'fa-book',
@@ -37,6 +38,7 @@ const Home = () => {
 
   const popularSkills = [
     {
+      id: 'github',
       name: 'GitHub',
       category: 'Development',
       description: 'Manage GitHub issues, PRs, and repositories directly from OpenClaw. Create, comment, and review without leaving the terminal.',
@@ -45,6 +47,7 @@ const Home = () => {
       installCommand: 'clawhub install github'
     },
     {
+      id: 'weather',
       name: 'Weather',
       category: 'Utilities',
       description: 'Get real-time weather information and forecasts for any location. Supports multiple weather providers and units.',
@@ -53,6 +56,7 @@ const Home = () => {
       installCommand: 'clawhub install weather'
     },
     {
+      id: 'coding-agent',
       name: 'Coding Agent',
       category: 'Development',
       description: 'Powerful coding assistant that can write, review, and refactor code. Supports multiple languages and frameworks.',
@@ -61,6 +65,7 @@ const Home = () => {
       installCommand: 'clawhub install coding-agent'
     },
     {
+      id: 'calendar',
       name: 'Calendar',
       category: 'Productivity',
       description: 'Manage your calendar, schedule meetings, and get reminders. Integrates with Google Calendar, Outlook, and Apple Calendar.',
@@ -69,6 +74,7 @@ const Home = () => {
       installCommand: 'clawhub install calendar'
     },
     {
+      id: 'email',
       name: 'Email',
       category: 'Productivity',
       description: 'Read, compose, and send emails directly from OpenClaw. Supports Gmail, Outlook, and IMAP accounts.',
@@ -77,6 +83,7 @@ const Home = () => {
       installCommand: 'clawhub install email'
     },
     {
+      id: 'youtube-dl',
       name: 'YouTube Downloader',
       category: 'Media',
       description: 'Download YouTube videos and audio in multiple formats. Supports playlists, subtitles, and quality selection.',
@@ -136,7 +143,12 @@ const Home = () => {
           <h2 className="section-title">Popular Skills</h2>
           <div className="skills-grid">
             {popularSkills.map((skill, index) => (
-              <div key={index} className="skill-card">
+              <div 
+                key={index} 
+                className="skill-card"
+                onClick={() => navigate(`/skills/${skill.id}`)}
+                style={{ cursor: 'pointer' }}
+              >
                 <div className="skill-header">
                   <div>
                     <div className="skill-name">{skill.name}</div>
@@ -156,7 +168,10 @@ const Home = () => {
                 </div>
                 <button 
                   className="install-btn"
-                  onClick={() => copyToClipboard(skill.installCommand)}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    copyToClipboard(skill.installCommand)
+                  }}
                 >
                   <i className="fas fa-terminal" style={{ marginRight: '0.5rem' }}></i>
                   {skill.installCommand}
