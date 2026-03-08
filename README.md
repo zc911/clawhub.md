@@ -122,11 +122,13 @@ Modify the gradient and color variables in `/src/index.css`.
 
 ## 🚀 Deployment
 
-### Vercel
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/clawhub.md)
+### One-Click Deployment
 
-### Netlify
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/your-username/clawhub.md)
+#### Netlify
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/zc911/clawhub.md)
+
+#### Vercel
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/zc911/clawhub.md)
 
 ### GitHub Pages
 1. Add `homepage` field to `package.json`:
