@@ -5,12 +5,8 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import Skills from './pages/Skills'
-import SkillDetail from './pages/SkillDetail'
-import Docs from './pages/Docs'
-import Login from './pages/Login'
-import Profile from './pages/Profile'
-import Dashboard from './pages/Dashboard'
-import AdminDashboard from './pages/admin/Dashboard'
+import SkillDetail from './pages/SkillDetail.jsx'
+import Docs from './pages/Docs.jsx'
 import LoadingSpinner from './components/LoadingSpinner'
 
 const router = createBrowserRouter([
@@ -30,22 +26,6 @@ const router = createBrowserRouter([
     path: '/docs',
     element: <Docs />,
   },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/profile',
-    element: <Profile />,
-  },
-  {
-    path: '/dashboard',
-    element: <Dashboard />,
-  },
-  {
-    path: '/admin',
-    element: <AdminDashboard />,
-  },
 ])
 
 function App() {
@@ -54,7 +34,7 @@ function App() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <LoadingSpinner size="lg" />
+        <LoadingSpinner />
       </div>
     )
   }
