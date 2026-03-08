@@ -15,6 +15,9 @@ const Navbar = () => {
           <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener noreferrer">
             GitHub
           </a>
+          <a href="mailto:zack.mm.chen@gmail.com" target="_blank" rel="noopener noreferrer">
+            Contact
+          </a>
           <Link to="/skills" className="btn-primary">
             Browse Skills
           </Link>

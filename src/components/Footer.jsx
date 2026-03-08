@@ -27,6 +27,7 @@ const Footer = () => {
               <li><a href="https://github.com/openclaw" target="_blank" rel="noopener noreferrer">GitHub</a></li>
               <li><a href="https://discord.com/invite/clawd" target="_blank" rel="noopener noreferrer">Discord</a></li>
               <li><a href="https://twitter.com/openclaw_ai" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+              <li><a href="mailto:zack.mm.chen@gmail.com" target="_blank" rel="noopener noreferrer">Contact Me</a></li>
               <li><a href="/contribute">Contribute</a></li>
             </ul>
           </div>
