@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.clawhub.com/v1'
+const BASE_URL = 'https://api.clawhub.md/v1'
 
 const clawhubAPI = {
   /**

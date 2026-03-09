@@ -98,7 +98,7 @@ Publishing your skills to ClawHub is easy and free. This guide will walk you thr
 
 ## Prerequisites
 
-- A ClawHub account (sign up at [clawhub.com](https://clawhub.com))
+- A ClawHub account (sign up at [clawhub.md](https://clawhub.md))
 - Your skill code in a directory
 - A valid \`skill.json\` manifest file
 
@@ -335,7 +335,7 @@ Complete reference for the ClawHub API and skill development interfaces.
 
 ## REST API
 
-Base URL: \`https://api.clawhub.com/v1\`
+Base URL: \`https://api.clawhub.md/v1\`
 
 ### Authentication
 
@@ -345,7 +345,7 @@ All API requests require an API key in the Authorization header:
 Authorization: Bearer YOUR_API_KEY
 \`\`\`
 
-Generate API keys in your [account settings](https://clawhub.com/settings/api).
+Generate API keys in your [account settings](https://clawhub.md/settings/api).
 
 ### Endpoints
 

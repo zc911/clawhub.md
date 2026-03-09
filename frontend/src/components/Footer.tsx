@@ -69,7 +69,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="https://clawhub.com"
+                  href="https://clawhub.md"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-primary transition-colors"

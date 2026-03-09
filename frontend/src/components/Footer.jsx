@@ -18,7 +18,7 @@ const Footer = () => {
               <li><a href="/docs">Documentation</a></li>
               <li><a href="/skills">Skill Library</a></li>
               <li><a href="https://docs.openclaw.ai" target="_blank" rel="noopener noreferrer">OpenClaw Docs</a></li>
-              <li><a href="https://clawhub.com" target="_blank" rel="noopener noreferrer">ClawHub Registry</a></li>
+              <li><a href="https://clawhub.md" target="_blank" rel="noopener noreferrer">ClawHub Registry</a></li>
             </ul>
           </div>
           <div className="footer-section">
