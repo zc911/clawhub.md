@@ -2,9 +2,9 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer>
       <div className="footer-container">
-        <div className="footer-content">
+        <div className="footer-grid">
           <div className="footer-section">
             <h3>ClawHub.md</h3>
             <p style={{ color: '#aaa', lineHeight: '1.6', marginTop: '1rem' }}>
