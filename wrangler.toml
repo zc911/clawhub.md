@@ -1,0 +1,18 @@
+name = "clawhub-md"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+workers_dev = true
+
+[[rules]]
+type = "Text"
+globs = ["**/*.md", "**/*.html"]
+fallthrough = false
+
+# Custom domain — route through Cloudflare zone for clawhub.md
+[[routes]]
+pattern = "clawhub.md/*"
+zone_name = "clawhub.md"
+
+[[routes]]
+pattern = "clawhub.md"
+zone_name = "clawhub.md"
