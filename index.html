@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>clawhub.md — Skills for AI Agents</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --border: #2a2a2a;
+      --text: #e5e5e5;
+      --text-dim: #888;
+      --accent: #00d4aa;
+      --accent-dim: #00d4aa33;
+      --code-bg: #1a1a2e;
+      --font-mono: 'SF Mono', 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 .dot-md {
+      color: var(--accent);
+    }
+
+    .hero .tagline {
+      font-size: 1.2rem;
+      color: var(--text-dim);
+      margin-bottom: 32px;
+    }
+
+    .hero .tagline-zh {
+      font-size: 1rem;
+      color: var(--text-dim);
+      opacity: 0.7;
+      margin-top: -24px;
+      margin-bottom: 32px;
+    }
+
+    /* Terminal block */
+    .terminal {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin: 32px auto;
+      max-width: 560px;
+      text-align: left;
+      position: relative;
+    }
+
+    .terminal-header {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .terminal-dot.red { background: #ff5f56; }
+    .terminal-dot.yellow { background: #ffbd2e; }
+    .terminal-dot.green { background: #27c93f; }
+
+    .terminal code {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      display: block;
+    }
+
+    .terminal .comment { color: #666; }
+    .terminal .command { color: var(--accent); }
+    .terminal .url { color: #7aa2f7; }
+
+    .copy-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--border);
+      border: none;
+      color: var(--text-dim);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { background: var(--accent-dim); color: var(--accent); }
+
+    /* Sections */
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .section p {
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+
+    /* How it works grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.2rem; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .card .icon {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      margin: 0;
+    }
+
+    /* Endpoints */
+    .endpoints {
+      margin-top: 24px;
+    }
+
+    .endpoint {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .endpoint:last-child { border-bottom: none; }
+
+    .endpoint .method {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 2px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .endpoint .path {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+    }
+
+    .endpoint .desc {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      margin-left: auto;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 0.85rem;
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer a:hover { text-decoration: underline; }
+
+    /* Lang toggle */
+    .lang-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4px;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      padding: 4px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: var(--font-sans);
+      transition: all 0.2s;
+    }
+
+    .lang-btn.active {
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+<div class="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+  <button class="lang-btn" onclick="setLang('zh')" id="btn-zh">中文</button>
+</div>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>clawhub<span class="dot-md">.md</span></h1>
+    <p class="tagline" data-en="Skills for AI Agents. Readable by machines." data-zh="给 AI Agent 看的技能库。机器可直接读取。">Skills for AI Agents. Readable by machines.</p>
+  </div>
+
+  <!-- Quick Start -->
+  <div class="section">
+    <h2 data-en="⚡ One Command" data-zh="⚡ 一条命令搞定">⚡ One Command</h2>
+    <p data-en="Tell your OpenClaw agent to fetch and follow the best practices:" data-zh="让你的 OpenClaw Agent 获取并执行最佳实践：">Tell your OpenClaw agent to fetch and follow the best practices:</p>
+
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="terminal-dot red"></div>
+        <div class="terminal-dot yellow"></div>
+        <div class="terminal-dot green"></div>
+      </div>
+      <code>
+        <span class="comment"># Tell your agent:</span><br>
+        <span class="command">Fetch https://clawhub.md and follow it.</span>
+      </code>
+      <button class="copy-btn" onclick="copyText('Fetch https://clawhub.md and follow it.')">Copy</button>
+    </div>
+
+    <p style="text-align: center; font-size: 0.9rem;" data-en="That's it. Your agent reads the markdown and applies the best practices." data-zh="就这样。你的 Agent 会读取 Markdown 并应用最佳实践。">That's it. Your agent reads the markdown and applies the best practices.</p>
+  </div>
+
+  <!-- How it works -->
+  <div class="section">
+    <h2 data-en="How It Works" data-zh="工作原理">How It Works</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🤖</div>
+        <h3 data-en="Agent visits" data-zh="Agent 访问">Agent visits</h3>
+        <p data-en="Gets raw Markdown — a complete skill file with configs, tips, and code snippets. Ready to execute." data-zh="获取原始 Markdown — 包含配置、技巧和代码片段的完整技能文件。可直接执行。">Gets raw Markdown — a complete skill file with configs, tips, and code snippets. Ready to execute.</p>
+      </div>
+      <div class="card">
+        <div class="icon">👤</div>
+        <h3 data-en="Human visits" data-zh="人类访问">Human visits</h3>
+        <p data-en="Gets this page — a clean guide on how to use it. You're seeing it now." data-zh="看到这个页面 — 一份简洁的使用指南。你现在看到的就是。">Gets this page — a clean guide on how to use it. You're seeing it now.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌍</div>
+        <h3 data-en="Auto language" data-zh="自动语言">Auto language</h3>
+        <p data-en="Detects your language from headers. Chinese users get Chinese content. Everyone else gets English." data-zh="根据请求头自动检测语言。中文用户获取中文内容，其他用户获取英文内容。">Detects your language from headers. Chinese users get Chinese content. Everyone else gets English.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📄</div>
+        <h3 data-en="Just a .md" data-zh="就是个 .md">Just a .md</h3>
+        <p data-en="No SDK, no API key, no auth. A URL that returns Markdown. The simplest possible interface for an agent." data-zh="不需要 SDK，不需要 API Key，不需要认证。一个返回 Markdown 的 URL。Agent 最简单的接口。">No SDK, no API key, no auth. A URL that returns Markdown. The simplest possible interface for an agent.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Endpoints -->
+  <div class="section">
+    <h2 data-en="Endpoints" data-zh="接口">Endpoints</h2>
+    <div class="endpoints">
+      <div class="endpoint">
+        <span class="method">GET</span>
+        <span class="path">/</span>
+        <span class="desc" data-en="Auto-detect: HTML for browsers, Markdown for agents" data-zh="自动检测：浏览器返回 HTML，Agent 返回 Markdown">Auto-detect</span>
+      </div>
+      <div class="endpoint">
+        <span class="method">GET</span>
+        <span class="path">/en</span>
+        <span class="desc" data-en="English Markdown (always)" data-zh="英文 Markdown（固定）">English MD</span>
+      </div>
+      <div class="endpoint">
+        <span class="method">GET</span>
+        <span class="path">/zh</span>
+        <span class="desc" data-en="Chinese Markdown (always)" data-zh="中文 Markdown（固定）">Chinese MD</span>
+      </div>
+      <div class="endpoint">
+        <span class="method">GET</span>
+        <span class="path">/raw</span>
+        <span class="desc" data-en="Markdown (auto language, bypasses browser detection)" data-zh="Markdown（自动语言，跳过浏览器检测）">Raw MD</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- What's inside -->
+  <div class="section">
+    <h2 data-en="What's Inside the Skill" data-zh="技能包含什么">What's Inside the Skill</h2>
+    <p data-en="The OpenClaw Best Practices skill covers:" data-zh="OpenClaw 最佳实践技能涵盖："></p>
+    <div style="margin-top: 12px; display: grid; gap: 8px;">
+      <div style="color: var(--text-dim);">✦ <span data-en="Persona setup (SOUL.md, USER.md, AGENTS.md)" data-zh="人格设定（SOUL.md、USER.md、AGENTS.md）">Persona setup</span></div>
+      <div style="color: var(--text-dim);">✦ <span data-en="Model stack configuration with fallbacks" data-zh="模型配置与 fallback 策略">Model stack configuration</span></div>
+      <div style="color: var(--text-dim);">✦ <span data-en="Memory management that actually works" data-zh="真正有效的记忆管理">Memory management</span></div>
+      <div style="color: var(--text-dim);">✦ <span data-en="Multi-channel setup (WhatsApp, Telegram, Discord...)" data-zh="多渠道配置（WhatsApp、Telegram、Discord...）">Multi-channel setup</span></div>
+      <div style="color: var(--text-dim);">✦ <span data-en="Heartbeat & cron automation" data-zh="心跳和定时任务自动化">Heartbeat & cron</span></div>
+      <div style="color: var(--text-dim);">✦ <span data-en="Security hardening" data-zh="安全加固">Security hardening</span></div>
+      <div style="color: var(--text-dim);">✦ <span data-en="Performance tips & common mistakes" data-zh="性能优化和常见错误">Performance tips</span></div>
+      <div style="color: var(--text-dim);">✦ <span data-en="Recommended skills to install" data-zh="推荐安装的技能">Recommended skills</span></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p data-en="clawhub.md — Making every .md count." data-zh="clawhub.md — 让每个 .md 都有价值。">clawhub.md — Making every .md count.</p>
+    <p style="margin-top: 8px;">
+      <a href="https://docs.openclaw.ai">Docs</a> ·
+      <a href="https://clawhub.com">ClawHub</a> ·
+      <a href="https://discord.com/invite/clawd">Community</a>
+    </p>
+  </div>
+
+</div>
+
+<script>
+  function copyText(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 1500);
+    });
+  }
+
+  function setLang(lang) {
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = el.getAttribute(`data-${lang}`);
+    });
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  }
+
+  // Auto-detect language
+  const userLang = navigator.language || navigator.userLanguage || 'en';
+  if (userLang.startsWith('zh')) {
+    setLang('zh');
+  }
+</script>
+
+</body>
+</html>
