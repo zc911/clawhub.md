@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "build": "mkdir -p dist && cp index.html *.md dist/",
+    "deploy": "wrangler deploy"
   },
   "keywords": ["openclaw", "agent", "skills", "markdown"],
   "license": "MIT"
