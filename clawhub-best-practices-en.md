@@ -275,7 +275,6 @@ Configuration file path: `~/.openclaw/openclaw.json` (JSON5 format, supports com
     discord: {
       enabled: true,
       token: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-      
       // Permission configuration
       allowFrom: ["123456789012345678", "987654321098765432"],
       guilds: {
