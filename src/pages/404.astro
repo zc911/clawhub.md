@@ -1,0 +1,19 @@
+---
+import Base from '@/layouts/Base.astro';
+
+const path = Astro.url.pathname;
+---
+
+<Base title="404 — Page not found">
+  <div class="not-found">
+    <h1>Skill not found</h1>
+
+    <p class="not-found-path">{path}</p>
+    <p class="not-found-hint">This skill may have moved or been deleted.</p>
+
+    <div class="action-links">
+      <a href="/browse">Browse curated skills →</a>
+      <a href="/r/">Search any GitHub skill via /r/ →</a>
+    </div>
+  </div>
+</Base>

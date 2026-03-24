@@ -1,0 +1,84 @@
+---
+import Base from '@/layouts/Base.astro';
+import InstallBox from '@/components/InstallBox.astro';
+import { skills, getRecentSkills } from '@/data/skills';
+import { sotw } from '@/data/sotw';
+
+// Resolve SOTW skill
+let sotwSkill = null;
+if (sotw) {
+  const [sotwAuthor, sotwSlug] = sotw.skill.split('/');
+  sotwSkill = skills.find(s => s.author === sotwAuthor && s.slug === sotwSlug) ?? null;
+}
+// Fallback to most recently added
+if (!sotwSkill) {
+  sotwSkill = getRecentSkills(1)[0] ?? null;
+}
+
+const recent = getRecentSkills(15);
+
+function formatDate(iso: string) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+---
+
+<Base>
+  <h1 style="font-size: var(--font-size-h1); font-weight: 600; margin-bottom: 24px;">
+    clawhub.md
+  </h1>
+
+  <hr />
+
+  {sotwSkill && (
+    <section style="margin-bottom: 40px;">
+      <p class="section-title">Skill of the Week</p>
+
+      <h2 style="font-size: var(--font-size-h2); font-weight: 600; margin-bottom: 8px;">
+        <a href={`/${sotwSkill.author}/${sotwSkill.slug}`}>{sotwSkill.author}/{sotwSkill.slug}</a>
+      </h2>
+      <p style="font-size: var(--font-size-sm); color: var(--text-secondary); margin-bottom: 16px;">
+        {sotwSkill.description}
+      </p>
+
+      <InstallBox command={sotwSkill.install} />
+
+      <p class="skill-source" style="margin-top: 8px;">
+        Source: <a href={`https://github.com/${sotwSkill.repo}`} target="_blank" rel="noopener">
+          github.com/{sotwSkill.repo}
+        </a>
+      </p>
+
+      {sotw?.reason && (
+        <p style="margin-top: 12px; font-size: var(--font-size-sm); color: var(--text-secondary);">
+          Picked this week: {sotw.reason}
+        </p>
+      )}
+    </section>
+  )}
+
+  <hr />
+
+  <section style="margin-bottom: 40px;">
+    <p class="section-title">Recently added</p>
+    <ul class="skill-list">
+      {recent.map(skill => (
+        <li>
+          <a href={`/${skill.author}/${skill.slug}`}>
+            <span class="skill-name">{skill.author}/{skill.slug}</span>
+            <span class="skill-desc">{skill.description.slice(0, 60)}</span>
+            <span class="skill-date">{formatDate(skill.added)}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <hr />
+
+  <div class="footer-links">
+    <a href="/browse">Browse all →</a>
+    <a href="/bundles">Bundles →</a>
+    <a href="/r/">/r/ any GitHub skill →</a>
+  </div>
+</Base>

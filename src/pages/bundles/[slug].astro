@@ -1,0 +1,51 @@
+---
+import Base from '@/layouts/Base.astro';
+import { bundles, getBundle } from '@/data/bundles';
+import { getSkill } from '@/data/skills';
+
+export function getStaticPaths() {
+  return bundles.map(b => ({ params: { slug: b.slug } }));
+}
+
+const { slug } = Astro.params;
+const bundle = getBundle(slug);
+
+if (!bundle) {
+  return Astro.redirect('/bundles');
+}
+
+const bundleSkills = bundle.skills
+  .map(ref => {
+    const [author, skillSlug] = ref.split('/');
+    return getSkill(author, skillSlug) ?? null;
+  })
+  .filter(Boolean);
+---
+
+<Base title={bundle.name} description={bundle.description}>
+  <div class="bundle-header">
+    <h1>{bundle.name}</h1>
+    <p class="bundle-desc">{bundle.description}</p>
+    <p style="margin-top: 8px; font-size: var(--font-size-xs); color: var(--text-muted);">
+      Curated by {bundle.curator} · {bundle.skills.length} skills
+    </p>
+  </div>
+
+  <ul class="skill-list">
+    {bundleSkills.map(skill => skill && (
+      <li>
+        <a href={`/${skill.author}/${skill.slug}`}>
+          <span class="skill-name">{skill.author}/{skill.slug}</span>
+          <span class="skill-desc">{skill.description.slice(0, 60)}</span>
+          <span class="skill-date">{skill.added}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <hr />
+  <div class="footer-links">
+    <a href="/bundles">← Bundles</a>
+    <a href="/browse">Browse all →</a>
+  </div>
+</Base>

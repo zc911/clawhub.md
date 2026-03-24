@@ -1,0 +1,45 @@
+---
+import InstallBox from './InstallBox.astro';
+import type { SkillStatus } from '@/lib/fetchSkill';
+
+interface Props {
+  name: string;
+  description: string;
+  install: string | null;
+  sourceRepo: string;   // "owner/repo"
+  html: string;         // rendered markdown, first H1 stripped
+  status?: SkillStatus;
+  cachedAt?: number;    // Unix ms — present when serving stale
+}
+
+const { name, description, install, sourceRepo, html, status, cachedAt } = Astro.props;
+
+const isStale = status === 'stale';
+const cachedHoursAgo = cachedAt
+  ? Math.round((Date.now() - cachedAt) / (1000 * 60 * 60))
+  : null;
+const githubUrl = `https://github.com/${sourceRepo}`;
+const sourceDomain = `github.com/${sourceRepo}`;
+---
+
+{isStale && cachedHoursAgo !== null && (
+  <div class="stale-banner">
+    ⚠&nbsp; Serving cached version · Last updated {cachedHoursAgo}h ago
+    &nbsp;·&nbsp; Add <code>?refresh=1</code> to force a fresh fetch
+  </div>
+)}
+
+<div class="skill-header">
+  <h1>{name}</h1>
+  {description && <p class="skill-tagline">{description}</p>}
+</div>
+
+<InstallBox command={install} />
+
+<div class="skill-source">
+  Source: <a href={githubUrl} target="_blank" rel="noopener">{sourceDomain}</a>
+</div>
+
+<hr />
+
+<article class="markdown-body" set:html={html} />

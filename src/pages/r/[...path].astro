@@ -1,0 +1,72 @@
+---
+export const prerender = false;
+
+import Base from '@/layouts/Base.astro';
+import SkillRenderer from '@/components/SkillRenderer.astro';
+import { fetchSkill, parseSkillPath } from '@/lib/fetchSkill';
+import { renderSkillMarkdown, extractSkillMeta } from '@/lib/renderSkillMarkdown';
+import { extractInstallCommand } from '@/lib/extractInstallCommand';
+import { env } from 'cloudflare:workers';
+
+const rawPath = Astro.params.path ?? '';
+
+// Visiting /r/ with no path — show usage hint
+if (!rawPath || rawPath.split('/').filter(Boolean).length < 3) {
+  // Render the landing page for /r/
+  const showUsage = true;
+  Astro.response.status = 200;
+}
+
+const parsed = parseSkillPath(rawPath);
+
+if (!parsed) {
+  return new Response(null, { status: 404 });
+}
+
+const kv = (env as any)?.SKILL_CACHE ?? null;
+const token = (env as any)?.GITHUB_TOKEN as string | undefined;
+const forceRefresh = Astro.url.searchParams.get('refresh') === '1';
+
+const result = await fetchSkill(
+  parsed.owner,
+  parsed.repo,
+  parsed.filepath,
+  kv,
+  token,
+  forceRefresh,
+);
+
+if (result.status === 'not_found') {
+  return new Response(null, { status: 404 });
+}
+
+const raw = result.raw;
+const meta = extractSkillMeta(raw);
+const install = extractInstallCommand(raw);
+
+const fullHtml = raw ? await renderSkillMarkdown(raw) : '';
+const html = fullHtml.replace(/<h1[^>]*>[\s\S]*?<\/h1>/, '');
+
+const name = meta.name || parsed.filepath.split('/').pop()?.replace('.md', '') || parsed.repo;
+const description = meta.description || `${parsed.owner}/${parsed.repo}`;
+const sourceRepo = `${parsed.owner}/${parsed.repo}`;
+---
+
+<Base title={name} description={description}>
+  {result.status === 'error' && (
+    <div class="stale-banner" style="border-color: var(--accent-red); color: var(--accent-red);">
+      ⚠&nbsp; Error fetching from GitHub
+      {result.fromCache && ' · Showing cached version'}
+    </div>
+  )}
+
+  <SkillRenderer
+    name={name}
+    description={description}
+    install={install}
+    sourceRepo={sourceRepo}
+    html={html}
+    status={result.status}
+    cachedAt={result.cachedAt}
+  />
+</Base>

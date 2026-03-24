@@ -1,0 +1,34 @@
+---
+import '@/styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = 'The curated skill registry for Claude Code.' } = Astro.props;
+const pageTitle = title ? `${title} — clawhub.md` : 'clawhub.md';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{pageTitle}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <nav class="site-nav">
+      <a class="nav-logo" href="/">clawhub.md</a>
+      <div class="nav-links">
+        <a href="/browse">Browse</a>
+        <a href="/r/">/r/</a>
+      </div>
+    </nav>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

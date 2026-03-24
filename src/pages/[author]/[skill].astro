@@ -1,0 +1,68 @@
+---
+export const prerender = false;
+
+import Base from '@/layouts/Base.astro';
+import SkillRenderer from '@/components/SkillRenderer.astro';
+import { getSkill } from '@/data/skills';
+import { fetchSkill, parseSkillPath } from '@/lib/fetchSkill';
+import { renderSkillMarkdown } from '@/lib/renderSkillMarkdown';
+import { extractInstallCommand } from '@/lib/extractInstallCommand';
+import { env } from 'cloudflare:workers';
+
+const { author, skill: skillSlug } = Astro.params;
+const entry = getSkill(author!, skillSlug!);
+
+if (!entry) {
+  return Astro.redirect('/404');
+}
+
+const kv = (env as any)?.SKILL_CACHE ?? null;
+const token = (env as any)?.GITHUB_TOKEN as string | undefined;
+const forceRefresh = Astro.url.searchParams.get('refresh') === '1';
+
+const parsed = parseSkillPath(`${entry.repo}/${entry.path}`);
+if (!parsed) {
+  return Astro.redirect('/404');
+}
+
+const result = await fetchSkill(
+  parsed.owner,
+  parsed.repo,
+  parsed.filepath,
+  kv,
+  token,
+  forceRefresh,
+);
+
+const raw = result.raw;
+// For curated skills, registry name/description take priority — the SKILL.md files
+// often lack a standalone H1 title (they have YAML frontmatter + H2 sections).
+const name = entry.name;
+const description = entry.description;
+const install = raw ? (extractInstallCommand(raw) ?? entry.install) : entry.install;
+
+// Render markdown, stripping the first H1 (if any) to avoid duplication with header
+let html = '';
+if (raw) {
+  const fullHtml = await renderSkillMarkdown(raw);
+  html = fullHtml.replace(/<h1[^>]*>[\s\S]*?<\/h1>/, '');
+}
+---
+
+<Base title={`${entry.author}/${entry.slug}`} description={description}>
+  {result.status === 'error' && (
+    <div class="stale-banner" style="border-color: var(--accent-red); color: var(--accent-red);">
+      ⚠&nbsp; Could not fetch skill content from GitHub
+    </div>
+  )}
+
+  <SkillRenderer
+    name={name}
+    description={description}
+    install={install}
+    sourceRepo={entry.repo}
+    html={html}
+    status={result.status}
+    cachedAt={result.cachedAt}
+  />
+</Base>

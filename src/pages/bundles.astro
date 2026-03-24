@@ -1,0 +1,29 @@
+---
+import Base from '@/layouts/Base.astro';
+import { bundles } from '@/data/bundles';
+---
+
+<Base title="Bundles" description="Curated skill bundles for Claude Code workflows">
+  <h1 style="font-size: var(--font-size-h1); font-weight: 600; margin-bottom: 8px;">Bundles</h1>
+  <p style="color: var(--text-secondary); font-size: var(--font-size-sm); margin-bottom: 32px;">
+    Curated skill collections for common workflows
+  </p>
+
+  <ul class="bundle-list">
+    {bundles.map(bundle => (
+      <li>
+        <a href={`/bundles/${bundle.slug}`}>
+          <span class="bundle-name">{bundle.name}</span>
+          <span class="bundle-summary">{bundle.description}</span>
+          <span class="bundle-skills">{bundle.skills.join(' · ')}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <hr />
+  <div class="footer-links">
+    <a href="/">← Home</a>
+    <a href="/browse">Browse all skills →</a>
+  </div>
+</Base>
