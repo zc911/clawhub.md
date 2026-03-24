@@ -11,7 +11,7 @@
  */
 
 import { build as esbuild } from 'esbuild';
-import { cpSync, rmSync } from 'fs';
+import { cpSync, rmSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -44,5 +44,16 @@ rmSync(distServer, { recursive: true, force: true });
 // which no longer exists. Without it, Pages uses dist/_worker.js directly.
 const wranglerDeploy = join(root, '.wrangler');
 rmSync(wranglerDeploy, { recursive: true, force: true });
+
+// 4. Generate _routes.json — static assets bypass the Worker entirely.
+//    Without this, _worker.js intercepts ALL requests including /_astro/*.css
+//    and fails to serve them (redirects to /404 instead).
+const routes = {
+  version: 1,
+  include: ['/*'],
+  exclude: ['/_astro/*', '/favicon.svg', '/skills/*'],
+};
+writeFileSync(join(distOut, '_routes.json'), JSON.stringify(routes, null, 2));
+console.log('Generated _routes.json');
 
 console.log('Done. Pages output ready at dist/');
