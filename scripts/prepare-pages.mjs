@@ -40,4 +40,9 @@ cpSync(distClient, distOut, { recursive: true });
 rmSync(distClient, { recursive: true, force: true });
 rmSync(distServer, { recursive: true, force: true });
 
+// 3. Remove .wrangler/deploy/config.json — it points to dist/server/wrangler.json
+// which no longer exists. Without it, Pages uses dist/_worker.js directly.
+const wranglerDeploy = join(root, '.wrangler');
+rmSync(wranglerDeploy, { recursive: true, force: true });
+
 console.log('Done. Pages output ready at dist/');
