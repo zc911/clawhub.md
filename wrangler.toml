@@ -2,7 +2,5 @@ name = "clawhub-md"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat_v2"]
 
-[[kv_namespaces]]
-binding = "SKILL_CACHE"
-id = "YOUR_KV_NAMESPACE_ID"          # replace after: wrangler kv namespace create SKILL_CACHE
-preview_id = "YOUR_KV_PREVIEW_ID"   # replace after: wrangler kv namespace create SKILL_CACHE --preview
+# KV binding (SKILL_CACHE) is configured in Cloudflare Pages Dashboard
+# Settings → Functions → KV namespace bindings → Add binding: SKILL_CACHE
