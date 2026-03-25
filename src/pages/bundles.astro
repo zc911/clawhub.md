@@ -1,25 +1,31 @@
 ---
 import Base from '@/layouts/Base.astro';
-import { bundles } from '@/data/bundles';
+import { getRegularBundles } from '@/data/bundles';
+
+const regularBundles = getRegularBundles();
 ---
 
-<Base title="Bundles" description="Curated skill bundles for OpenClaw and Claude Code workflows">
+<Base title="Bundles" description="The OpenClaw skill guide — curated SKILL.md files for Claude Code and OpenClaw agents. Curated skill collections for common workflows.">
   <h1 style="margin-bottom: 10px;">Bundles</h1>
   <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 36px; font-family: var(--font-body);">
     Curated skill collections for common workflows
   </p>
 
-  <ul class="bundle-list">
-    {bundles.map(bundle => (
-      <li>
-        <a href={`/bundles/${bundle.slug}`}>
-          <span class="bundle-name">{bundle.name}</span>
-          <span class="bundle-summary">{bundle.description}</span>
-          <span class="bundle-skills">{bundle.skills.join(' · ')}</span>
-        </a>
-      </li>
-    ))}
-  </ul>
+  {regularBundles.length > 0 ? (
+    <ul class="bundle-list">
+      {regularBundles.map(bundle => (
+        <li>
+          <a href={`/bundles/${bundle.slug}`}>
+            <span class="bundle-name">{bundle.name}</span>
+            <span class="bundle-summary">{bundle.description}</span>
+            <span class="bundle-skills">{bundle.skills.join(' · ')}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="empty-state">Looking for guided paths? See <a href="/">the guide</a>.</p>
+  )}
 
   <hr />
   <div class="footer-links">

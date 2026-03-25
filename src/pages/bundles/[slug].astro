@@ -1,17 +1,17 @@
 ---
 import Base from '@/layouts/Base.astro';
-import { bundles, getBundle } from '@/data/bundles';
+import { getRegularBundles, getBundle } from '@/data/bundles';
 import { getSkill } from '@/data/skills';
 
 export function getStaticPaths() {
-  return bundles.map(b => ({ params: { slug: b.slug } }));
+  return getRegularBundles().map(b => ({ params: { slug: b.slug } }));
 }
 
 const { slug } = Astro.params;
 const bundle = getBundle(slug);
 
 if (!bundle) {
-  return Astro.redirect('/bundles');
+  return Astro.redirect('/404');
 }
 
 const bundleSkills = bundle.skills

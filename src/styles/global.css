@@ -742,3 +742,128 @@ a:focus-visible, button:focus-visible {
   outline-offset: 2px;
   border-radius: 2px;
 }
+
+/* ── Scenario grid ────────────────────────────── */
+.scenario-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.scenario-item {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.12s;
+  text-decoration: none;
+}
+
+.scenario-item:hover { background: var(--bg-elevated); }
+
+.scenario-goal {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+}
+
+.scenario-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  display: block;
+}
+
+/* ── Day 1 block ──────────────────────────────── */
+.day1-block {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.day1-block h2 {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin: 0 0 16px 0;
+}
+
+/* ── Guide skill list ─────────────────────────── */
+.guide-skill-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.guide-skill-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.guide-skill-number {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.guide-skill-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.guide-skill-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.guide-skill-name:hover { color: var(--accent); }
+
+.guide-skill-reason {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0 0 10px 0;
+}
+
+/* ── Empty state ──────────────────────────────── */
+.empty-state {
+  font-size: 14px;
+  color: var(--text-muted);
+  padding: 12px 0;
+}
+
+/* ── Mobile ───────────────────────────────────── */
+@media (max-width: 640px) {
+  .scenario-grid { grid-template-columns: 1fr; }
+  .day1-block { padding: 18px 16px; }
+}
