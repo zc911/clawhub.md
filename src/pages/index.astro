@@ -1,7 +1,8 @@
 ---
 import Base from '@/layouts/Base.astro';
 import InstallBox from '@/components/InstallBox.astro';
-import { skills, getRecentSkills } from '@/data/skills';
+import { skills, getRecentSkills, getSkill } from '@/data/skills';
+import { getScenarios } from '@/data/bundles';
 import { sotw } from '@/data/sotw';
 
 // Resolve SOTW skill
@@ -16,6 +17,16 @@ if (!sotwSkill) {
 }
 
 const recent = getRecentSkills(15);
+const scenarios = getScenarios();
+
+// Day 1 skills — hardcoded by curator
+const day1Slugs = ['gstack/review', 'gstack/ship', 'gstack/qa'];
+const day1Skills = day1Slugs
+  .map(ref => {
+    const [author, slug] = ref.split('/');
+    return getSkill(author, slug) ?? null;
+  })
+  .filter(Boolean);
 
 function formatDate(iso: string) {
   const d = new Date(iso);
@@ -23,21 +34,67 @@ function formatDate(iso: string) {
 }
 ---
 
-<Base>
+<Base
+  title="The OpenClaw Starter Guide"
+  description="The OpenClaw skill guide — curated SKILL.md files for Claude Code and OpenClaw agents. New to OpenClaw? Start here."
+>
   <!-- Hero -->
   <section class="hero">
     <div class="hero-badge">OpenClaw · Claude Code · SKILL.md</div>
-    <h1>Curated skills<br />for sharp agents.</h1>
-    <p class="hero-sub">
-      The editorial companion to <a href="https://clawhub.ai" target="_blank" rel="noopener">clawhub.ai</a> —
-      hand-picked SKILL.md files for AI agents. Quality over quantity.
-      Every skill vetted before it lands here.
-    </p>
+    <h1>The OpenClaw<br />Starter Guide</h1>
+    <p class="hero-sub">New to OpenClaw? Start here.</p>
     <div class="hero-actions">
-      <a href="/browse" class="btn btn-primary">Browse all skills</a>
-      <a href="/r/" class="btn btn-secondary">/r/ any GitHub skill</a>
+      <a href="#day1" class="btn btn-primary">Start here ↓</a>
+      <a href="/browse" class="btn btn-secondary">Browse all →</a>
     </div>
   </section>
+
+  <hr />
+
+  <!-- Day 1 block -->
+  <section id="day1" class="day1-block" aria-labelledby="day1-heading">
+    <h2 id="day1-heading">Day 1: install these skills</h2>
+    {day1Skills.map(skill => skill && (
+      <div style="margin-bottom: 12px;">
+        <a href={`/${skill.author}/${skill.slug}`} style="font-size: 13px; color: var(--text-secondary); display: block; margin-bottom: 4px;">
+          {skill.author}/{skill.slug} — {skill.description}
+        </a>
+        <InstallBox command={skill.install} />
+      </div>
+    ))}
+    {day1Skills.length === 0 && (
+      <p style="color: var(--text-muted); font-size: 13px;">Skills coming soon.</p>
+    )}
+  </section>
+
+  <!-- Scenario cards -->
+  <section aria-labelledby="scenarios-heading" style="margin-bottom: 40px;">
+    <p id="scenarios-heading" class="section-title">What are you trying to do?</p>
+    {scenarios.length > 0 ? (
+      <nav class="scenario-grid" aria-label="Guided skill paths">
+        {scenarios.map(scenario => (
+          <a class="scenario-item" href={`/guide/${scenario.slug}`}>
+            <span class="scenario-goal">{scenario.goal} →</span>
+            <span class="scenario-desc">{scenario.description}</span>
+          </a>
+        ))}
+      </nav>
+    ) : (
+      <p class="empty-state">No guided paths yet — check back soon.</p>
+    )}
+  </section>
+
+  <!-- What is OpenClaw? -->
+  <details open class="openclaw-explainer" style="margin-bottom: 40px;">
+    <summary style="cursor: pointer; font-size: 14px; font-weight: 600; color: var(--text-primary); list-style: none; display: flex; align-items: center; gap: 8px;">
+      <span>▾</span> What is OpenClaw?
+    </summary>
+    <p style="margin-top: 12px; font-size: 14px; color: var(--text-secondary); line-height: 1.6;">
+      OpenClaw is an open-source AI agent framework. Skills are <code>.md</code> files that give
+      your AI agent a new capability — like code review, PR shipping, or QA testing.
+      Install them with <code>claude install github.com/author/repo</code>.
+    </p>
+  </details>
 
   <hr />
 

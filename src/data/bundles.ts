@@ -1,4 +1,5 @@
-export interface Bundle {
+export interface RegularBundle {
+  scenario?: false;
   slug: string;
   name: string;
   description: string;
@@ -7,7 +8,31 @@ export interface Bundle {
   created: string;   // ISO date
 }
 
+export interface SkillWithReason {
+  slug: string;     // "author/slug" reference
+  reason: string;
+  order: number;    // reserved, unused in Phase 1
+}
+
+export interface ScenarioBundle {
+  scenario: true;
+  slug: string;
+  name: string;
+  description: string;
+  goal: string;     // "What are you trying to do?" label
+  skillsWithReason: SkillWithReason[];
+  curator: string;
+  created: string;  // ISO date
+}
+
+export type Bundle = RegularBundle | ScenarioBundle;
+
+export function isScenario(b: Bundle): b is ScenarioBundle {
+  return b.scenario === true;
+}
+
 export const bundles: Bundle[] = [
+  // Regular bundles
   {
     slug: 'starter',
     name: 'Starter Pack',
@@ -24,8 +49,65 @@ export const bundles: Bundle[] = [
     curator: 'clawhub',
     created: '2026-03-24',
   },
+  // Scenario bundles — only accessible at /guide/[slug]
+  {
+    scenario: true,
+    slug: 'code-review',
+    name: 'Code Review with AI Agents',
+    description: 'catch bugs, trust issues, and structural problems before they land',
+    goal: 'Code review & quality',
+    skillsWithReason: [
+      {
+        slug: 'gstack/review',
+        reason: 'Pre-landing PR review. Catches SQL safety, LLM trust boundary violations, conditional side effects, and structural bugs that manual review misses.',
+        order: 1,
+      },
+      {
+        slug: 'gstack/qa',
+        reason: 'Full QA pass before merge. Finds visual and functional bugs that unit tests don\'t catch.',
+        order: 2,
+      },
+    ],
+    curator: 'clawhub',
+    created: '2026-03-25',
+  },
+  {
+    scenario: true,
+    slug: 'ship-and-deploy',
+    name: 'Ship & Deploy',
+    description: 'go from local changes to a merged PR with confidence',
+    goal: 'Ship & deploy faster',
+    skillsWithReason: [
+      {
+        slug: 'gstack/review',
+        reason: 'Run a pre-landing review first — catches issues before they\'re in main.',
+        order: 1,
+      },
+      {
+        slug: 'gstack/ship',
+        reason: 'Merges base branch, runs tests, bumps VERSION, writes CHANGELOG, creates PR. The full ship workflow in one command.',
+        order: 2,
+      },
+    ],
+    curator: 'clawhub',
+    created: '2026-03-25',
+  },
 ];
 
-export function getBundle(slug: string): Bundle | undefined {
-  return bundles.find(b => b.slug === slug);
+export function getBundle(slug: string): RegularBundle | undefined {
+  const b = bundles.find(b => b.slug === slug);
+  return b && !isScenario(b) ? b : undefined;
+}
+
+export function getScenario(slug: string): ScenarioBundle | undefined {
+  const b = bundles.find(b => b.slug === slug);
+  return b && isScenario(b) ? b : undefined;
+}
+
+export function getScenarios(): ScenarioBundle[] {
+  return bundles.filter(isScenario);
+}
+
+export function getRegularBundles(): RegularBundle[] {
+  return bundles.filter((b): b is RegularBundle => !isScenario(b));
 }

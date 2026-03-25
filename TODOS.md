@@ -1,5 +1,13 @@
 # TODOS
 
+## Deferred from Eng Review (2026-03-25)
+
+- **bundles ↔ guide migration path** — The discriminated union (RegularBundle | ScenarioBundle) assumes these routes are disjoint forever. When content grows, a bundle may need to appear in both /bundles (power-user browse) and /guide (newcomer scenario). Current type system blocks this — a bundle can't be both. **Context:** Evaluate adding a `featuredInGuide` optional field to RegularBundle, or dropping the union in favor of optional fields at Phase 2. Start: bundles.ts type redesign. Effort: XS (CC: ~5min). Priority: P3. Depends on: scenario count >4.
+
+- **'What is OpenClaw?' default state** — Currently planned as collapsed by default. The outside voice argues newcomers (primary audience) shouldn't have to click to see the answer to their primary question. **Context:** Flip to `<details open>` (expanded by default). 1-line change but warrants design review to assess visual weight. Run /plan-design-review before deciding. Effort: XS. Priority: P2.
+
+- **Homepage rollback procedure** — No explicit rollback stated for the homepage UX pivot. If bounce rate increases post-launch, recovery is: `git revert 6104f85` (redesign commit) + redeploy via Cloudflare Pages (10 min). **Context:** Establish bounce rate baseline in Week 1 via Cloudflare Analytics. If bounce rate > 70% at Week 2, trigger rollback review. Priority: P2.
+
 ## Deferred from CEO Review (2026-03-24)
 
 - **Stars / community reactions** — GitHub-style reactions on skill pages. Needs user accounts. Build after OAuth claim page.

@@ -1,0 +1,66 @@
+---
+import Base from '@/layouts/Base.astro';
+import InstallBox from '@/components/InstallBox.astro';
+import { getScenarios, getScenario } from '@/data/bundles';
+import { getSkill } from '@/data/skills';
+
+export function getStaticPaths() {
+  return getScenarios().map(s => ({ params: { slug: s.slug } }));
+}
+
+const { slug } = Astro.params;
+const scenario = getScenario(slug);
+
+if (!scenario) {
+  return Astro.redirect('/404');
+}
+
+const skills = scenario.skillsWithReason
+  .map(entry => {
+    const [author, skillSlug] = entry.slug.split('/');
+    const skill = getSkill(author, skillSlug) ?? null;
+    return skill ? { skill, reason: entry.reason } : null;
+  })
+  .filter(Boolean) as { skill: Awaited<ReturnType<typeof getSkill>> & {}; reason: string }[];
+
+const metaDescription = `${scenario.goal} — OpenClaw skill guide. The curated path for ${scenario.description}.`;
+---
+
+<Base title={scenario.name} description={metaDescription}>
+  <div class="bundle-header">
+    <h1>{scenario.name}</h1>
+    <p class="bundle-desc">{scenario.goal}</p>
+    <p style="margin-top: 8px; font-size: var(--font-size-xs); color: var(--text-muted);">
+      Curated by {scenario.curator} · {scenario.skillsWithReason.length} skills
+    </p>
+  </div>
+
+  <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 24px;">
+    Install these skills in order:
+  </p>
+
+  {skills.length > 0 ? (
+    <ol class="guide-skill-list" aria-label="Skills to install in order">
+      {skills.map(({ skill, reason }, i) => (
+        <li class="guide-skill-item">
+          <div class="guide-skill-number">{i + 1}</div>
+          <div class="guide-skill-content">
+            <a href={`/${skill.author}/${skill.slug}`} class="guide-skill-name">
+              {skill.author}/{skill.slug}
+            </a>
+            {reason && <p class="guide-skill-reason">{reason}</p>}
+            <InstallBox command={skill.install} />
+          </div>
+        </li>
+      ))}
+    </ol>
+  ) : (
+    <p class="empty-state">Skills coming soon.</p>
+  )}
+
+  <hr />
+  <div class="footer-links">
+    <a href="/">← Home</a>
+    <a href="/browse">Browse all skills →</a>
+  </div>
+</Base>
