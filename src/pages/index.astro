@@ -1,62 +1,73 @@
 ---
 import Base from '@/layouts/Base.astro';
 import InstallBox from '@/components/InstallBox.astro';
-import { getSkill } from '@/data/skills';
 import { getScenarios } from '@/data/bundles';
 
 const scenarios = getScenarios();
 
-// Day 1 skills — hardcoded by curator
-const day1Slugs = ['openclaw/gog', 'openclaw/github', 'gstack/ship'];
-const day1Skills = day1Slugs
-  .map(ref => {
-    const [author, slug] = ref.split('/');
-    return getSkill(author, slug) ?? null;
-  })
-  .filter(Boolean);
+// Featured skill — curated pick, rotate manually
+const featured = {
+  ref: 'openclaw/gog',
+  name: 'openclaw/gog',
+  tagline: 'Control Gmail, Calendar, Drive & Sheets from your agent.',
+  install: 'clawhub install openclaw/gog',
+  href: '/openclaw/gog',
+  examples: [
+    'Check my inbox and summarize anything urgent',
+    'Schedule a meeting tomorrow at 2pm with Alice',
+    'Share this file with my team on Drive',
+    'Add today\'s tasks to my Sheets tracker',
+  ],
+};
 ---
 
 <Base
-  title="The OpenClaw Starter Guide"
-  description="Curated SKILL.md files for OpenClaw and Claude Code agents. New to OpenClaw? Start here."
+  title="clawhub — Skills for OpenClaw agents"
+  description="Install the best OpenClaw skills in one command. Safety-reviewed, ready to use."
 >
   <!-- Hero -->
   <section class="hero">
-    <h1>The OpenClaw<br />Starter Guide</h1>
+    <h1>The best skills<br />for your AI agent.</h1>
     <p class="hero-sub">
-      Curated skills for OpenClaw agents — safety-reviewed, ready to install.
+      One command to install. Works with OpenClaw and Claude Code.
     </p>
   </section>
 
-  <!-- What is OpenClaw? -->
-  <section style="margin-bottom: 36px;">
-    <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.7; max-width: 560px;">
-      <strong style="color: var(--text-primary);">OpenClaw</strong> is an open-source AI agent framework.
-      <strong style="color: var(--text-primary);">Skills</strong> are <code>.md</code> files that give your agent
-      a new capability — like managing Gmail, browsing GitHub, or summarizing URLs.
-      Install any skill with <code>clawhub install author/skill</code>.
+  <!-- Featured skill — the action block -->
+  <section style="margin-bottom: 48px;">
+    <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary, #6e7681); margin-bottom: 12px;">
+      Top pick this week
     </p>
+
+    <a href={featured.href} style="display: block; margin-bottom: 6px; text-decoration: none;">
+      <span style="font-size: 16px; font-weight: 700; color: var(--text-primary);">{featured.name}</span>
+      <span style="font-size: 14px; color: var(--text-secondary); margin-left: 10px;">{featured.tagline}</span>
+    </a>
+
+    <InstallBox command={featured.install} />
+
+    <!-- Usage examples -->
+    <div style="margin-top: 16px;">
+      <p style="font-size: 12px; color: var(--text-tertiary, #6e7681); margin-bottom: 8px; font-weight: 500;">
+        After installing, say to your agent:
+      </p>
+      <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+        {featured.examples.map(ex => (
+          <li style="font-size: 13px; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 8px;">
+            <span style="color: var(--text-tertiary, #6e7681); flex-shrink: 0;">›</span>
+            <span style="font-style: italic;">"{ex}"</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   </section>
 
   <hr />
 
-  <!-- Day 1 block -->
-  <section id="day1" class="day1-block" aria-labelledby="day1-heading" style="margin-bottom: 40px;">
-    <h2 id="day1-heading" style="margin-bottom: 16px;">Step 1 — Install these first</h2>
-    {day1Skills.map(skill => skill && (
-      <div style="margin-bottom: 14px;">
-        <a href={`/${skill.author}/${skill.slug}`} style="font-size: 13px; color: var(--text-secondary); display: block; margin-bottom: 4px;">
-          <strong style="color: var(--text-primary);">{skill.author}/{skill.slug}</strong> — {skill.description}
-        </a>
-        <InstallBox command={skill.install} />
-      </div>
-    ))}
-  </section>
-
   <!-- Scenario cards -->
-  <section aria-labelledby="scenarios-heading" style="margin-bottom: 48px;">
+  <section aria-labelledby="scenarios-heading" style="margin-bottom: 48px; margin-top: 32px;">
     <h2 id="scenarios-heading" style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 14px;">
-      Step 2 — Where do you want to go?
+      What are you trying to do?
     </h2>
     {scenarios.length > 0 ? (
       <nav class="scenario-grid" aria-label="Guided skill paths">
