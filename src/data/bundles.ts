@@ -12,6 +12,7 @@ export interface SkillWithReason {
   slug: string;     // "author/slug" reference
   reason: string;
   order: number;    // reserved, unused in Phase 1
+  examples?: string[];  // what to say to your agent after installing
 }
 
 export interface ScenarioBundle {
@@ -20,6 +21,7 @@ export interface ScenarioBundle {
   name: string;
   description: string;
   goal: string;     // "What are you trying to do?" label
+  outcome: string;  // "After installing, your agent can..."
   skillsWithReason: SkillWithReason[];
   curator: string;
   created: string;  // ISO date
@@ -72,16 +74,27 @@ export const bundles: Bundle[] = [
     name: 'Code Review with AI Agents',
     description: 'catch bugs, trust issues, and structural problems before they land',
     goal: 'Code review & quality',
+    outcome: 'Your agent reviews every PR before it lands — SQL safety, trust boundary violations, and visual bugs that unit tests miss.',
     skillsWithReason: [
       {
         slug: 'gstack/review',
         reason: 'Pre-landing PR review. Catches SQL safety, LLM trust boundary violations, conditional side effects, and structural bugs that manual review misses.',
         order: 1,
+        examples: [
+          'Review my current PR',
+          'Check this diff for security issues',
+          'Do a pre-landing review on this branch',
+        ],
       },
       {
         slug: 'gstack/qa',
         reason: 'Full QA pass before merge. Finds visual and functional bugs that unit tests don\'t catch.',
         order: 2,
+        examples: [
+          'QA the checkout page before I merge',
+          'Find visual bugs on this branch',
+          'Run a full QA pass on /dashboard',
+        ],
       },
     ],
     curator: 'clawhub',
@@ -93,16 +106,26 @@ export const bundles: Bundle[] = [
     name: 'Ship & Deploy',
     description: 'go from local changes to a merged PR with confidence',
     goal: 'Ship & deploy faster',
+    outcome: 'Go from local changes to a merged PR in one command — tests run, changelog written, version bumped, PR created.',
     skillsWithReason: [
       {
         slug: 'gstack/review',
         reason: 'Run a pre-landing review first — catches issues before they\'re in main.',
         order: 1,
+        examples: [
+          'Review my changes before shipping',
+          'Check this diff for issues',
+        ],
       },
       {
         slug: 'gstack/ship',
         reason: 'Merges base branch, runs tests, bumps VERSION, writes CHANGELOG, creates PR. The full ship workflow in one command.',
         order: 2,
+        examples: [
+          '/ship',
+          'Ship my current branch',
+          'Create a PR for these changes',
+        ],
       },
     ],
     curator: 'clawhub',
@@ -114,21 +137,37 @@ export const bundles: Bundle[] = [
     name: 'Stay Connected',
     description: 'manage your inbox, calendar, and team channels without leaving the terminal',
     goal: 'Manage email & comms',
+    outcome: 'Control Gmail, Slack, and X from your agent — read, send, and organize without switching apps.',
     skillsWithReason: [
       {
         slug: 'openclaw/gog',
         reason: 'Read, send, and organize Gmail. Check your calendar, share Drive files, and update Sheets — all from your agent.',
         order: 1,
+        examples: [
+          'Check my inbox for anything urgent',
+          'Schedule a meeting tomorrow at 2pm with Alice',
+          'Share this file with my team on Drive',
+        ],
       },
       {
         slug: 'openclaw/slack',
         reason: 'Post to channels, read threads, and manage your Slack workspace directly from the terminal.',
         order: 2,
+        examples: [
+          'Post to #general: deployment is live',
+          'What\'s new in #engineering today?',
+          'Send a DM to Alice about the PR',
+        ],
       },
       {
         slug: 'openclaw/xurl',
         reason: 'Monitor X (Twitter) mentions, post updates, and search trends via the authenticated API.',
         order: 3,
+        examples: [
+          'Check my X mentions from today',
+          'Post a tweet: just shipped v2.0',
+          'Search X for "openclaw" trends',
+        ],
       },
     ],
     curator: 'clawhub',
@@ -140,21 +179,37 @@ export const bundles: Bundle[] = [
     name: 'Research & Notes',
     description: 'summarize anything and save insights straight to your knowledge base',
     goal: 'Research & take notes',
+    outcome: 'Summarize any URL, PDF, or video and save the insights to Obsidian or Notion — in seconds.',
     skillsWithReason: [
       {
         slug: 'openclaw/summarize',
         reason: 'Paste a URL, file, or YouTube link — get a clean summary in seconds.',
         order: 1,
+        examples: [
+          'Summarize this URL: https://...',
+          'TL;DR this PDF',
+          'Summarize this YouTube video',
+        ],
       },
       {
         slug: 'openclaw/obsidian',
         reason: 'Save summaries and notes directly into your Obsidian vault with automatic linking.',
         order: 2,
+        examples: [
+          'Save this summary to my Obsidian vault',
+          'Create a note about today\'s meeting',
+          'Add this to my research folder in Obsidian',
+        ],
       },
       {
         slug: 'openclaw/notion',
         reason: 'Alternatively, push research notes into Notion pages or databases.',
         order: 3,
+        examples: [
+          'Add this to my Notion research database',
+          'Create a Notion page with these notes',
+          'Update my reading list in Notion',
+        ],
       },
     ],
     curator: 'clawhub',

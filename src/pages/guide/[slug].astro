@@ -19,29 +19,35 @@ const skills = scenario.skillsWithReason
   .map(entry => {
     const [author, skillSlug] = entry.slug.split('/');
     const skill = getSkill(author, skillSlug) ?? null;
-    return skill ? { skill, reason: entry.reason } : null;
+    return skill ? { skill, reason: entry.reason, examples: entry.examples ?? [] } : null;
   })
-  .filter(Boolean) as { skill: Awaited<ReturnType<typeof getSkill>> & {}; reason: string }[];
+  .filter(Boolean) as { skill: Awaited<ReturnType<typeof getSkill>> & {}; reason: string; examples: string[] }[];
 
-const metaDescription = `${scenario.goal} — OpenClaw skill guide. The curated path for ${scenario.description}.`;
+const metaDescription = `${scenario.outcome} Install ${scenario.skillsWithReason.length} skills to get started.`;
 ---
 
-<Base title={scenario.name} description={metaDescription}>
-  <div class="bundle-header">
-    <h1>{scenario.name}</h1>
-    <p class="bundle-desc">{scenario.goal}</p>
-    <p style="margin-top: 8px; font-size: var(--font-size-xs); color: var(--text-muted);">
-      Curated by {scenario.curator} · {scenario.skillsWithReason.length} skills
+<Base title={scenario.goal} description={metaDescription}>
+
+  <!-- Header -->
+  <div style="margin-bottom: 32px;">
+    <a href="/" style="font-size: 12px; color: var(--text-secondary); text-decoration: none; display: inline-block; margin-bottom: 16px;">← Back</a>
+    <h1 style="font-size: 22px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; line-height: 1.3;">
+      {scenario.goal}
+    </h1>
+    <!-- Outcome — the value prop -->
+    <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 540px; border-left: 3px solid var(--accent, #f78166); padding-left: 14px; margin: 0;">
+      {scenario.outcome}
     </p>
   </div>
 
-  <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 24px;">
-    Install these skills in order:
+  <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-tertiary, #6e7681); margin-bottom: 20px;">
+    Install {skills.length} skill{skills.length !== 1 ? 's' : ''} to get started
   </p>
 
+  <!-- Skill list -->
   {skills.length > 0 ? (
-    <ol class="guide-skill-list" aria-label="Skills to install in order">
-      {skills.map(({ skill, reason }, i) => (
+    <ol class="guide-skill-list" aria-label="Skills to install">
+      {skills.map(({ skill, reason, examples }, i) => (
         <li class="guide-skill-item">
           <div class="guide-skill-number">{i + 1}</div>
           <div class="guide-skill-content">
@@ -50,6 +56,23 @@ const metaDescription = `${scenario.goal} — OpenClaw skill guide. The curated 
             </a>
             {reason && <p class="guide-skill-reason">{reason}</p>}
             <InstallBox command={skill.install} />
+
+            {/* Usage examples */}
+            {examples.length > 0 && (
+              <div style="margin-top: 12px;">
+                <p style="font-size: 11px; color: var(--text-tertiary, #6e7681); margin-bottom: 6px; font-weight: 500; letter-spacing: 0.04em;">
+                  After installing, say to your agent:
+                </p>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 5px;">
+                  {examples.map(ex => (
+                    <li style="font-size: 12px; color: var(--text-secondary); display: flex; gap: 7px; align-items: flex-start;">
+                      <span style="color: var(--text-tertiary, #6e7681); flex-shrink: 0;">›</span>
+                      <span style="font-style: italic;">"{ex}"</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </li>
       ))}
