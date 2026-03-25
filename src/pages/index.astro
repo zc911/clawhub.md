@@ -20,7 +20,7 @@ const recent = getRecentSkills(15);
 const scenarios = getScenarios();
 
 // Day 1 skills — hardcoded by curator
-const day1Slugs = ['gstack/review', 'gstack/ship', 'gstack/qa'];
+const day1Slugs = ['openclaw/gog', 'openclaw/github', 'gstack/ship'];
 const day1Skills = day1Slugs
   .map(ref => {
     const [author, slug] = ref.split('/');
@@ -92,7 +92,7 @@ function formatDate(iso: string) {
     <p style="margin-top: 12px; font-size: 14px; color: var(--text-secondary); line-height: 1.6;">
       OpenClaw is an open-source AI agent framework. Skills are <code>.md</code> files that give
       your AI agent a new capability — like code review, PR shipping, or QA testing.
-      Install them with <code>claude install github.com/author/repo</code>.
+      Install them with <code>clawhub install author/skill</code>.
     </p>
   </details>
 

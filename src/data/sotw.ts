@@ -6,7 +6,7 @@ export interface SOTW {
 
 // Set to null to fall back to most recently added skill
 export const sotw: SOTW | null = {
-  skill: 'gstack/review',
-  reason: 'Catches SQL injection, LLM trust boundary violations, and conditional side effects before they land.',
-  picked: '2026-03-24',
+  skill: 'openclaw/gog',
+  reason: 'The most-downloaded OpenClaw skill. Control Gmail, Calendar, Drive, and Sheets from your terminal — without leaving the agent.',
+  picked: '2026-03-25',
 };
