@@ -18,6 +18,9 @@ All notable changes to clawhub.md are documented here.
 - `/bundles` and `/bundles/[slug]` now filtered to regular (non-scenario) bundles only
 - Homepage section order: hero → Day 1 → scenario paths → OpenClaw explainer → SOTW → recent skills
 
+### Fixed
+- **InstallBox copy buttons**: replaced `id="copy-btn"` + `getElementById` with `querySelectorAll('.copy-btn')` so every copy button works on pages with multiple InstallBox instances (homepage has 4, guide pages have 2)
+
 ## [1.0.0] - 2026-03-24
 
 ### Added
