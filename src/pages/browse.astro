@@ -2,31 +2,56 @@
 import Base from '@/layouts/Base.astro';
 import { skills } from '@/data/skills';
 
-function formatDate(iso: string) {
-  const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-}
+const namespaces = [
+  {
+    author: 'openclaw',
+    label: 'openclaw',
+    meta: 'Official OpenClaw skills — real-world integrations for Gmail, GitHub, Slack, and more',
+  },
+  {
+    author: 'anthropics',
+    label: 'anthropics',
+    meta: 'Official Anthropic skills — Claude API, MCP servers, PDF handling, and skill authoring',
+  },
+  {
+    author: 'gstack',
+    label: 'gstack',
+    meta: 'Claude Code workflow skills — code review, shipping, QA, and debugging',
+  },
+];
 
-const sorted = [...skills].sort((a, b) => b.added.localeCompare(a.added));
+const grouped = namespaces.map(ns => ({
+  ...ns,
+  skills: skills.filter(s => s.author === ns.author),
+}));
 ---
 
 <Base title="Browse" description="Browse all curated skills for OpenClaw and Claude Code agents on clawhub.md">
   <h1 style="margin-bottom: 10px;">Browse</h1>
-  <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 36px; font-family: var(--font-body);">
-    {skills.length} curated skill{skills.length !== 1 ? 's' : ''}
+  <p style="color: var(--text-secondary); font-size: 15px; margin-bottom: 48px;">
+    {skills.length} curated skills across {namespaces.length} namespaces
   </p>
 
-  <ul class="skill-list">
-    {sorted.map(skill => (
-      <li>
-        <a href={`/${skill.author}/${skill.slug}`}>
-          <span class="skill-name">{skill.author}/{skill.slug}</span>
-          <span class="skill-desc">{skill.description.slice(0, 60)}</span>
-          <span class="skill-date">{formatDate(skill.added)}</span>
-        </a>
-      </li>
-    ))}
-  </ul>
+  {grouped.map(ns => ns.skills.length > 0 && (
+    <section class="namespace-section">
+      <div class="namespace-heading">
+        <h2>{ns.label}</h2>
+        <span class="namespace-count">{ns.skills.length} skills</span>
+      </div>
+      <p class="namespace-meta">{ns.meta}</p>
+
+      <ul class="skill-list">
+        {ns.skills.map(skill => (
+          <li>
+            <a href={`/${skill.author}/${skill.slug}`}>
+              <span class="skill-name">{skill.author}/{skill.slug}</span>
+              <span class="skill-desc">{skill.description}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
 
   <hr />
   <div class="footer-links">
