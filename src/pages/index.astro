@@ -1,22 +1,9 @@
 ---
 import Base from '@/layouts/Base.astro';
 import InstallBox from '@/components/InstallBox.astro';
-import { skills, getRecentSkills, getSkill } from '@/data/skills';
+import { getSkill } from '@/data/skills';
 import { getScenarios } from '@/data/bundles';
-import { sotw } from '@/data/sotw';
 
-// Resolve SOTW skill
-let sotwSkill = null;
-if (sotw) {
-  const [sotwAuthor, sotwSlug] = sotw.skill.split('/');
-  sotwSkill = skills.find(s => s.author === sotwAuthor && s.slug === sotwSlug) ?? null;
-}
-// Fallback to most recently added
-if (!sotwSkill) {
-  sotwSkill = getRecentSkills(1)[0] ?? null;
-}
-
-const recent = getRecentSkills(15);
 const scenarios = getScenarios();
 
 // Day 1 skills — hardcoded by curator
@@ -27,49 +14,50 @@ const day1Skills = day1Slugs
     return getSkill(author, slug) ?? null;
   })
   .filter(Boolean);
-
-function formatDate(iso: string) {
-  const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-}
 ---
 
 <Base
   title="The OpenClaw Starter Guide"
-  description="The OpenClaw skill guide — curated SKILL.md files for Claude Code and OpenClaw agents. New to OpenClaw? Start here."
+  description="Curated SKILL.md files for OpenClaw and Claude Code agents. New to OpenClaw? Start here."
 >
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-badge">OpenClaw · Claude Code · SKILL.md</div>
     <h1>The OpenClaw<br />Starter Guide</h1>
-    <p class="hero-sub">New to OpenClaw? Start here.</p>
-    <div class="hero-actions">
-      <a href="#day1" class="btn btn-primary">Start here ↓</a>
-      <a href="/browse" class="btn btn-secondary">Browse all →</a>
-    </div>
+    <p class="hero-sub">
+      Curated skills for OpenClaw agents — safety-reviewed, ready to install.
+    </p>
+  </section>
+
+  <!-- What is OpenClaw? -->
+  <section style="margin-bottom: 36px;">
+    <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.7; max-width: 560px;">
+      <strong style="color: var(--text-primary);">OpenClaw</strong> is an open-source AI agent framework.
+      <strong style="color: var(--text-primary);">Skills</strong> are <code>.md</code> files that give your agent
+      a new capability — like managing Gmail, browsing GitHub, or summarizing URLs.
+      Install any skill with <code>clawhub install author/skill</code>.
+    </p>
   </section>
 
   <hr />
 
   <!-- Day 1 block -->
-  <section id="day1" class="day1-block" aria-labelledby="day1-heading">
-    <h2 id="day1-heading">Day 1: install these skills</h2>
+  <section id="day1" class="day1-block" aria-labelledby="day1-heading" style="margin-bottom: 40px;">
+    <h2 id="day1-heading" style="margin-bottom: 16px;">Step 1 — Install these first</h2>
     {day1Skills.map(skill => skill && (
-      <div style="margin-bottom: 12px;">
+      <div style="margin-bottom: 14px;">
         <a href={`/${skill.author}/${skill.slug}`} style="font-size: 13px; color: var(--text-secondary); display: block; margin-bottom: 4px;">
-          {skill.author}/{skill.slug} — {skill.description}
+          <strong style="color: var(--text-primary);">{skill.author}/{skill.slug}</strong> — {skill.description}
         </a>
         <InstallBox command={skill.install} />
       </div>
     ))}
-    {day1Skills.length === 0 && (
-      <p style="color: var(--text-muted); font-size: 13px;">Skills coming soon.</p>
-    )}
   </section>
 
   <!-- Scenario cards -->
-  <section aria-labelledby="scenarios-heading" style="margin-bottom: 40px;">
-    <p id="scenarios-heading" class="section-title">What are you trying to do?</p>
+  <section aria-labelledby="scenarios-heading" style="margin-bottom: 48px;">
+    <h2 id="scenarios-heading" style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 14px;">
+      Step 2 — Where do you want to go?
+    </h2>
     {scenarios.length > 0 ? (
       <nav class="scenario-grid" aria-label="Guided skill paths">
         {scenarios.map(scenario => (
@@ -84,66 +72,10 @@ function formatDate(iso: string) {
     )}
   </section>
 
-  <!-- What is OpenClaw? -->
-  <details open class="openclaw-explainer" style="margin-bottom: 40px;">
-    <summary style="cursor: pointer; font-size: 14px; font-weight: 600; color: var(--text-primary); list-style: none; display: flex; align-items: center; gap: 8px;">
-      <span>▾</span> What is OpenClaw?
-    </summary>
-    <p style="margin-top: 12px; font-size: 14px; color: var(--text-secondary); line-height: 1.6;">
-      OpenClaw is an open-source AI agent framework. Skills are <code>.md</code> files that give
-      your AI agent a new capability — like code review, PR shipping, or QA testing.
-      Install them with <code>clawhub install author/skill</code>.
-    </p>
-  </details>
-
-  <hr />
-
-  <!-- Skill of the Week -->
-  {sotwSkill && (
-    <section style="margin-bottom: 52px;">
-      <div class="sotw-card">
-        <div class="sotw-badge">★ Skill of the Week</div>
-        <h2>
-          <a href={`/${sotwSkill.author}/${sotwSkill.slug}`}>{sotwSkill.author}/{sotwSkill.slug}</a>
-        </h2>
-        <p class="sotw-desc">{sotwSkill.description}</p>
-
-        <InstallBox command={sotwSkill.install} />
-
-        <div class="sotw-source">
-          Source: <a href={`https://github.com/${sotwSkill.repo}`} target="_blank" rel="noopener">
-            github.com/{sotwSkill.repo}
-          </a>
-        </div>
-
-        {sotw?.reason && (
-          <div class="sotw-reason">Picked this week: {sotw.reason}</div>
-        )}
-      </div>
-    </section>
-  )}
-
-  <!-- Recently added -->
-  <section style="margin-bottom: 52px;">
-    <p class="section-title">Recently added</p>
-    <ul class="skill-list">
-      {recent.map(skill => (
-        <li>
-          <a href={`/${skill.author}/${skill.slug}`}>
-            <span class="skill-name">{skill.author}/{skill.slug}</span>
-            <span class="skill-desc">{skill.description.slice(0, 60)}</span>
-            <span class="skill-date">{formatDate(skill.added)}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
-  </section>
-
   <hr />
 
   <div class="footer-links">
-    <a href="/browse">Browse all →</a>
+    <a href="/browse">Browse all skills →</a>
     <a href="/bundles">Bundles →</a>
-    <a href="/r/">/r/ any GitHub skill →</a>
   </div>
 </Base>
