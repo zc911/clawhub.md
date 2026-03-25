@@ -9,11 +9,10 @@ const { command } = Astro.props;
 {command ? (
   <div>
     <span class="install-label">Install</span>
-    <div class="install-box" id="install-box">
+    <div class="install-box">
       <span class="install-command">{command}</span>
       <button
         class="copy-btn"
-        id="copy-btn"
         aria-label="Copy install command"
         data-command={command}
       >
@@ -31,8 +30,9 @@ const { command } = Astro.props;
 )}
 
 <script>
-  const btn = document.getElementById('copy-btn') as HTMLButtonElement | null;
-  if (btn) {
+  document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach(btn => {
+    if (btn.dataset.copyBound) return;
+    btn.dataset.copyBound = '1';
     btn.addEventListener('click', async () => {
       const command = btn.dataset.command ?? '';
       btn.classList.remove('copied', 'error');
@@ -60,5 +60,5 @@ const { command } = Astro.props;
         document.body.removeChild(input);
       }
     });
-  }
+  });
 </script>
