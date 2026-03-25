@@ -19,47 +19,55 @@ const recent = getRecentSkills(15);
 
 function formatDate(iso: string) {
   const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 ---
 
 <Base>
-  <h1 style="font-size: var(--font-size-h1); font-weight: 600; margin-bottom: 24px;">
-    clawhub.md
-  </h1>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">OpenClaw · Claude Code · SKILL.md</div>
+    <h1>Curated skills<br />for sharp agents.</h1>
+    <p class="hero-sub">
+      The editorial companion to <a href="https://clawhub.ai" target="_blank" rel="noopener">clawhub.ai</a> —
+      hand-picked SKILL.md files for AI agents. Quality over quantity.
+      Every skill vetted before it lands here.
+    </p>
+    <div class="hero-actions">
+      <a href="/browse" class="btn btn-primary">Browse all skills</a>
+      <a href="/r/" class="btn btn-secondary">/r/ any GitHub skill</a>
+    </div>
+  </section>
 
   <hr />
 
+  <!-- Skill of the Week -->
   {sotwSkill && (
-    <section style="margin-bottom: 40px;">
-      <p class="section-title">Skill of the Week</p>
+    <section style="margin-bottom: 52px;">
+      <div class="sotw-card">
+        <div class="sotw-badge">★ Skill of the Week</div>
+        <h2>
+          <a href={`/${sotwSkill.author}/${sotwSkill.slug}`}>{sotwSkill.author}/{sotwSkill.slug}</a>
+        </h2>
+        <p class="sotw-desc">{sotwSkill.description}</p>
 
-      <h2 style="font-size: var(--font-size-h2); font-weight: 600; margin-bottom: 8px;">
-        <a href={`/${sotwSkill.author}/${sotwSkill.slug}`}>{sotwSkill.author}/{sotwSkill.slug}</a>
-      </h2>
-      <p style="font-size: var(--font-size-sm); color: var(--text-secondary); margin-bottom: 16px;">
-        {sotwSkill.description}
-      </p>
+        <InstallBox command={sotwSkill.install} />
 
-      <InstallBox command={sotwSkill.install} />
+        <div class="sotw-source">
+          Source: <a href={`https://github.com/${sotwSkill.repo}`} target="_blank" rel="noopener">
+            github.com/{sotwSkill.repo}
+          </a>
+        </div>
 
-      <p class="skill-source" style="margin-top: 8px;">
-        Source: <a href={`https://github.com/${sotwSkill.repo}`} target="_blank" rel="noopener">
-          github.com/{sotwSkill.repo}
-        </a>
-      </p>
-
-      {sotw?.reason && (
-        <p style="margin-top: 12px; font-size: var(--font-size-sm); color: var(--text-secondary);">
-          Picked this week: {sotw.reason}
-        </p>
-      )}
+        {sotw?.reason && (
+          <div class="sotw-reason">Picked this week: {sotw.reason}</div>
+        )}
+      </div>
     </section>
   )}
 
-  <hr />
-
-  <section style="margin-bottom: 40px;">
+  <!-- Recently added -->
+  <section style="margin-bottom: 52px;">
     <p class="section-title">Recently added</p>
     <ul class="skill-list">
       {recent.map(skill => (

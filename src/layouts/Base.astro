@@ -6,7 +6,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'The curated skill registry for Claude Code.' } = Astro.props;
+const { title, description = 'Curated skills for OpenClaw and Claude Code agents. Editorial picks you can trust.' } = Astro.props;
 const pageTitle = title ? `${title} — clawhub.md` : 'clawhub.md';
 ---
 
@@ -18,17 +18,34 @@ const pageTitle = title ? `${title} — clawhub.md` : 'clawhub.md';
     <meta name="description" content={description} />
     <title>{pageTitle}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   </head>
   <body>
     <nav class="site-nav">
-      <a class="nav-logo" href="/">clawhub.md</a>
+      <a class="nav-logo" href="/">clawhub<span class="logo-accent">.md</span></a>
       <div class="nav-links">
         <a href="/browse">Browse</a>
+        <a href="/bundles">Bundles</a>
         <a href="/r/">/r/</a>
+        <a href="https://clawhub.ai" target="_blank" rel="noopener" class="nav-external">clawhub.ai ↗</a>
       </div>
     </nav>
     <main>
       <slot />
     </main>
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <div class="site-footer-copy">
+          clawhub.md · The curated companion to <a href="https://clawhub.ai" target="_blank" rel="noopener">clawhub.ai</a> · Part of the <a href="https://openclaw.ai" target="_blank" rel="noopener">OpenClaw</a> ecosystem
+        </div>
+        <div class="footer-links">
+          <a href="/browse">Browse</a>
+          <a href="/r/">Any skill</a>
+          <a href="https://github.com/zc911/clawhub.md" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
