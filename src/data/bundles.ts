@@ -1,13 +1,3 @@
-export interface RegularBundle {
-  scenario?: false;
-  slug: string;
-  name: string;
-  description: string;
-  skills: string[];  // "author/slug" references
-  curator: string;
-  created: string;   // ISO date
-}
-
 export interface SkillWithReason {
   slug: string;     // "author/slug" reference
   reason: string;
@@ -15,108 +5,23 @@ export interface SkillWithReason {
   examples?: string[];  // what to say to your agent after installing
 }
 
-export interface ScenarioBundle {
-  scenario: true;
+export interface Expert {
   slug: string;
   name: string;
   description: string;
-  goal: string;     // "What are you trying to do?" label
+  goal: string;     // headline on the expert page
   outcome: string;  // "After installing, your agent can..."
   skillsWithReason: SkillWithReason[];
-  installAll?: string;    // single command to install all skills in bundle
+  installAll?: string;    // single command to install all skills
   configSnippet?: string; // optional CLAUDE.md configuration snippet
   curator: string;
   created: string;  // ISO date
 }
 
-export type Bundle = RegularBundle | ScenarioBundle;
-
-export function isScenario(b: Bundle): b is ScenarioBundle {
-  return b.scenario === true;
-}
-
-export const bundles: Bundle[] = [
-  // Regular bundles
+export const experts: Expert[] = [
   {
-    slug: 'openclaw-essentials',
-    name: 'OpenClaw Essentials',
-    description: 'Must-have skills for any OpenClaw agent setup',
-    skills: ['openclaw/gog', 'openclaw/github', 'openclaw/summarize', 'openclaw/clawhub'],
-    curator: 'clawhub',
-    created: '2026-03-25',
-  },
-  {
-    slug: 'connected-workspace',
-    name: 'Connected Workspace',
-    description: 'Connect your agent to Gmail, Slack, GitHub, and Notion',
-    skills: ['openclaw/gog', 'openclaw/slack', 'openclaw/github', 'openclaw/notion'],
-    curator: 'clawhub',
-    created: '2026-03-25',
-  },
-  {
-    slug: 'starter',
-    name: 'Claude Code Starter',
-    description: 'Essential skills for every Claude Code workflow',
-    skills: ['gstack/review', 'gstack/ship', 'gstack/qa'],
-    curator: 'clawhub',
-    created: '2026-03-24',
-  },
-  {
-    slug: 'quality',
-    name: 'Quality & Testing',
-    description: 'Ship with confidence — QA, debugging, and design review',
-    skills: ['gstack/qa', 'gstack/investigate', 'gstack/design-review'],
-    curator: 'clawhub',
-    created: '2026-03-24',
-  },
-  // Scenario bundles — only accessible at /guide/[slug]
-  {
-    scenario: true,
-    slug: 'code-review',
-    name: 'Review, QA & Ship',
-    description: 'catch bugs, QA before merge, and ship with a full changelog — the complete dev workflow',
-    goal: 'Review, QA & ship code',
-    outcome: 'Catch bugs before they land, QA before merge, and ship with tests run, changelog written, and PR created — all in one workflow.',
-    skillsWithReason: [
-      {
-        slug: 'gstack/review',
-        reason: 'Pre-landing PR review. Catches SQL safety, LLM trust boundary violations, conditional side effects, and structural bugs that manual review misses.',
-        order: 1,
-        examples: [
-          'Review my current PR',
-          'Check this diff for security issues',
-          'Do a pre-landing review on this branch',
-        ],
-      },
-      {
-        slug: 'gstack/qa',
-        reason: 'Full QA pass before merge. Finds visual and functional bugs that unit tests don\'t catch.',
-        order: 2,
-        examples: [
-          'QA the checkout page before I merge',
-          'Find visual bugs on this branch',
-          'Run a full QA pass on /dashboard',
-        ],
-      },
-      {
-        slug: 'gstack/ship',
-        reason: 'Merges base branch, runs tests, bumps VERSION, writes CHANGELOG, creates PR. The full ship workflow in one command.',
-        order: 3,
-        examples: [
-          '/ship',
-          'Ship my current branch',
-          'Create a PR for these changes',
-        ],
-      },
-    ],
-    installAll: 'clawhub install gstack/review gstack/qa gstack/ship',
-    curator: 'clawhub',
-    created: '2026-03-25',
-  },
-  {
-    scenario: true,
-    slug: 'meeting-prep',
-    name: 'Run Better Meetings',
+    slug: 'meeting-expert',
+    name: 'Meeting Expert',
     description: 'walk in prepared and walk out with notes sent — automatically',
     goal: 'Prep & follow up on meetings',
     outcome: 'Brief before every call, clean notes after. Your agent pulls the context, captures decisions, and sends the follow-ups — so you can focus on the conversation.',
@@ -157,9 +62,8 @@ export const bundles: Bundle[] = [
     created: '2026-03-26',
   },
   {
-    scenario: true,
-    slug: 'stay-connected',
-    name: 'Stay Connected',
+    slug: 'comms-expert',
+    name: 'Comms Expert',
     description: 'manage your inbox, calendar, and team channels without leaving the terminal',
     goal: 'Manage email & comms',
     outcome: 'Control Gmail, Slack, and X from your agent — read, send, and organize without switching apps.',
@@ -200,9 +104,8 @@ export const bundles: Bundle[] = [
     created: '2026-03-25',
   },
   {
-    scenario: true,
-    slug: 'research-and-notes',
-    name: 'Research & Notes',
+    slug: 'research-expert',
+    name: 'Research Expert',
     description: 'summarize anything and save insights straight to your knowledge base',
     goal: 'Research & take notes',
     outcome: 'Summarize any URL, PDF, or video and save the insights to Obsidian or Notion — in seconds.',
@@ -244,20 +147,10 @@ export const bundles: Bundle[] = [
   },
 ];
 
-export function getBundle(slug: string): RegularBundle | undefined {
-  const b = bundles.find(b => b.slug === slug);
-  return b && !isScenario(b) ? b : undefined;
+export function getExpert(slug: string): Expert | undefined {
+  return experts.find(e => e.slug === slug);
 }
 
-export function getScenario(slug: string): ScenarioBundle | undefined {
-  const b = bundles.find(b => b.slug === slug);
-  return b && isScenario(b) ? b : undefined;
-}
-
-export function getScenarios(): ScenarioBundle[] {
-  return bundles.filter(isScenario);
-}
-
-export function getRegularBundles(): RegularBundle[] {
-  return bundles.filter((b): b is RegularBundle => !isScenario(b));
+export function getExperts(): Expert[] {
+  return experts;
 }

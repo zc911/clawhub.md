@@ -1,11 +1,11 @@
 ---
 import Base from '@/layouts/Base.astro';
 import InstallBox from '@/components/InstallBox.astro';
-import { getScenarios } from '@/data/bundles';
+import { getExperts } from '@/data/bundles';
 import { sotw } from '@/data/sotw';
 import { getSkill, skills as allSkills } from '@/data/skills';
 
-const scenarios = getScenarios();
+const experts = getExperts();
 
 // Featured skill — from sotw.ts, falls back to most recently added
 let featuredSkill = sotw ? getSkill(...(sotw.skill.split('/') as [string, string])) : null;
@@ -24,26 +24,26 @@ const featuredReason = sotw?.skill === `${featuredSkill?.author}/${featuredSkill
   <section class="hero">
     <h1>OpenClaw skills,<br />curated and ready.</h1>
     <p class="hero-sub">
-      One command to install. Browse the best skills for Claude Code and OpenClaw agents.
+      One command to install. Browse the best skills for OpenClaw agents.
     </p>
   </section>
 
-  <!-- Scenario cards — user intent first -->
-  <section aria-labelledby="scenarios-heading" style="margin-bottom: 48px;">
-    <h2 id="scenarios-heading" style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 14px;">
+  <!-- Expert cards — user intent first -->
+  <section aria-labelledby="experts-heading" style="margin-bottom: 48px;">
+    <h2 id="experts-heading" style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 14px;">
       What are you trying to do?
     </h2>
-    {scenarios.length > 0 ? (
-      <nav class="scenario-grid" aria-label="Guided skill paths">
-        {scenarios.map(scenario => (
-          <a class="scenario-item" href={`/guide/${scenario.slug}`}>
-            <span class="scenario-goal">{scenario.goal} →</span>
-            <span class="scenario-desc">{scenario.description}</span>
+    {experts.length > 0 ? (
+      <nav class="scenario-grid" aria-label="Expert skill sets">
+        {experts.map(expert => (
+          <a class="scenario-item" href={`/expert/${expert.slug}`}>
+            <span class="scenario-goal">{expert.goal} →</span>
+            <span class="scenario-desc">{expert.description}</span>
           </a>
         ))}
       </nav>
     ) : (
-      <p class="empty-state">No guided paths yet — check back soon.</p>
+      <p class="empty-state">No expert paths yet — check back soon.</p>
     )}
   </section>
 
@@ -86,6 +86,5 @@ const featuredReason = sotw?.skill === `${featuredSkill?.author}/${featuredSkill
 
   <div class="footer-links">
     <a href="/browse">Browse all skills →</a>
-    <a href="/bundles">Bundles →</a>
   </div>
 </Base>

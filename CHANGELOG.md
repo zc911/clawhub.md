@@ -2,6 +2,16 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.0.6] - 2026-03-26
+
+### Changed
+- **Expert concept replaces Bundles + Guide**: dropped `RegularBundle` type and all 4 regular bundles; dropped `code-review` scenario (Claude Code workflow); renamed remaining scenarios to "Meeting Expert", "Comms Expert", "Research Expert"
+- **New URL structure**: `/expert/[slug]` replaces `/guide/[slug]`; old URLs redirect 301
+- **OpenClaw focus**: all experts use only `openclaw/*` skills — site now targets OpenClaw community exclusively
+- **`ScenarioBundle` → `Expert`**: simplified to a single unified type; removed discriminated union, `isScenario()`, `getBundle()`, `getRegularBundles()`
+- **Homepage**: removed Bundles link; "What are you trying to do?" section now links to `/expert/*`
+- **Tests**: updated to `Expert` type and `getExpert()` / `getExperts()` functions; added OpenClaw-only integrity check
+
 ## [1.0.5] - 2026-03-26
 
 ### Changed

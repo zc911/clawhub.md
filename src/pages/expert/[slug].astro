@@ -1,0 +1,91 @@
+---
+import Base from '@/layouts/Base.astro';
+import InstallBox from '@/components/InstallBox.astro';
+import { getExperts, getExpert } from '@/data/bundles';
+
+export function getStaticPaths() {
+  return getExperts().map(e => ({ params: { slug: e.slug } }));
+}
+
+const { slug } = Astro.params;
+const expert = getExpert(slug);
+
+if (!expert) {
+  return Astro.redirect('/404');
+}
+
+const allExamples = expert.skillsWithReason
+  .filter(entry => entry.examples && entry.examples.length > 0)
+  .map(entry => ({ reason: entry.reason, examples: entry.examples! }));
+
+const metaDescription = `${expert.outcome} Install with one command: ${expert.installAll ?? 'clawhub install'}.`;
+---
+
+<Base title={expert.goal} description={metaDescription}>
+
+  <!-- Header -->
+  <div style="margin-bottom: 36px;">
+    <a href="/" style="font-size: 12px; color: var(--text-secondary); text-decoration: none; display: inline-block; margin-bottom: 16px;">← Back</a>
+    <h1 style="font-size: 22px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; line-height: 1.3;">
+      {expert.goal}
+    </h1>
+    <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 540px; border-left: 3px solid var(--accent, #f78166); padding-left: 14px; margin: 0;">
+      {expert.outcome}
+    </p>
+  </div>
+
+  <!-- Section 1: Install -->
+  <div style="margin-bottom: 36px;">
+    <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-tertiary, #6e7681); margin-bottom: 10px;">
+      1. Install
+    </p>
+    {expert.installAll ? (
+      <InstallBox command={expert.installAll} />
+    ) : (
+      <p style="font-size: 13px; color: var(--text-secondary);">See individual skills below.</p>
+    )}
+  </div>
+
+  <!-- Section 2: Configure (only if configSnippet exists) -->
+  {expert.configSnippet && (
+    <div style="margin-bottom: 36px;">
+      <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-tertiary, #6e7681); margin-bottom: 10px;">
+        2. Configure
+      </p>
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 10px;">Add to your <code style="font-size: 12px; background: var(--bg-secondary, #161b22); padding: 2px 6px; border-radius: 4px;">CLAUDE.md</code>:</p>
+      <pre style="background: var(--bg-secondary, #161b22); border: 1px solid var(--border-color, #30363d); border-radius: 6px; padding: 14px 16px; font-size: 12px; color: var(--text-secondary); overflow-x: auto; line-height: 1.6; margin: 0;">{expert.configSnippet}</pre>
+    </div>
+  )}
+
+  <!-- Section 3: Use -->
+  {allExamples.length > 0 && (
+    <div style="margin-bottom: 36px;">
+      <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-tertiary, #6e7681); margin-bottom: 16px;">
+        {expert.configSnippet ? '3. Use' : '2. Use'}
+      </p>
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">After installing, say to your agent:</p>
+
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        {allExamples.map(({ reason, examples }) => (
+          <div>
+            <p style="font-size: 13px; color: var(--text-primary); font-weight: 500; margin-bottom: 8px;">{reason}</p>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 5px;">
+              {examples.map(ex => (
+                <li style="font-size: 13px; color: var(--text-secondary); display: flex; gap: 7px; align-items: flex-start;">
+                  <span style="color: var(--text-tertiary, #6e7681); flex-shrink: 0;">›</span>
+                  <span style="font-style: italic;">"{ex}"</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <hr />
+  <div class="footer-links">
+    <a href="/">← Home</a>
+    <a href="/browse">Browse all skills →</a>
+  </div>
+</Base>
