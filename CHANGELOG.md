@@ -2,6 +2,11 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.0.5] - 2026-03-26
+
+### Changed
+- **Guide page redesign**: `/guide/[slug]` pages now use a problem-first three-section layout — **Install** (one command), **Configure** (if needed), **Use** (all examples grouped by capability) — replacing the old tool-centric per-skill listing with individual install boxes
+
 ## [1.0.4] - 2026-03-26
 
 ### Fixed
