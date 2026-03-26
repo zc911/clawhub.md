@@ -28,9 +28,30 @@ const featuredReason = sotw?.skill === `${featuredSkill?.author}/${featuredSkill
     </p>
   </section>
 
+  <!-- Scenario cards — user intent first -->
+  <section aria-labelledby="scenarios-heading" style="margin-bottom: 48px;">
+    <h2 id="scenarios-heading" style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 14px;">
+      What are you trying to do?
+    </h2>
+    {scenarios.length > 0 ? (
+      <nav class="scenario-grid" aria-label="Guided skill paths">
+        {scenarios.map(scenario => (
+          <a class="scenario-item" href={`/guide/${scenario.slug}`}>
+            <span class="scenario-goal">{scenario.goal} →</span>
+            <span class="scenario-desc">{scenario.description}</span>
+          </a>
+        ))}
+      </nav>
+    ) : (
+      <p class="empty-state">No guided paths yet — check back soon.</p>
+    )}
+  </section>
+
+  <hr />
+
   <!-- Featured skill — the action block -->
   {featuredSkill && (
-    <section style="margin-bottom: 48px;">
+    <section style="margin-bottom: 48px; margin-top: 32px;">
       <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary, #6e7681); margin-bottom: 12px;">
         Top pick this week
       </p>
@@ -60,27 +81,6 @@ const featuredReason = sotw?.skill === `${featuredSkill?.author}/${featuredSkill
       )}
     </section>
   )}
-
-  <hr />
-
-  <!-- Scenario cards -->
-  <section aria-labelledby="scenarios-heading" style="margin-bottom: 48px; margin-top: 32px;">
-    <h2 id="scenarios-heading" style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 14px;">
-      What are you trying to do?
-    </h2>
-    {scenarios.length > 0 ? (
-      <nav class="scenario-grid" aria-label="Guided skill paths">
-        {scenarios.map(scenario => (
-          <a class="scenario-item" href={`/guide/${scenario.slug}`}>
-            <span class="scenario-goal">{scenario.goal} →</span>
-            <span class="scenario-desc">{scenario.description}</span>
-          </a>
-        ))}
-      </nav>
-    ) : (
-      <p class="empty-state">No guided paths yet — check back soon.</p>
-    )}
-  </section>
 
   <hr />
 

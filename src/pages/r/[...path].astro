@@ -20,6 +20,9 @@ const kv = (env as any)?.SKILL_CACHE ?? null;
 const token = (env as any)?.GITHUB_TOKEN as string | undefined;
 const forceRefresh = Astro.url.searchParams.get('refresh') === '1';
 
+// CDN caching: 1 hour fresh, serve stale for up to 24 hours while revalidating
+Astro.response.headers.set('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+
 let result: Awaited<ReturnType<typeof fetchSkill>>;
 let html = '';
 let fetchError: string | null = null;
@@ -56,6 +59,9 @@ const sourceRepo = `${parsed.owner}/${parsed.repo}`;
 ---
 
 <Base title={name} description={description}>
+  <p style="font-size: 11px; font-weight: 500; color: var(--text-tertiary, #6e7681); margin-bottom: 20px; letter-spacing: 0.04em;">
+    Community skill · not editorially reviewed by clawhub.md
+  </p>
   {fetchError ? (
     <div style="text-align: center; padding: 60px 0;">
       <p style="font-size: 28px; margin-bottom: 12px;">⚠️</p>

@@ -24,6 +24,8 @@ const canonicalUrl = new URL(Astro.url.pathname, 'https://clawhub.md').href;
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="clawhub.md" />
+    <meta property="og:image" content="https://clawhub.md/og-image.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,7 +37,7 @@ const canonicalUrl = new URL(Astro.url.pathname, 'https://clawhub.md').href;
       <div class="nav-links">
         <a href="/browse">Browse</a>
         <a href="/bundles">Bundles</a>
-        <a href="/r/">/r/</a>
+        <a href="/r/">Any skill</a>
         <a href="https://clawhub.ai" target="_blank" rel="noopener" class="nav-external">clawhub.ai ↗</a>
       </div>
     </nav>
@@ -49,7 +51,7 @@ const canonicalUrl = new URL(Astro.url.pathname, 'https://clawhub.md').href;
         </div>
         <div class="footer-links">
           <a href="/browse">Browse</a>
-          <a href="/r/">Any skill</a>
+          <a href="/r/">Any skill →</a>
           <a href="https://github.com/zc911/clawhub.md" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>

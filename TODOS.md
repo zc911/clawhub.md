@@ -22,11 +22,11 @@
 
 - **XSS risk in /r/ renderer** — Markdown from arbitrary GitHub repos is rendered via `rehype-raw` with no sanitization. A malicious skill file could inject `<script>` tags. Add `rehype-sanitize` to the unified pipeline. Effort: S (CC: ~10 min). Fix before promoting /r/ route.
 
-- **No CDN caching on SSR responses** — Every Worker invocation hits KV (fast, but burns edge compute). Add `Cache-Control: s-maxage=3600, stale-while-revalidate=86400` header on skill page responses. Effort: S (CC: ~10 min).
+- ~~**No CDN caching on SSR responses**~~ ✅ Fixed — `Cache-Control: s-maxage=3600, stale-while-revalidate=86400` added to `/r/[...path].astro`.
 
-- **Structured error logging** — Zero visibility if pages 500 in production. Add `console.error()` calls in `fetchSkill.ts` on KV errors and render errors. Effort: XS (CC: ~5 min).
+- ~~**Structured error logging**~~ ✅ Fixed — `console.error()` added to `fetchSkill.ts` for KV get/put failures and GitHub fetch errors.
 
-- **prepare-pages.mjs fragility** — No error handling; silent failure leaves broken `dist/`. Add try/catch + `process.exit(1)` on failure. Effort: XS (CC: ~5 min).
+- ~~**prepare-pages.mjs fragility**~~ ✅ Fixed — try/catch + `process.exit(1)` added.
 
 - **GITHUB_TOKEN setup** — Without a token, GitHub API rate limit is 60 req/hr. Document the setup runbook in README. Effort: XS (documentation only).
 
@@ -36,7 +36,13 @@
 
 - **Open Graph meta tags** — Add OG tags on skill pages: `og:title`, `og:description`, `og:url`. Twitter/Slack unfurl for sharing. Effort: S.
 
-- **?refresh=1 UI hint** — Stale cache banner (already in DESIGN.md) should show "Add ?refresh=1 to force a fresh fetch". Effort: XS.
+- ~~**?refresh=1 UI hint**~~ ✅ Done — stale banner in `SkillRenderer.astro` already shows `?refresh=1` hint.
+
+## P1: From autoplan Review (2026-03-26)
+
+- **fetchSkill.ts: 0% test coverage** — The core caching/fetching logic has no tests. Critical gap: any refactor of KV cache logic, branch fallback (main→master), or stale-serve behavior can silently regress with no test catching it. **Context:** Write `src/lib/fetchSkill.test.ts` covering 8 paths: fresh cache hit, stale+fresh, stale+error fallback, not_found, branch fallback, forceRefresh, KV write-through, concurrent. Use Vitest with a mock `KVStore`. Effort: S (human: ~3h / CC: ~30 min). Priority: P1. Start: `src/lib/fetchSkill.test.ts`.
+
+- **Thundering herd on /r/ cold cache** — Multiple concurrent requests for a cold-cache `/r/` URL each trigger their own GitHub API call with no deduplication. At 60 unauthenticated req/hr, 2-3 simultaneous first-visitors can burn the rate limit. **Context:** Add a `Map<string, Promise<GitHubResult>>` in `fetchFromGitHub` to deduplicate in-flight fetches by URL. Monitor: if Cloudflare Analytics shows rate-limit 429s in error logs, prioritize immediately. Effort: S (CC: ~20 min). Priority: P2 (revisit at meaningful traffic).
 
 ## Deferred from Eng Review (2026-03-24)
 

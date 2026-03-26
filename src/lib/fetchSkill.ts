@@ -63,7 +63,11 @@ export async function fetchSkill(
   let cached: CacheEntry | null = null;
 
   if (kv && !forceRefresh) {
-    cached = await kv.get<CacheEntry>(cacheKey, 'json');
+    try {
+      cached = await kv.get<CacheEntry>(cacheKey, 'json');
+    } catch (err) {
+      console.error('[fetchSkill] KV get failed', { cacheKey, error: String(err) });
+    }
   }
 
   // Serve fresh cache without hitting GitHub
@@ -81,13 +85,23 @@ export async function fetchSkill(
 
   if (result.kind === 'ok') {
     if (kv) {
-      const entry: CacheEntry = { content: result.content, fetchedAt: Date.now() };
-      await kv.put(cacheKey, JSON.stringify(entry), { expirationTtl: KV_TTL_SECONDS });
+      try {
+        const entry: CacheEntry = { content: result.content, fetchedAt: Date.now() };
+        await kv.put(cacheKey, JSON.stringify(entry), { expirationTtl: KV_TTL_SECONDS });
+      } catch (err) {
+        console.error('[fetchSkill] KV put failed', { cacheKey, error: String(err) });
+      }
     }
     return { raw: result.content, status: 'ok', fromCache: false };
   }
 
-  // GitHub failed — serve stale if available
+  // GitHub failed — log and serve stale if available
+  console.error('[fetchSkill] GitHub fetch failed', {
+    owner, repo, filepath,
+    kind: result.kind,
+    statusCode: result.kind === 'error' ? result.statusCode : undefined,
+  });
+
   if (cached) {
     return {
       raw: cached.content,
