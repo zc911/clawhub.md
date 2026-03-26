@@ -2,6 +2,16 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.0.3] - 2026-03-26
+
+### Added
+- **`meeting-prep` scenario**: "Run Better Meetings" — prep with calendar/email context, summarize docs before the call, save notes to Notion
+- **`installAll` on all scenarios**: `stay-connected` and `research-and-notes` now have one-command install
+
+### Changed
+- **`code-review` scenario expanded to full dev lifecycle**: renamed "Review, QA & Ship", added `gstack/ship` as 3rd skill, updated `installAll` to include all three
+- **`ship-and-deploy` scenario replaced** by `meeting-prep` — the dev lifecycle is now consolidated under `code-review`
+
 ## [1.0.2] - 2026-03-26
 
 ### Added
