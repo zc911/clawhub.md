@@ -2,6 +2,15 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.0.7] - 2026-03-26
+
+### Changed
+- **Hero copy**: H1 updated from "OpenClaw skills, curated and ready." to "Give your agent the right skills." — more actionable, user-directed framing
+- **Meta descriptions**: removed "Claude Code" references from default description and homepage description; now exclusively OpenClaw-focused
+- **Navigation**: removed stale "Bundles" nav link; nav now shows Browse / Any skill / clawhub.ai only
+- **Expert page**: "← Back" back-link clarified to "← Home"
+- **CSS cleanup**: removed unused `.bundle-*`, `.guide-skill-*`, and `.day1-block` CSS classes (leftover from pre-Expert refactor)
+
 ## [1.0.6] - 2026-03-26
 
 ### Changed

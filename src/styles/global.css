@@ -621,52 +621,6 @@ main h1 {
   flex-wrap: wrap;
 }
 
-/* ── Bundle pages ─────────────────────────────── */
-.bundle-header { margin-bottom: 40px; }
-.bundle-header h1 {
-  font-family: var(--font-display);
-  font-size: var(--font-size-h1);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  margin-bottom: 10px;
-}
-.bundle-header .bundle-desc {
-  font-size: var(--font-size-lg);
-  color: var(--text-secondary);
-}
-
-.bundle-list { list-style: none; }
-.bundle-list li a {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 18px 12px;
-  border-radius: var(--radius-xs);
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.12s;
-}
-.bundle-list li:last-child a { border-bottom: none; }
-.bundle-list li a:hover { background: rgba(255, 255, 255, 0.04); }
-.bundle-list .bundle-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-primary);
-  font-family: var(--font-body);
-}
-.bundle-list .bundle-summary {
-  font-size: 14px;
-  color: var(--text-secondary);
-  font-family: var(--font-body);
-}
-.bundle-list .bundle-skills {
-  font-size: 13px;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  margin-top: 2px;
-}
-
 /* ── Site footer ──────────────────────────────── */
 .site-footer {
   border-top: 1px solid var(--border);
@@ -733,76 +687,6 @@ main h1 {
   line-height: 1.5;
 }
 
-/* ── Day 1 block ──────────────────────────────── */
-.day1-block {
-  margin-bottom: 36px;
-}
-
-.day1-block h2 {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-  margin: 0 0 20px 0;
-}
-
-/* ── Guide skill list ─────────────────────────── */
-.guide-skill-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 36px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.guide-skill-item {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-}
-
-.guide-skill-number {
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-strong);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--accent);
-  margin-top: 1px;
-}
-
-.guide-skill-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.guide-skill-name {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--text-primary);
-  text-decoration: none;
-  display: block;
-  margin-bottom: 8px;
-  letter-spacing: -0.01em;
-}
-
-.guide-skill-name:hover { color: var(--accent); }
-
-.guide-skill-reason {
-  font-size: 15px;
-  color: var(--text-secondary);
-  line-height: 1.65;
-  margin: 0 0 14px 0;
-}
-
 /* ── Empty state ──────────────────────────────── */
 .empty-state {
   font-size: 14px;
@@ -831,8 +715,6 @@ main h1 {
   .scenario-grid { grid-template-columns: 1fr; gap: 8px; }
   .skill-card-grid { grid-template-columns: 1fr; gap: 10px; }
 
-  .guide-skill-item { gap: 14px; }
-  .guide-skill-number { width: 28px; height: 28px; font-size: 13px; }
 }
 
 /* ── Focus rings ──────────────────────────────── */
