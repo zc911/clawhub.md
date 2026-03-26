@@ -1,13 +1,15 @@
 ---
-export const prerender = false;
+export const prerender = true;
 
 import Base from '@/layouts/Base.astro';
-import SkillRenderer from '@/components/SkillRenderer.astro';
-import { getSkill } from '@/data/skills';
-import { fetchSkill, parseSkillPath } from '@/lib/fetchSkill';
-import { renderSkillMarkdown } from '@/lib/renderSkillMarkdown';
-import { extractInstallCommand } from '@/lib/extractInstallCommand';
-import { env } from 'cloudflare:workers';
+import InstallBox from '@/components/InstallBox.astro';
+import { skills, getSkill } from '@/data/skills';
+
+export function getStaticPaths() {
+  return skills.map(s => ({
+    params: { author: s.author, skill: s.slug },
+  }));
+}
 
 const { author, skill: skillSlug } = Astro.params;
 const entry = getSkill(author!, skillSlug!);
@@ -16,53 +18,45 @@ if (!entry) {
   return Astro.redirect('/404');
 }
 
-const kv = (env as any)?.SKILL_CACHE ?? null;
-const token = (env as any)?.GITHUB_TOKEN as string | undefined;
-const forceRefresh = Astro.url.searchParams.get('refresh') === '1';
-
-const parsed = parseSkillPath(`${entry.repo}/${entry.path}`);
-if (!parsed) {
-  return Astro.redirect('/404');
-}
-
-const result = await fetchSkill(
-  parsed.owner,
-  parsed.repo,
-  parsed.filepath,
-  kv,
-  token,
-  forceRefresh,
-);
-
-const raw = result.raw;
-// For curated skills, registry name/description take priority — the SKILL.md files
-// often lack a standalone H1 title (they have YAML frontmatter + H2 sections).
-const name = entry.name;
-const description = entry.description;
-const install = raw ? (extractInstallCommand(raw) ?? entry.install) : entry.install;
-
-// Render markdown, stripping the first H1 (if any) to avoid duplication with header
-let html = '';
-if (raw) {
-  const fullHtml = await renderSkillMarkdown(raw);
-  html = fullHtml.replace(/<h1[^>]*>[\s\S]*?<\/h1>/, '');
-}
+const githubUrl = `https://github.com/${entry.repo}/blob/main/${entry.path}`;
 ---
 
-<Base title={`${entry.author}/${entry.slug}`} description={description}>
-  {result.status === 'error' && (
-    <div class="stale-banner" style="border-color: var(--accent-red); color: var(--accent-red);">
-      ⚠&nbsp; Could not fetch skill content from GitHub
+<Base title={`${entry.author}/${entry.slug}`} description={entry.description}>
+  <div style="margin-bottom: 24px;">
+    <a href="/browse" style="font-size: 13px; color: var(--text-secondary); text-decoration: none; display: inline-block; margin-bottom: 20px;">← Browse</a>
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+      <span style="font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-tertiary, #6e7681);">{entry.author}</span>
+    </div>
+    <h1 style="font-size: 28px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary);">{entry.slug}</h1>
+    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6; max-width: 520px; margin: 0;">{entry.description}</p>
+  </div>
+
+  <div style="margin-bottom: 32px;">
+    <InstallBox command={entry.install} />
+  </div>
+
+  {entry.examples && entry.examples.length > 0 && (
+    <div style="margin-bottom: 36px;">
+      <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-tertiary, #6e7681); margin-bottom: 14px;">
+        After installing, say to your agent:
+      </p>
+      <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+        {entry.examples.map(ex => (
+          <li style="display: flex; gap: 10px; align-items: flex-start;">
+            <span style="color: var(--accent); flex-shrink: 0; font-size: 15px; margin-top: 1px;">›</span>
+            <span style="font-size: 15px; color: var(--text-secondary); font-style: italic; line-height: 1.5;">"{ex}"</span>
+          </li>
+        ))}
+      </ul>
     </div>
   )}
 
-  <SkillRenderer
-    name={name}
-    description={description}
-    install={install}
-    sourceRepo={entry.repo}
-    html={html}
-    status={result.status}
-    cachedAt={result.cachedAt}
-  />
+  <div style="padding-top: 24px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+    <span style="font-size: 13px; color: var(--text-tertiary, #6e7681);">
+      Source: <a href={`https://github.com/${entry.repo}`} target="_blank" rel="noopener noreferrer" style="color: var(--text-secondary);">github.com/{entry.repo}</a>
+    </span>
+    <a href={githubUrl} target="_blank" rel="noopener noreferrer" style="font-size: 13px; color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+      View full docs on GitHub ↗
+    </a>
+  </div>
 </Base>

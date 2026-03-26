@@ -7,6 +7,7 @@ export interface Skill {
   path: string;      // path to skill.md within repo
   install: string;   // full install command
   added: string;     // ISO date
+  examples?: string[]; // what to say to your agent after installing
 }
 
 export const skills: Skill[] = [
@@ -20,6 +21,12 @@ export const skills: Skill[] = [
     path: 'skills/gog/SKILL.md',
     install: 'clawhub install openclaw/gog',
     added: '2026-03-25',
+    examples: [
+      'Check my inbox and summarize anything urgent',
+      'Schedule a meeting tomorrow at 2pm with Alice',
+      'Share this Drive file with my team',
+      'Add today\'s tasks to my Sheets tracker',
+    ],
   },
   {
     author: 'openclaw',
@@ -30,6 +37,11 @@ export const skills: Skill[] = [
     path: 'skills/github/SKILL.md',
     install: 'clawhub install openclaw/github',
     added: '2026-03-25',
+    examples: [
+      'Review my current PR for issues',
+      'Create an issue: login page crashes on mobile',
+      'What\'s the CI status on my branch?',
+    ],
   },
   {
     author: 'openclaw',
@@ -40,6 +52,11 @@ export const skills: Skill[] = [
     path: 'skills/summarize/SKILL.md',
     install: 'clawhub install openclaw/summarize',
     added: '2026-03-25',
+    examples: [
+      'Summarize this article: [URL]',
+      'TL;DR this PDF',
+      'Summarize this YouTube video',
+    ],
   },
   {
     author: 'openclaw',
@@ -50,6 +67,11 @@ export const skills: Skill[] = [
     path: 'skills/obsidian/SKILL.md',
     install: 'clawhub install openclaw/obsidian',
     added: '2026-03-25',
+    examples: [
+      'Save this summary to my Obsidian vault',
+      'Search my notes for "product strategy"',
+      'Create a note about today\'s meeting',
+    ],
   },
   {
     author: 'openclaw',
@@ -60,6 +82,11 @@ export const skills: Skill[] = [
     path: 'skills/xurl/SKILL.md',
     install: 'clawhub install openclaw/xurl',
     added: '2026-03-25',
+    examples: [
+      'Check my X mentions from today',
+      'Post: just shipped v2.0',
+      'Search X for "Claude Code" trends',
+    ],
   },
   {
     author: 'openclaw',
@@ -70,6 +97,11 @@ export const skills: Skill[] = [
     path: 'skills/slack/SKILL.md',
     install: 'clawhub install openclaw/slack',
     added: '2026-03-25',
+    examples: [
+      'Post to #general: deployment is live',
+      'What\'s new in #engineering today?',
+      'Send a DM to Alice about the PR',
+    ],
   },
   {
     author: 'openclaw',
@@ -80,6 +112,11 @@ export const skills: Skill[] = [
     path: 'skills/notion/SKILL.md',
     install: 'clawhub install openclaw/notion',
     added: '2026-03-25',
+    examples: [
+      'Add this to my Notion research database',
+      'Create a Notion page with these meeting notes',
+      'Update my reading list in Notion',
+    ],
   },
   {
     author: 'openclaw',
@@ -90,6 +127,11 @@ export const skills: Skill[] = [
     path: 'skills/weather/SKILL.md',
     install: 'clawhub install openclaw/weather',
     added: '2026-03-25',
+    examples: [
+      'What\'s the weather in San Francisco today?',
+      'Will it rain this weekend in New York?',
+      '5-day forecast for London',
+    ],
   },
   {
     author: 'openclaw',
@@ -100,6 +142,11 @@ export const skills: Skill[] = [
     path: 'skills/clawhub/SKILL.md',
     install: 'clawhub install openclaw/clawhub',
     added: '2026-03-25',
+    examples: [
+      'Search clawhub for GitHub skills',
+      'Install the gstack/ship skill',
+      'List all installed skills',
+    ],
   },
   {
     author: 'openclaw',
@@ -110,6 +157,11 @@ export const skills: Skill[] = [
     path: 'skills/coding-agent/SKILL.md',
     install: 'clawhub install openclaw/coding-agent',
     added: '2026-03-25',
+    examples: [
+      'Delegate this refactor to Claude Code',
+      'Have Codex review this function',
+      'Run this task in a background coding agent',
+    ],
   },
   // ── Anthropic Official Skills (anthropics/skills) ────────────────────────
   {
@@ -121,6 +173,11 @@ export const skills: Skill[] = [
     path: 'skills/pdf/SKILL.md',
     install: 'clawhub install anthropics/pdf',
     added: '2026-03-25',
+    examples: [
+      'Extract text from this PDF',
+      'Merge these two PDF files into one',
+      'Create a PDF from this markdown document',
+    ],
   },
   {
     author: 'anthropics',
@@ -131,6 +188,11 @@ export const skills: Skill[] = [
     path: 'skills/mcp-builder/SKILL.md',
     install: 'clawhub install anthropics/mcp-builder',
     added: '2026-03-25',
+    examples: [
+      'Build an MCP server for my REST API',
+      'Add a tool that reads from my database',
+      'Create a new MCP server from scratch',
+    ],
   },
   {
     author: 'anthropics',
@@ -141,6 +203,11 @@ export const skills: Skill[] = [
     path: 'skills/skill-creator/SKILL.md',
     install: 'clawhub install anthropics/skill-creator',
     added: '2026-03-25',
+    examples: [
+      'Create a new skill for this workflow',
+      'Audit my SKILL.md for best practices',
+      'Package this prompt into a reusable skill',
+    ],
   },
   {
     author: 'anthropics',
@@ -151,6 +218,11 @@ export const skills: Skill[] = [
     path: 'skills/claude-api/SKILL.md',
     install: 'clawhub install anthropics/claude-api',
     added: '2026-03-25',
+    examples: [
+      'Build a chat app using the Claude API',
+      'Add streaming responses to my Node.js app',
+      'Implement tool use with the Anthropic SDK',
+    ],
   },
   // ── gstack — Claude Code Workflow (garrytan/gstack) ─────────────────────
   {
@@ -162,6 +234,11 @@ export const skills: Skill[] = [
     path: 'review/SKILL.md',
     install: 'clawhub install gstack/review',
     added: '2026-03-24',
+    examples: [
+      'Review my current PR',
+      'Check this diff for security issues',
+      'Do a pre-landing review on this branch',
+    ],
   },
   {
     author: 'gstack',
@@ -172,6 +249,11 @@ export const skills: Skill[] = [
     path: 'ship/SKILL.md',
     install: 'clawhub install gstack/ship',
     added: '2026-03-24',
+    examples: [
+      '/ship',
+      'Ship my current branch',
+      'Create a PR for these changes',
+    ],
   },
   {
     author: 'gstack',
@@ -182,6 +264,11 @@ export const skills: Skill[] = [
     path: 'investigate/SKILL.md',
     install: 'clawhub install gstack/investigate',
     added: '2026-03-24',
+    examples: [
+      'Why is this test failing?',
+      'Investigate the root cause of this bug',
+      'Debug why the API keeps returning 500',
+    ],
   },
   {
     author: 'gstack',
@@ -192,6 +279,11 @@ export const skills: Skill[] = [
     path: 'qa/SKILL.md',
     install: 'clawhub install gstack/qa',
     added: '2026-03-24',
+    examples: [
+      'QA the checkout page before I merge',
+      'Find visual bugs on this branch',
+      'Run a full QA pass on /dashboard',
+    ],
   },
   {
     author: 'gstack',
@@ -202,6 +294,11 @@ export const skills: Skill[] = [
     path: 'design-review/SKILL.md',
     install: 'clawhub install gstack/design-review',
     added: '2026-03-24',
+    examples: [
+      'Do a design review on my homepage',
+      'Check this UI for visual inconsistencies',
+      'Find spacing issues on the settings page',
+    ],
   },
   {
     author: 'gstack',
@@ -212,6 +309,11 @@ export const skills: Skill[] = [
     path: 'retro/SKILL.md',
     install: 'clawhub install gstack/retro',
     added: '2026-03-24',
+    examples: [
+      '/retro',
+      'Run a weekly retrospective',
+      'What did we ship this week?',
+    ],
   },
 ];
 
