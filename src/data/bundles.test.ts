@@ -110,10 +110,10 @@ describe('bundles data integrity', () => {
     });
   });
 
-  it('installAll is a valid /install command when present', () => {
+  it('installAll is a valid clawhub install command when present', () => {
     getScenarios().forEach(s => {
       if (s.installAll !== undefined) {
-        expect(s.installAll).toMatch(/^\/install\s+\S+/);
+        expect(s.installAll).toMatch(/^clawhub install\s+\S+/);
       }
     });
   });
