@@ -109,4 +109,28 @@ describe('bundles data integrity', () => {
       expect(s.skillsWithReason.length).toBeGreaterThan(0);
     });
   });
+
+  it('installAll is a valid /install command when present', () => {
+    getScenarios().forEach(s => {
+      if (s.installAll !== undefined) {
+        expect(s.installAll).toMatch(/^\/install\s+\S+/);
+      }
+    });
+  });
+
+  it('ScenarioBundle accepts optional installAll and configSnippet fields', () => {
+    const withInstallAll: ScenarioBundle = {
+      ...scenarioBundle,
+      installAll: '/install gstack/review gstack/qa',
+    };
+    expect(withInstallAll.installAll).toBe('/install gstack/review gstack/qa');
+    expect(withInstallAll.configSnippet).toBeUndefined();
+
+    const withBoth: ScenarioBundle = {
+      ...scenarioBundle,
+      installAll: '/install gstack/review',
+      configSnippet: '# Use review\n/review',
+    };
+    expect(withBoth.configSnippet).toBeDefined();
+  });
 });

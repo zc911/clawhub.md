@@ -23,6 +23,8 @@ export interface ScenarioBundle {
   goal: string;     // "What are you trying to do?" label
   outcome: string;  // "After installing, your agent can..."
   skillsWithReason: SkillWithReason[];
+  installAll?: string;    // single command to install all skills in bundle
+  configSnippet?: string; // optional CLAUDE.md configuration snippet
   curator: string;
   created: string;  // ISO date
 }
@@ -97,6 +99,7 @@ export const bundles: Bundle[] = [
         ],
       },
     ],
+    installAll: '/install gstack/review gstack/qa',
     curator: 'clawhub',
     created: '2026-03-25',
   },
@@ -128,6 +131,7 @@ export const bundles: Bundle[] = [
         ],
       },
     ],
+    installAll: '/install gstack/review gstack/ship',
     curator: 'clawhub',
     created: '2026-03-25',
   },
@@ -170,6 +174,7 @@ export const bundles: Bundle[] = [
         ],
       },
     ],
+    installAll: '/install openclaw/gog openclaw/slack openclaw/xurl',
     curator: 'clawhub',
     created: '2026-03-25',
   },
@@ -212,6 +217,7 @@ export const bundles: Bundle[] = [
         ],
       },
     ],
+    installAll: '/install openclaw/summarize openclaw/obsidian openclaw/notion',
     curator: 'clawhub',
     created: '2026-03-25',
   },

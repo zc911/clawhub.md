@@ -2,6 +2,14 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.0.2] - 2026-03-26
+
+### Added
+- **`installAll` field on ScenarioBundle**: single `/install` command to install all skills in a scenario bundle at once — shown as "Install everything at once" on `/guide/[slug]` pages
+- **`configSnippet` field on ScenarioBundle**: optional CLAUDE.md snippet rendered at bottom of guide pages
+- **Adaptive subtitle**: guide pages show "Or install N skills individually" when `installAll` is present, vs "Install N skills to get started" when absent
+- **Tests**: 2 new tests covering `installAll` command format validation and optional field types on `ScenarioBundle`
+
 ## [1.0.1] - 2026-03-25
 
 ### Added
