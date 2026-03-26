@@ -3,13 +3,26 @@ import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeHighlight from 'rehype-highlight';
+import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
+
+// Allow highlight.js class attributes on code/span elements
+const sanitizeSchema = {
+  ...defaultSchema,
+  attributes: {
+    ...defaultSchema.attributes,
+    code: [...(defaultSchema.attributes?.code ?? []), 'className'],
+    span: [...(defaultSchema.attributes?.span ?? []), 'className'],
+    pre: [...(defaultSchema.attributes?.pre ?? []), 'className'],
+  },
+};
 
 /**
  * Renders a markdown string to an HTML string.
  * Uses GFM (GitHub Flavored Markdown) — same flavour as GitHub,
  * where all skills live.
  * Syntax highlighting via highlight.js (theme applied via CSS).
+ * rehype-sanitize strips any raw HTML injected via skill files.
  */
 export async function renderSkillMarkdown(md: string): Promise<string> {
   if (!md) return '';
@@ -19,6 +32,7 @@ export async function renderSkillMarkdown(md: string): Promise<string> {
     .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: false })
     .use(rehypeHighlight, { detect: true })
+    .use(rehypeSanitize, sanitizeSchema)
     .use(rehypeStringify)
     .process(md);
 
