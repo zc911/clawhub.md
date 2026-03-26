@@ -2,6 +2,11 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.0.4] - 2026-03-26
+
+### Fixed
+- **`installAll` command format standardized**: all scenario bundles now use `clawhub install ...` (matching individual skill format) instead of `/install ...` — eliminates the two-format confusion on guide pages
+
 ## [1.0.3] - 2026-03-26
 
 ### Added
