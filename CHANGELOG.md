@@ -2,6 +2,29 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.0.4] - 2026-03-26
+
+### Fixed
+- **`installAll` command format standardized**: all scenario bundles now use `clawhub install ...` (matching individual skill format) instead of `/install ...` — eliminates the two-format confusion on guide pages
+
+## [1.0.3] - 2026-03-26
+
+### Added
+- **`meeting-prep` scenario**: "Run Better Meetings" — prep with calendar/email context, summarize docs before the call, save notes to Notion
+- **`installAll` on all scenarios**: `stay-connected` and `research-and-notes` now have one-command install
+
+### Changed
+- **`code-review` scenario expanded to full dev lifecycle**: renamed "Review, QA & Ship", added `gstack/ship` as 3rd skill, updated `installAll` to include all three
+- **`ship-and-deploy` scenario replaced** by `meeting-prep` — the dev lifecycle is now consolidated under `code-review`
+
+## [1.0.2] - 2026-03-26
+
+### Added
+- **`installAll` field on ScenarioBundle**: single `/install` command to install all skills in a scenario bundle at once — shown as "Install everything at once" on `/guide/[slug]` pages
+- **`configSnippet` field on ScenarioBundle**: optional CLAUDE.md snippet rendered at bottom of guide pages
+- **Adaptive subtitle**: guide pages show "Or install N skills individually" when `installAll` is present, vs "Install N skills to get started" when absent
+- **Tests**: 2 new tests covering `installAll` command format validation and optional field types on `ScenarioBundle`
+
 ## [1.0.1] - 2026-03-25
 
 ### Added

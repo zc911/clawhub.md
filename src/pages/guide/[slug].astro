@@ -40,8 +40,18 @@ const metaDescription = `${scenario.outcome} Install ${scenario.skillsWithReason
     </p>
   </div>
 
+  <!-- Install all — one command to get the full bundle -->
+  {scenario.installAll && (
+    <div style="margin-bottom: 28px;">
+      <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-tertiary, #6e7681); margin-bottom: 10px;">
+        Install everything at once
+      </p>
+      <InstallBox command={scenario.installAll} />
+    </div>
+  )}
+
   <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-tertiary, #6e7681); margin-bottom: 20px;">
-    Install {skills.length} skill{skills.length !== 1 ? 's' : ''} to get started
+    {scenario.installAll ? `Or install ${skills.length} skill${skills.length !== 1 ? 's' : ''} individually` : `Install ${skills.length} skill${skills.length !== 1 ? 's' : ''} to get started`}
   </p>
 
   <!-- Skill list -->
@@ -79,6 +89,16 @@ const metaDescription = `${scenario.outcome} Install ${scenario.skillsWithReason
     </ol>
   ) : (
     <p class="empty-state">Skills coming soon.</p>
+  )}
+
+  <!-- Config snippet — add to CLAUDE.md -->
+  {scenario.configSnippet && (
+    <div style="margin-top: 32px; margin-bottom: 32px;">
+      <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-tertiary, #6e7681); margin-bottom: 10px;">
+        Add to your CLAUDE.md
+      </p>
+      <pre style="background: var(--bg-secondary, #161b22); border: 1px solid var(--border-color, #30363d); border-radius: 6px; padding: 14px 16px; font-size: 12px; color: var(--text-secondary); overflow-x: auto; line-height: 1.6; margin: 0;">{scenario.configSnippet}</pre>
+    </div>
   )}
 
   <hr />

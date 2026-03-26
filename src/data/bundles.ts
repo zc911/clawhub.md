@@ -23,6 +23,8 @@ export interface ScenarioBundle {
   goal: string;     // "What are you trying to do?" label
   outcome: string;  // "After installing, your agent can..."
   skillsWithReason: SkillWithReason[];
+  installAll?: string;    // single command to install all skills in bundle
+  configSnippet?: string; // optional CLAUDE.md configuration snippet
   curator: string;
   created: string;  // ISO date
 }
@@ -71,10 +73,10 @@ export const bundles: Bundle[] = [
   {
     scenario: true,
     slug: 'code-review',
-    name: 'Code Review with AI Agents',
-    description: 'catch bugs, trust issues, and structural problems before they land',
-    goal: 'Code review & quality',
-    outcome: 'Your agent reviews every PR before it lands — SQL safety, trust boundary violations, and visual bugs that unit tests miss.',
+    name: 'Review, QA & Ship',
+    description: 'catch bugs, QA before merge, and ship with a full changelog — the complete dev workflow',
+    goal: 'Review, QA & ship code',
+    outcome: 'Catch bugs before they land, QA before merge, and ship with tests run, changelog written, and PR created — all in one workflow.',
     skillsWithReason: [
       {
         slug: 'gstack/review',
@@ -96,31 +98,10 @@ export const bundles: Bundle[] = [
           'Run a full QA pass on /dashboard',
         ],
       },
-    ],
-    curator: 'clawhub',
-    created: '2026-03-25',
-  },
-  {
-    scenario: true,
-    slug: 'ship-and-deploy',
-    name: 'Ship & Deploy',
-    description: 'go from local changes to a merged PR with confidence',
-    goal: 'Ship & deploy faster',
-    outcome: 'Go from local changes to a merged PR in one command — tests run, changelog written, version bumped, PR created.',
-    skillsWithReason: [
-      {
-        slug: 'gstack/review',
-        reason: 'Run a pre-landing review first — catches issues before they\'re in main.',
-        order: 1,
-        examples: [
-          'Review my changes before shipping',
-          'Check this diff for issues',
-        ],
-      },
       {
         slug: 'gstack/ship',
         reason: 'Merges base branch, runs tests, bumps VERSION, writes CHANGELOG, creates PR. The full ship workflow in one command.',
-        order: 2,
+        order: 3,
         examples: [
           '/ship',
           'Ship my current branch',
@@ -128,8 +109,52 @@ export const bundles: Bundle[] = [
         ],
       },
     ],
+    installAll: 'clawhub install gstack/review gstack/qa gstack/ship',
     curator: 'clawhub',
     created: '2026-03-25',
+  },
+  {
+    scenario: true,
+    slug: 'meeting-prep',
+    name: 'Run Better Meetings',
+    description: 'walk in prepared and walk out with notes sent — automatically',
+    goal: 'Prep & follow up on meetings',
+    outcome: 'Brief before every call, clean notes after. Your agent pulls the context, captures decisions, and sends the follow-ups — so you can focus on the conversation.',
+    skillsWithReason: [
+      {
+        slug: 'openclaw/gog',
+        reason: 'Check your calendar for upcoming meetings, pull relevant emails for context, and send follow-up emails when the call is done.',
+        order: 1,
+        examples: [
+          'What meetings do I have today?',
+          'Pull emails from Alice about the Q2 project',
+          'Send a follow-up to everyone on today\'s 3pm call',
+        ],
+      },
+      {
+        slug: 'openclaw/summarize',
+        reason: 'Summarize a doc, slide deck, or past meeting recording before the call so you\'re never walking in cold.',
+        order: 2,
+        examples: [
+          'Summarize this proposal PDF before my 2pm',
+          'TL;DR the last 3 emails in this thread',
+          'Summarize the recording from last week\'s kickoff',
+        ],
+      },
+      {
+        slug: 'openclaw/notion',
+        reason: 'Store meeting notes, decisions, and action items in Notion so nothing gets lost after the call.',
+        order: 3,
+        examples: [
+          'Create a meeting note in Notion for today\'s standup',
+          'Add these action items to my Notion tasks',
+          'Log the decisions from this call to the project page',
+        ],
+      },
+    ],
+    installAll: 'clawhub install openclaw/gog openclaw/summarize openclaw/notion',
+    curator: 'clawhub',
+    created: '2026-03-26',
   },
   {
     scenario: true,
@@ -170,6 +195,7 @@ export const bundles: Bundle[] = [
         ],
       },
     ],
+    installAll: 'clawhub install openclaw/gog openclaw/slack openclaw/xurl',
     curator: 'clawhub',
     created: '2026-03-25',
   },
@@ -212,6 +238,7 @@ export const bundles: Bundle[] = [
         ],
       },
     ],
+    installAll: 'clawhub install openclaw/summarize openclaw/obsidian openclaw/notion',
     curator: 'clawhub',
     created: '2026-03-25',
   },
