@@ -18,9 +18,9 @@
 
 ## Critical: From CEO Review (2026-03-24) — Fix Before Next Traffic
 
-- **Unhandled exceptions in SSR pages** — `kv.get()`, `JSON.parse()`, `unified().process()`, and `fetchSkill()` can throw; errors propagate unrescued → 500 in production with no graceful fallback. Wrap each in try/catch, return error page. Effort: S (CC: ~20 min). Fix immediately.
+- ~~**Unhandled exceptions in SSR pages**~~ ✅ Fixed — `r/[...path].astro` wraps `fetchSkill()` in try/catch and shows graceful error UI. `renderSkillMarkdown` returns empty string for empty input.
 
-- **XSS risk in /r/ renderer** — Markdown from arbitrary GitHub repos is rendered via `rehype-raw` with no sanitization. A malicious skill file could inject `<script>` tags. Add `rehype-sanitize` to the unified pipeline. Effort: S (CC: ~10 min). Fix before promoting /r/ route.
+- ~~**XSS risk in /r/ renderer**~~ ✅ Fixed — `renderSkillMarkdown.ts` uses `rehypeSanitize` with a custom schema (allows `className` on `code`/`span`/`pre` for syntax highlighting). `allowDangerousHtml: false` on `remarkRehype`. Verified in commit `21b7d96`.
 
 - ~~**No CDN caching on SSR responses**~~ ✅ Fixed — `Cache-Control: s-maxage=3600, stale-while-revalidate=86400` added to `/r/[...path].astro`.
 
@@ -48,7 +48,7 @@
 
 ## P1: From autoplan Review (2026-03-26)
 
-- **fetchSkill.ts: 0% test coverage** — The core caching/fetching logic has no tests. Critical gap: any refactor of KV cache logic, branch fallback (main→master), or stale-serve behavior can silently regress with no test catching it. **Context:** Write `src/lib/fetchSkill.test.ts` covering 8 paths: fresh cache hit, stale+fresh, stale+error fallback, not_found, branch fallback, forceRefresh, KV write-through, concurrent. Use Vitest with a mock `KVStore`. Effort: S (human: ~3h / CC: ~30 min). Priority: P1. Start: `src/lib/fetchSkill.test.ts`.
+- ~~**fetchSkill.ts: 0% test coverage**~~ ✅ Fixed — `src/lib/fetchSkill.test.ts` written covering 11 paths: fresh cache hit, stale+fresh, stale+error fallback, not_found, branch fallback (main→master), forceRefresh, KV write-through, KV.get throws, kv=null, network error. Verified in eng review 2026-03-27.
 
 - **Thundering herd on /r/ cold cache** — Multiple concurrent requests for a cold-cache `/r/` URL each trigger their own GitHub API call with no deduplication. At 60 unauthenticated req/hr, 2-3 simultaneous first-visitors can burn the rate limit. **Context:** Add a `Map<string, Promise<GitHubResult>>` in `fetchFromGitHub` to deduplicate in-flight fetches by URL. Monitor: if Cloudflare Analytics shows rate-limit 429s in error logs, prioritize immediately. Effort: S (CC: ~20 min). Priority: P2 (revisit at meaningful traffic).
 

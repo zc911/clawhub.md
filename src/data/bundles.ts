@@ -1,7 +1,7 @@
 export interface SkillWithReason {
   slug: string;     // "author/slug" reference
   reason: string;
-  order: number;    // reserved, unused in Phase 1
+  order?: number;   // reserved, unused in Phase 1
   examples?: string[];  // what to say to your agent after installing
 }
 

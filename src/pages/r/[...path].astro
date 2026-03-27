@@ -8,6 +8,11 @@ import { renderSkillMarkdown, extractSkillMeta } from '@/lib/renderSkillMarkdown
 import { extractInstallCommand } from '@/lib/extractInstallCommand';
 import { env } from 'cloudflare:workers';
 
+interface CloudflareEnv {
+  SKILL_CACHE?: { get<T>(key: string, type: 'json'): Promise<T | null>; put(key: string, value: string, opts?: { expirationTtl?: number }): Promise<void> };
+  GITHUB_TOKEN?: string;
+}
+
 const rawPath = Astro.params.path ?? '';
 
 const parsed = parseSkillPath(rawPath);
@@ -16,8 +21,9 @@ if (!parsed) {
   return new Response(null, { status: 404 });
 }
 
-const kv = (env as any)?.SKILL_CACHE ?? null;
-const token = (env as any)?.GITHUB_TOKEN as string | undefined;
+const typedEnv = env as unknown as CloudflareEnv;
+const kv = typedEnv.SKILL_CACHE ?? null;
+const token = typedEnv.GITHUB_TOKEN;
 const forceRefresh = Astro.url.searchParams.get('refresh') === '1';
 
 // CDN caching: 1 hour fresh, serve stale for up to 24 hours while revalidating
