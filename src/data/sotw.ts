@@ -6,7 +6,7 @@ export interface SOTW {
 
 // Set to null to fall back to most recently added skill
 export const sotw: SOTW | null = {
-  skill: 'openclaw/gog',
-  reason: 'The most-downloaded OpenClaw skill. Control Gmail, Calendar, Drive, and Sheets from your terminal — without leaving the agent.',
-  picked: '2026-03-25',
+  skill: 'openclaw/github',
+  reason: 'Review PRs, triage issues, and check CI — all from your agent. The fastest way to stay on top of your GitHub workflow without touching the browser.',
+  picked: '2026-03-27',
 };

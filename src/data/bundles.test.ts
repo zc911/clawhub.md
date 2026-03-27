@@ -57,10 +57,11 @@ describe('experts data integrity', () => {
     expect(slugs).toContain('research-expert');
   });
 
-  it('has dev-expert and daily-briefing slugs', () => {
+  it('has dev-expert, daily-briefing, and creator-expert slugs', () => {
     const slugs = getExperts().map(e => e.slug);
     expect(slugs).toContain('dev-expert');
     expect(slugs).toContain('daily-briefing');
+    expect(slugs).toContain('creator-expert');
   });
 
   it('all experts have at least 1 skill with reason', () => {

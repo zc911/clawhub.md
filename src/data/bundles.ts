@@ -95,6 +95,48 @@ export const experts: Expert[] = [
     created: '2026-03-27',
   },
   {
+    slug: 'creator-expert',
+    name: 'Creator Expert',
+    description: 'research, draft, and publish to X — all from the terminal',
+    goal: 'Write, publish & grow an audience',
+    outcome: 'Summarize source material, draft in Notion, publish to X, and track engagement — without switching between five different apps.',
+    skillsWithReason: [
+      {
+        slug: 'openclaw/summarize',
+        reason: 'Quickly digest articles, papers, and videos to extract the ideas worth writing about.',
+        order: 1,
+        examples: [
+          'Summarize this article into key points I can write about',
+          'TL;DR this research paper in plain English',
+          'What are the most interesting ideas in this YouTube talk?',
+        ],
+      },
+      {
+        slug: 'openclaw/notion',
+        reason: 'Draft and organize your content in Notion — keep a writing queue, outline posts, and store your ideas in one place.',
+        order: 2,
+        examples: [
+          'Create a Notion draft for a post about AI agents',
+          'Add this idea to my content queue in Notion',
+          'What\'s in my writing backlog?',
+        ],
+      },
+      {
+        slug: 'openclaw/xurl',
+        reason: 'Publish threads, check mentions, and monitor how your posts are doing — without opening the app.',
+        order: 3,
+        examples: [
+          'Post this thread to X',
+          'Check my mentions and replies from today',
+          'What\'s my most-engaged post this week?',
+        ],
+      },
+    ],
+    installAll: 'clawhub install openclaw/summarize openclaw/notion openclaw/xurl',
+    curator: 'clawhub',
+    created: '2026-03-27',
+  },
+  {
     slug: 'meeting-expert',
     name: 'Meeting Expert',
     description: 'walk in prepared and walk out with notes sent — automatically',

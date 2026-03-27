@@ -2,6 +2,14 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.1.0] - 2026-03-27
+
+### Added
+- **Creator Expert** (`/expert/creator-expert`): content creation workflow — research with summarize, draft in Notion, publish to X and track engagement
+
+### Changed
+- **Top pick this week**: updated to `openclaw/github` — more relevant for the developer audience
+
 ## [1.0.9] - 2026-03-27
 
 ### Added
