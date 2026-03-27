@@ -2,6 +2,22 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.2.3] - 2026-03-27
+
+### Added
+- **Bilingual i18n (EN + ZH)** — full Chinese language support across the site
+  - All Expert data fields (`name`, `description`, `goal`, `outcome`, `reason`, `examples`) converted to `{ en: string; zh: string }` bilingual type `L`
+  - `t(field, locale)` helper exported from `bundles.ts` for locale-aware rendering
+  - Chinese pages at `/zh/` — home (`/zh/`), Expert list (`/zh/experts`), Expert detail (`/zh/expert/[slug]`)
+  - Language switcher in nav — switches between EN and ZH preserving the current path
+  - `generateExpertMarkdown()` now accepts a `locale` param (defaults to `'en'`; `.md` endpoint always English for AI agent consumption)
+  - 4 Chinese-focused Experts (飞书助理, 钉钉会议助理, 企微客服助理, 开发者助理中文版) now fully bilingual with Chinese UI
+- **vitest `@` path alias** — added `resolve.alias` to `vitest.config.ts` so tests can import via `@/` same as source files
+- **`expertMarkdown.test.ts`** — 5 new tests covering `generateExpertMarkdown` in both EN and ZH locales
+
+### Fixed
+- **Nav `/zh/browse` 404** — language switcher nav "技能库" link now points to `/browse` (no zh/browse page exists yet); prevents 404 for Chinese users
+
 ## [1.2.2] - 2026-03-27
 
 ### Changed

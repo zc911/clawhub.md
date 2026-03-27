@@ -67,3 +67,7 @@
 - ~~**Recipe content language: Chinese titles in design doc**~~ ✅ Resolved — Chinese Experts added with Chinese content (飞书助理, 钉钉会议助理, 企微客服助理, 开发者助理中文版). Language decision: Chinese content in Chinese Expert entries, English content in English Expert entries.
 
 - ~~**Recipe ↔ Expert ↔ Scenario taxonomy**~~ ✅ Resolved — Recipe concept absorbed into Expert. One unified concept: Expert = curated skill set for a specific workflow goal, whether persona-based (Dev Expert) or task-based (飞书助理).
+
+## Completed 2026-03-27
+
+- ~~**Bilingual i18n (EN + ZH)**~~ ✅ Done — All Expert data fields (`name`, `description`, `goal`, `outcome`, `reason`, `examples`) converted to `{ en: string; zh: string }` `L` type. `t(field, locale)` helper exported from `bundles.ts`. Chinese pages at `src/pages/zh/` (`/zh/`, `/zh/experts`, `/zh/expert/[slug]`) with full ZH UI strings. Language switcher in nav. Build verified: all 10 Expert pages generated in both `/expert/` and `/zh/expert/`. 56 tests pass (5 new for expertMarkdown locale coverage). TypeScript clean.
