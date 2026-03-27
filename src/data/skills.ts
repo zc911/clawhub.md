@@ -8,6 +8,7 @@ export interface Skill {
   install: string;   // full install command
   added: string;     // ISO date
   examples?: string[]; // what to say to your agent after installing
+  setupSteps?: string[]; // configuration steps for the agent to follow after install
 }
 
 export const skills: Skill[] = [
@@ -27,6 +28,11 @@ export const skills: Skill[] = [
       'Share this Drive file with my team',
       'Add today\'s tasks to my Sheets tracker',
     ],
+    setupSteps: [
+      'Run `/gog auth` to start the Google OAuth flow',
+      'Grant access to Gmail, Calendar, Drive, and Sheets when prompted',
+      'Auth persists across sessions — re-run if you ever revoke access',
+    ],
   },
   {
     author: 'openclaw',
@@ -41,6 +47,11 @@ export const skills: Skill[] = [
       'Review my current PR for issues',
       'Create an issue: login page crashes on mobile',
       'What\'s the CI status on my branch?',
+    ],
+    setupSteps: [
+      'Authenticate with the GitHub CLI: run `gh auth login` and follow the prompts',
+      'Choose HTTPS or SSH, then log in via browser — no extra tokens needed',
+      'The skill uses `gh` under the hood, so all your existing GitHub access applies',
     ],
   },
   {
@@ -57,6 +68,10 @@ export const skills: Skill[] = [
       'TL;DR this PDF',
       'Summarize this YouTube video',
     ],
+    setupSteps: [
+      'No external accounts or API keys needed',
+      'Works immediately after install — paste any URL, file path, or YouTube link',
+    ],
   },
   {
     author: 'openclaw',
@@ -71,6 +86,11 @@ export const skills: Skill[] = [
       'Save this summary to my Obsidian vault',
       'Search my notes for "product strategy"',
       'Create a note about today\'s meeting',
+    ],
+    setupSteps: [
+      'Set your vault path: add `OBSIDIAN_VAULT_PATH=/absolute/path/to/your/vault` to your environment',
+      'No external auth needed — the skill reads and writes directly to your local vault',
+      'Tip: use `echo $OBSIDIAN_VAULT_PATH` to verify the path is set correctly',
     ],
   },
   {
@@ -87,6 +107,11 @@ export const skills: Skill[] = [
       'Post: just shipped v2.0',
       'Search X for "Claude Code" trends',
     ],
+    setupSteps: [
+      'Apply for an X Developer account at https://developer.twitter.com (free tier is sufficient)',
+      'Create a project and app, then generate API Key, API Secret, Access Token, and Access Token Secret with Read+Write permissions',
+      'Set four environment variables: `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_TOKEN_SECRET`',
+    ],
   },
   {
     author: 'openclaw',
@@ -101,6 +126,13 @@ export const skills: Skill[] = [
       'Post to #general: deployment is live',
       'What\'s new in #engineering today?',
       'Send a DM to Alice about the PR',
+    ],
+    setupSteps: [
+      'Create a Slack app at https://api.slack.com/apps → "Create New App" → "From scratch"',
+      'Under "OAuth & Permissions", add bot scopes: `channels:read`, `chat:write`, `im:write`, `users:read`, `channels:history`',
+      'Click "Install to Workspace" and copy the Bot User OAuth Token',
+      'Set environment variable: `SLACK_BOT_TOKEN=xoxb-your-token`',
+      'Invite the bot to the channels it needs to post in: `/invite @your-app-name`',
     ],
   },
   {
@@ -117,6 +149,12 @@ export const skills: Skill[] = [
       'Create a Notion page with these meeting notes',
       'Update my reading list in Notion',
     ],
+    setupSteps: [
+      'Go to https://www.notion.so/my-integrations → "New integration" → give it a name',
+      'Copy the "Internal Integration Secret" (starts with `ntn_`)',
+      'Set environment variable: `NOTION_TOKEN=ntn_your_secret`',
+      'In each Notion page or database you want to use: click "..." → "Connect to" → select your integration',
+    ],
   },
   {
     author: 'openclaw',
@@ -131,6 +169,10 @@ export const skills: Skill[] = [
       'What\'s the weather in San Francisco today?',
       'Will it rain this weekend in New York?',
       '5-day forecast for London',
+    ],
+    setupSteps: [
+      'No configuration needed — uses public APIs (wttr.in and Open-Meteo)',
+      'Works immediately after install',
     ],
   },
   {
@@ -161,6 +203,11 @@ export const skills: Skill[] = [
       'Delegate this refactor to Claude Code',
       'Have Codex review this function',
       'Run this task in a background coding agent',
+    ],
+    setupSteps: [
+      'Ensure Claude Code is installed: `npm install -g @anthropic-ai/claude-code` (or see https://claude.ai/code)',
+      'Optional — for Codex delegation: `npm install -g @openai/codex` then `codex login`',
+      'No extra environment variables needed if Claude Code is already working in your session',
     ],
   },
   // ── Anthropic Official Skills (anthropics/skills) ────────────────────────

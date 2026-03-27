@@ -2,6 +2,14 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.2.0] - 2026-03-27
+
+### Added
+- **Agentic install** — each Expert now has a machine-readable `.md` file at `/expert/[slug].md`, designed for AI agents to read and execute. Users on any interface (OpenClaw UI, Telegram, Feishu) can simply say: *"Read https://clawhub.md/expert/meeting-expert.md and set me up"*
+- **`setupSteps`** field on `Skill` — per-skill configuration instructions (OAuth flows, API keys, env vars) baked into the generated `.md` files
+- **Agentic install callout** on every Expert page — prominent block showing the one-liner prompt to send to your agent
+- **Expert page back-link** changed from "← Home" to "← Experts" for better navigation
+
 ## [1.1.1] - 2026-03-27
 
 ### Changed
