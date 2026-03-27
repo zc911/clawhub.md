@@ -2,6 +2,14 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.2.1] - 2026-03-27
+
+### Changed
+- **Expert page redesign**: removed manual Install / Configure / Use sections — Agentic Install is now the sole primary action
+- **Markdown preview**: added collapsed `<details>` section on each Expert page that renders the full `.md` file content — for power users who want to inspect what the agent will execute
+- **`InstallBox`**: added optional `label` prop (defaults to "Install") — Expert page uses "Say to your agent"
+- **Shared utility**: extracted `generateExpertMarkdown()` into `src/utils/expertMarkdown.ts`, used by both the `.md` endpoint and the page renderer
+
 ## [1.2.0] - 2026-03-27
 
 ### Added

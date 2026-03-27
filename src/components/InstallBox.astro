@@ -1,14 +1,15 @@
 ---
 interface Props {
   command: string | null;
+  label?: string;
 }
 
-const { command } = Astro.props;
+const { command, label = 'Install' } = Astro.props;
 ---
 
 {command ? (
   <div>
-    <span class="install-label">Install</span>
+    <span class="install-label">{label}</span>
     <div class="install-box">
       <span class="install-command">{command}</span>
       <button

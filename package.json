@@ -17,6 +17,7 @@
     "@astrojs/sitemap": "^3.7.1",
     "astro": "^6.0.8",
     "js-yaml": "^4.1.1",
+    "marked": "^17.0.5",
     "rehype-highlight": "^7.0.2",
     "rehype-sanitize": "^6.0.0",
     "rehype-stringify": "^10.0.1",
