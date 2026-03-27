@@ -20,6 +20,81 @@ export interface Expert {
 
 export const experts: Expert[] = [
   {
+    slug: 'dev-expert',
+    name: 'Dev Expert',
+    description: 'review PRs, track issues, and delegate coding tasks — without leaving the terminal',
+    goal: 'Code, review & ship faster',
+    outcome: 'Manage your GitHub workflow and delegate coding tasks to AI agents — all from your agent, with no context switching.',
+    skillsWithReason: [
+      {
+        slug: 'openclaw/github',
+        reason: 'Review open PRs, triage issues, check CI status, and create new issues — all via the gh CLI without opening a browser.',
+        order: 1,
+        examples: [
+          'Review my open PRs for anything blocking',
+          'Create an issue: login page crashes on Safari',
+          'What\'s the CI status on my current branch?',
+          'List all open issues assigned to me',
+        ],
+      },
+      {
+        slug: 'openclaw/coding-agent',
+        reason: 'Delegate a refactor, background task, or code review to Claude Code or Codex while you stay focused on the bigger picture.',
+        order: 2,
+        examples: [
+          'Delegate this refactor to a coding agent',
+          'Have Codex review this function for edge cases',
+          'Run this migration script in a background agent',
+        ],
+      },
+    ],
+    installAll: 'clawhub install openclaw/github openclaw/coding-agent',
+    curator: 'clawhub',
+    created: '2026-03-27',
+  },
+  {
+    slug: 'daily-briefing',
+    name: 'Daily Briefing',
+    description: 'inbox highlights, calendar, and weather — before you open a single app',
+    goal: 'Start your day in 30 seconds',
+    outcome: 'One command. Today\'s weather, inbox highlights, and what\'s on your calendar — so you know what matters before the day starts.',
+    skillsWithReason: [
+      {
+        slug: 'openclaw/gog',
+        reason: 'Pull urgent emails and check today\'s calendar — get the full picture of your day without opening Gmail.',
+        order: 1,
+        examples: [
+          'What\'s urgent in my inbox today?',
+          'What meetings do I have this afternoon?',
+          'Any emails from my team since yesterday?',
+        ],
+      },
+      {
+        slug: 'openclaw/weather',
+        reason: 'Get the weather for your location so you can plan your day — commute, lunch, travel, whatever.',
+        order: 2,
+        examples: [
+          'What\'s the weather today in my city?',
+          'Will it rain this afternoon in London?',
+          '5-day forecast for this week',
+        ],
+      },
+      {
+        slug: 'openclaw/summarize',
+        reason: 'TL;DR a long email thread, article, or doc when you only have 2 minutes to get up to speed.',
+        order: 3,
+        examples: [
+          'TL;DR the last 5 emails in this thread',
+          'Summarize this article before my 9am',
+          'Give me the key points from this document',
+        ],
+      },
+    ],
+    installAll: 'clawhub install openclaw/gog openclaw/weather openclaw/summarize',
+    curator: 'clawhub',
+    created: '2026-03-27',
+  },
+  {
     slug: 'meeting-expert',
     name: 'Meeting Expert',
     description: 'walk in prepared and walk out with notes sent — automatically',

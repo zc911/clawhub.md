@@ -2,6 +2,13 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.0.9] - 2026-03-27
+
+### Added
+- **Dev Expert** (`/expert/dev-expert`): skill set for developers — GitHub ops (PRs, issues, CI) + AI coding agent delegation
+- **Daily Briefing Expert** (`/expert/daily-briefing`): morning workflow — inbox highlights, calendar, weather, and quick summaries in one session
+- **Tests**: updated integrity tests to cover new experts and allow `>= 3` count
+
 ## [1.0.8] - 2026-03-27
 
 ### Added

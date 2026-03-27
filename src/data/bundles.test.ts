@@ -46,8 +46,8 @@ describe('getExperts', () => {
 });
 
 describe('experts data integrity', () => {
-  it('has exactly 3 experts', () => {
-    expect(getExperts().length).toBe(3);
+  it('has at least 3 experts', () => {
+    expect(getExperts().length).toBeGreaterThanOrEqual(3);
   });
 
   it('has meeting-expert, comms-expert, research-expert slugs', () => {
@@ -55,6 +55,12 @@ describe('experts data integrity', () => {
     expect(slugs).toContain('meeting-expert');
     expect(slugs).toContain('comms-expert');
     expect(slugs).toContain('research-expert');
+  });
+
+  it('has dev-expert and daily-briefing slugs', () => {
+    const slugs = getExperts().map(e => e.slug);
+    expect(slugs).toContain('dev-expert');
+    expect(slugs).toContain('daily-briefing');
   });
 
   it('all experts have at least 1 skill with reason', () => {
