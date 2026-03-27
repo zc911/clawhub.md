@@ -22,12 +22,14 @@ const metaDescription = `${expert.outcome} Tell your agent: "${agentPrompt}"`;
 
 const markdownContent = generateExpertMarkdown(expert);
 const renderedMarkdown = await marked.parse(markdownContent);
+
+const allExamples = expert.skillsWithReason.filter(e => e.examples && e.examples.length > 0);
 ---
 
 <Base title={expert.goal} description={metaDescription}>
 
   <!-- Header -->
-  <div style="margin-bottom: 28px;">
+  <div style="margin-bottom: 36px;">
     <a href="/experts" style="font-size: 12px; color: var(--text-secondary); text-decoration: none; display: inline-block; margin-bottom: 16px;">← Experts</a>
     <h1 style="font-size: 22px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; line-height: 1.3;">
       {expert.goal}
@@ -37,19 +39,51 @@ const renderedMarkdown = await marked.parse(markdownContent);
     </p>
   </div>
 
-  <!-- Agentic Install — primary action -->
-  <section style="margin-bottom: 48px;">
-    <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px;">
-      Agentic install
-    </p>
-    <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.65; max-width: 520px; margin-bottom: 16px;">
-      Works on OpenClaw, Claude Code, Telegram, Feishu, and any agent interface.
-      Copy the prompt below and send it to your agent — it will install, configure, and verify everything for you.
-    </p>
-    <InstallBox command={agentPrompt} label="Say to your agent" />
-    <p style="font-size: 12px; color: var(--text-muted); margin-top: 10px;">
-      Your agent will read <a href={mdUrl} target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px;">{mdUrl}</a> and follow the setup instructions inside.
-    </p>
+  <!-- Step 1: Expert Install -->
+  <section class="expert-step" style="margin-bottom: 40px;">
+    <div class="expert-step-header">
+      <span class="expert-step-number">1</span>
+      <div>
+        <p class="expert-step-label">Expert Install</p>
+        <p class="expert-step-desc">Copy this to your agent — it will install, configure, and verify everything.</p>
+      </div>
+    </div>
+    <div style="margin-top: 16px;">
+      <InstallBox command={agentPrompt} label="Say to your agent" />
+      <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px; line-height: 1.6;">
+        Works on OpenClaw, Claude Code, Telegram, Feishu, and any agent interface. Your agent reads
+        <a href={mdUrl} target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px;">{expert.slug}.md</a>
+        and follows the setup steps inside.
+      </p>
+    </div>
+  </section>
+
+  <!-- Step 2: Talk and handle it -->
+  <section class="expert-step" style="margin-bottom: 48px;">
+    <div class="expert-step-header">
+      <span class="expert-step-number">2</span>
+      <div>
+        <p class="expert-step-label">Talk and handle it</p>
+        <p class="expert-step-desc">After setup, say these to your agent:</p>
+      </div>
+    </div>
+    <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 20px;">
+      {allExamples.map(entry => (
+        <div>
+          <p style="font-size: 12px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px;">
+            {entry.reason.split(' ').slice(0, 6).join(' ')}{entry.reason.split(' ').length > 6 ? '…' : ''}
+          </p>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+            {entry.examples!.map(ex => (
+              <li style="display: flex; gap: 8px; align-items: flex-start;">
+                <span style="color: var(--accent); flex-shrink: 0; font-size: 14px; line-height: 1.6;">›</span>
+                <span style="font-size: 14px; color: var(--text-secondary); font-style: italic; line-height: 1.6;">"{ex}"</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
   </section>
 
   <hr />
@@ -59,7 +93,7 @@ const renderedMarkdown = await marked.parse(markdownContent);
     <summary style="font-size: 13px; color: var(--text-muted); cursor: pointer; user-select: none; list-style: none; display: flex; align-items: center; gap: 6px; padding: 4px 0;">
       <span class="details-arrow">▶</span>
       <span>View setup file</span>
-      <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); opacity: 0.7;">{expert.slug}.md</span>
+      <span style="font-family: var(--font-mono); font-size: 11px; opacity: 0.6;">{expert.slug}.md</span>
     </summary>
     <div style="margin-top: 20px; padding: 24px 28px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-md); overflow-x: auto;">
       <div class="markdown-body expert-md-preview" set:html={renderedMarkdown} />
@@ -74,6 +108,43 @@ const renderedMarkdown = await marked.parse(markdownContent);
 </Base>
 
 <style>
+.expert-step-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.expert-step-number {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.expert-step-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.expert-step-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
 details > summary { outline: none; }
 details > summary::-webkit-details-marker { display: none; }
 details[open] .details-arrow { transform: rotate(90deg); }
@@ -85,7 +156,6 @@ details[open] .details-arrow { transform: rotate(90deg); }
   flex-shrink: 0;
 }
 
-/* Tone down the preview — it's secondary content */
 .expert-md-preview {
   font-size: 14px;
   color: var(--text-secondary);
