@@ -50,7 +50,7 @@
 
 - ~~**fetchSkill.ts: 0% test coverage**~~ ✅ Fixed — `src/lib/fetchSkill.test.ts` written covering 11 paths: fresh cache hit, stale+fresh, stale+error fallback, not_found, branch fallback (main→master), forceRefresh, KV write-through, KV.get throws, kv=null, network error. Verified in eng review 2026-03-27.
 
-- **Thundering herd on /r/ cold cache** — Multiple concurrent requests for a cold-cache `/r/` URL each trigger their own GitHub API call with no deduplication. At 60 unauthenticated req/hr, 2-3 simultaneous first-visitors can burn the rate limit. **Context:** Add a `Map<string, Promise<GitHubResult>>` in `fetchFromGitHub` to deduplicate in-flight fetches by URL. Monitor: if Cloudflare Analytics shows rate-limit 429s in error logs, prioritize immediately. Effort: S (CC: ~20 min). Priority: P2 (revisit at meaningful traffic).
+- **Thundering herd on /r/ cold cache** — Multiple concurrent requests for a cold-cache `/r/` URL each trigger their own GitHub API call with no deduplication. At 60 unauthenticated req/hr, 2-3 simultaneous first-visitors can burn the rate limit. **Context:** Add a `Map<string, Promise<GitHubResult>>` in `fetchFromGitHub` to deduplicate in-flight fetches by URL. **Reopen trigger:** if Cloudflare Analytics shows any 429 errors in logs, treat as P1 and implement immediately. Start: `src/lib/fetchSkill.ts` `fetchFromGitHub`. Effort: S (CC: ~20 min). Priority: P2.
 
 ## Deferred from Eng Review (2026-03-24)
 
@@ -59,3 +59,11 @@
 - **Install click analytics** — Track copy-button clicks as a proxy for installs. More valuable than page views for understanding what resonates. Effort: S (human: ~4 hrs / CC: ~15 min). Options: Cloudflare Analytics Engine (free, no third-party), or a simple KV counter per skill slug. Build once the core renderer ships.
 
 - **GitHub App token rotation automation** — Annual rotation is currently manual. Document rotation procedure in a runbook. Optionally: GitHub Actions scheduled workflow that creates a reminder issue 30 days before expiry. Effort: S (human: ~2 hrs / CC: ~10 min).
+
+## Deferred from Eng Review (2026-03-27)
+
+- **Recipes: missing `/recipes/[slug].md` machine-readable endpoints** — Experts have `.md` endpoints for agent consumption. Recipes are workflow compositions agents would also benefit from reading programmatically. Skipping this in v1 (static-first approach) is fine, but v2 should add them for consistency with the agentic pattern. **Context:** Follow the pattern in `src/pages/expert/[slug].md.ts`. Effort: XS (CC: ~10 min). Priority: P2. Depends on: Workflow Recipes v1 shipping.
+
+- **Recipe content language: Chinese titles in design doc** — The design doc strawman has Chinese recipe titles and content; the rest of the site is English. This needs a decision before recipes ship: (A) write recipes in English only, (B) write bilingual (EN + ZH), or (C) write in Chinese first for the target audience. **Context:** Design doc `~/.gstack/projects/zc911-clawhub.md/chenzhen-master-design-20260326-165345.md` — strawman section is in Chinese. Effort: editorial (not code). Priority: P2. Blocks: Recipe launch.
+
+- **Recipe ↔ Expert ↔ Scenario taxonomy** — No documented rule for when content should be a Recipe vs. Expert vs. scenario. Without this, the content model drifts immediately after launch. **Context:** Define the taxonomy in a comment block at the top of `src/data/recipes.ts` (once created). Effort: XS. Priority: P3.
