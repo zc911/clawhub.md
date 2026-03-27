@@ -262,6 +262,111 @@ export const experts: Expert[] = [
     curator: 'clawhub',
     created: '2026-03-25',
   },
+
+  // ── Chinese-focused Experts ──────────────────────────────────────────────
+  {
+    slug: 'feishu-expert',
+    name: '飞书助理',
+    description: '飞书消息、文档、日历一站式管理，不错过任何重要信息',
+    goal: '飞书消息与文档自动整理',
+    outcome: '让你的 Agent 汇总飞书未读消息、摘要文档、整理会议记录——无需手动切换应用。',
+    skillsWithReason: [
+      {
+        slug: 'openclaw/feishu',
+        reason: '读取飞书消息、文档和日历，让 Agent 帮你过滤重要内容，省去手动翻找的时间。',
+        examples: [
+          '帮我汇总今天的飞书未读消息',
+          '摘要这份飞书文档的重点',
+          '整理今天会议的 action items 到飞书文档',
+          '我的飞书日历今天有哪些安排？',
+        ],
+      },
+    ],
+    installAll: 'clawhub install openclaw/feishu',
+    curator: 'clawhub',
+    created: '2026-03-27',
+  },
+  {
+    slug: 'dingtalk-expert',
+    name: '钉钉会议助理',
+    description: '会前准备、会后纪要、跟进发送，全程交给 Agent',
+    goal: '钉钉会议全程自动化',
+    outcome: '会前拉取议程和相关资料，会后自动整理会议纪要并发送给参会者。',
+    skillsWithReason: [
+      {
+        slug: 'openclaw/dingtalk',
+        reason: '读取钉钉日历、群消息和待办，让 Agent 帮你准备会议资料、整理纪要、发送跟进。',
+        examples: [
+          '帮我准备下午 3 点会议的背景资料',
+          '把刚才的会议要点整理成纪要',
+          '把会议纪要通过钉钉发给所有参会人',
+          '今天钉钉有哪些未处理的待办？',
+        ],
+      },
+    ],
+    installAll: 'clawhub install openclaw/dingtalk',
+    curator: 'clawhub',
+    created: '2026-03-27',
+  },
+  {
+    slug: 'wecom-expert',
+    name: '企业微信客服助理',
+    description: '客户消息跟进、回复草稿、待办提醒，不让客户等太久',
+    goal: '企业微信客户跟进',
+    outcome: '自动汇总待回复客户消息，生成回复草稿，标记跟进状态——让客户响应速度提升一个量级。',
+    skillsWithReason: [
+      {
+        slug: 'openclaw/wecom',
+        reason: '读取企业微信客户消息，生成回复草稿，追踪跟进状态，让你不遗漏任何一个客户。',
+        examples: [
+          '汇总今天所有未回复的客户消息',
+          '帮我起草回复这条询价消息',
+          '列出本周需要跟进的客户清单',
+          '把这个客户标记为"已跟进"',
+        ],
+      },
+    ],
+    installAll: 'clawhub install openclaw/wecom',
+    curator: 'clawhub',
+    created: '2026-03-27',
+  },
+  {
+    slug: 'dev-expert-cn',
+    name: '开发者助理（中文团队）',
+    description: 'GitHub 工作流 + 飞书通知 + AI coding agent，中文开发团队专属',
+    goal: '中文团队开发提效',
+    outcome: '用 Agent 管理 GitHub PR 和 Issue，同步进展到飞书，把重复性编码任务交给 AI——无需离开终端。',
+    skillsWithReason: [
+      {
+        slug: 'openclaw/github',
+        reason: '通过 gh CLI 查看 PR、处理 Issue、检查 CI 状态，不用打开浏览器。',
+        examples: [
+          '检查我的 PR 有没有需要处理的 review',
+          '创建一个 issue：登录页面在 Safari 崩溃',
+          '当前分支的 CI 状态怎么样？',
+        ],
+      },
+      {
+        slug: 'openclaw/feishu',
+        reason: '把 GitHub 事件和开发进展同步到飞书群，让团队实时了解项目状态。',
+        examples: [
+          '把这个 PR 合并的消息发到飞书 #engineering 群',
+          '今天有哪些飞书消息和开发相关？',
+        ],
+      },
+      {
+        slug: 'openclaw/coding-agent',
+        reason: '把重构、代码审查、迁移脚本等任务委托给 coding agent，自己专注更重要的事。',
+        examples: [
+          '把这个重构任务交给 coding agent 处理',
+          '让 Codex 检查这个函数的边界情况',
+        ],
+      },
+    ],
+    installAll: 'clawhub install openclaw/github openclaw/feishu openclaw/coding-agent',
+    curator: 'clawhub',
+    created: '2026-03-27',
+  },
 ];
 
 export function getExpert(slug: string): Expert | undefined {

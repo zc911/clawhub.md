@@ -50,6 +50,14 @@ describe('experts data integrity', () => {
     expect(getExperts().length).toBeGreaterThanOrEqual(3);
   });
 
+  it('includes Chinese-focused experts', () => {
+    const slugs = getExperts().map(e => e.slug);
+    expect(slugs).toContain('feishu-expert');
+    expect(slugs).toContain('dingtalk-expert');
+    expect(slugs).toContain('wecom-expert');
+    expect(slugs).toContain('dev-expert-cn');
+  });
+
   it('has meeting-expert, comms-expert, research-expert slugs', () => {
     const slugs = getExperts().map(e => e.slug);
     expect(slugs).toContain('meeting-expert');
