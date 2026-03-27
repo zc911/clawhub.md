@@ -2,6 +2,15 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.1.1] - 2026-03-27
+
+### Changed
+- **Site slogan**: "Give your agent the right skills." → **"Let your agent handle it."** — lifestyle/aspiration framing over feature framing
+- **Homepage order**: Featured Expert now appears first (above the grid), then "What are you trying to do?"
+- **Top pick → Expert pick**: `sotw.ts` now references an Expert slug instead of a skill slug; homepage featured block shows the Expert goal, outcome, install command, and example prompts
+- **Meta descriptions**: updated default and homepage description to match new slogan
+- **Homepage footer links**: added "All experts →" alongside "Browse all skills →"
+
 ## [1.1.0] - 2026-03-27
 
 ### Added

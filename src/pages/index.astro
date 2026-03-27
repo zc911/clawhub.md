@@ -1,35 +1,74 @@
 ---
 import Base from '@/layouts/Base.astro';
 import InstallBox from '@/components/InstallBox.astro';
-import { getExperts } from '@/data/bundles';
+import { getExperts, getExpert } from '@/data/bundles';
 import { sotw } from '@/data/sotw';
-import { getSkill, skills as allSkills } from '@/data/skills';
 
 const experts = getExperts();
 
-// Featured skill — from sotw.ts, falls back to most recently added
-let featuredSkill = sotw ? getSkill(...(sotw.skill.split('/') as [string, string])) : null;
-if (!featuredSkill) {
-  const sorted = [...allSkills].sort((a, b) => b.added.localeCompare(a.added));
-  featuredSkill = sorted[0] ?? null;
-}
-const featuredReason = sotw?.skill === `${featuredSkill?.author}/${featuredSkill?.slug}` ? sotw.reason : null;
+// Featured expert — from sotw.ts, falls back to first expert
+const featuredExpert = sotw
+  ? getExpert(sotw.expert) ?? experts[0] ?? null
+  : experts[0] ?? null;
+const featuredReason = featuredExpert && sotw?.expert === featuredExpert.slug ? sotw.reason : null;
 ---
 
 <Base
   title="clawhub — Skills for OpenClaw agents"
-  description="Expert-curated skill sets for OpenClaw agents. Pick your workflow and install everything in one command."
+  description="Let your agent handle it. Expert-curated skill sets for OpenClaw — install in one command and get on with your day."
 >
   <!-- Hero -->
   <section class="hero">
-    <h1>Give your agent<br />the right skills.</h1>
+    <h1>Let your agent<br />handle it.</h1>
     <p class="hero-sub">
-      Expert-curated skill sets for OpenClaw. Pick your workflow — install everything in one command.
+      Curated skill sets for OpenClaw agents. Pick a workflow, install in one command — then get on with your day.
     </p>
   </section>
 
-  <!-- Expert cards — user intent first -->
-  <section aria-labelledby="experts-heading" style="margin-bottom: 48px;">
+  <!-- Featured Expert — editor's pick -->
+  {featuredExpert && (
+    <section style="margin-bottom: 48px;">
+      <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 14px;">
+        Expert pick this week
+      </p>
+
+      <a href={`/expert/${featuredExpert.slug}`} style="display: block; text-decoration: none; margin-bottom: 10px;">
+        <span style="font-size: 18px; font-weight: 700; color: var(--text-primary);">{featuredExpert.goal} →</span>
+      </a>
+
+      <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; max-width: 520px; margin-bottom: 14px;">
+        {featuredReason ?? featuredExpert.outcome}
+      </p>
+
+      {featuredExpert.installAll && <InstallBox command={featuredExpert.installAll} />}
+
+      {(() => {
+        const examples = featuredExpert.skillsWithReason
+          .flatMap(s => s.examples ?? [])
+          .slice(0, 4);
+        return examples.length > 0 ? (
+          <div style="margin-top: 14px;">
+            <p style="font-size: 12px; color: var(--text-tertiary); margin-bottom: 8px; font-weight: 500;">
+              After installing, say to your agent:
+            </p>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 5px;">
+              {examples.map(ex => (
+                <li style="font-size: 13px; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 8px;">
+                  <span style="color: var(--text-tertiary); flex-shrink: 0;">›</span>
+                  <span style="font-style: italic;">"{ex}"</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null;
+      })()}
+    </section>
+  )}
+
+  <hr />
+
+  <!-- Expert grid — all workflows -->
+  <section aria-labelledby="experts-heading" style="margin-bottom: 48px; margin-top: 32px;">
     <h2 id="experts-heading" style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 14px;">
       What are you trying to do?
     </h2>
@@ -49,42 +88,8 @@ const featuredReason = sotw?.skill === `${featuredSkill?.author}/${featuredSkill
 
   <hr />
 
-  <!-- Featured skill — the action block -->
-  {featuredSkill && (
-    <section style="margin-bottom: 48px; margin-top: 32px;">
-      <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary, #6e7681); margin-bottom: 12px;">
-        Top pick this week
-      </p>
-
-      <a href={`/${featuredSkill.author}/${featuredSkill.slug}`} style="display: block; margin-bottom: 6px; text-decoration: none;">
-        <span style="font-size: 16px; font-weight: 700; color: var(--text-primary);">{featuredSkill.author}/{featuredSkill.slug}</span>
-        <span style="font-size: 14px; color: var(--text-secondary); margin-left: 10px;">{featuredReason ?? featuredSkill.description}</span>
-      </a>
-
-      <InstallBox command={featuredSkill.install} />
-
-      <!-- Usage examples -->
-      {featuredSkill.examples && featuredSkill.examples.length > 0 && (
-        <div style="margin-top: 16px;">
-          <p style="font-size: 12px; color: var(--text-tertiary, #6e7681); margin-bottom: 8px; font-weight: 500;">
-            After installing, say to your agent:
-          </p>
-          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
-            {featuredSkill.examples.map(ex => (
-              <li style="font-size: 13px; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 8px;">
-                <span style="color: var(--text-tertiary, #6e7681); flex-shrink: 0;">›</span>
-                <span style="font-style: italic;">"{ex}"</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </section>
-  )}
-
-  <hr />
-
   <div class="footer-links">
+    <a href="/experts">All experts →</a>
     <a href="/browse">Browse all skills →</a>
   </div>
 </Base>

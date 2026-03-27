@@ -6,7 +6,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'Curated skills for OpenClaw agents. Expert-picked workflows you can install in one command.' } = Astro.props;
+const { title, description = 'Let your agent handle it. Expert-curated skill sets for OpenClaw agents — install in one command.' } = Astro.props;
 const pageTitle = title ? `${title} — clawhub.md` : 'clawhub.md';
 const canonicalUrl = new URL(Astro.url.pathname, 'https://clawhub.md').href;
 ---
