@@ -2,6 +2,15 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.0.8] - 2026-03-27
+
+### Added
+- **`/experts` listing page**: new page showing all experts with goal, description, and skill inventory — now navigable without going through the homepage
+- **"Experts" nav link**: added to site nav and footer so experts are always reachable from any page
+
+### Fixed
+- **Browse page footer**: replaced stale "Bundles →" link with "Experts →"
+
 ## [1.0.7] - 2026-03-26
 
 ### Changed

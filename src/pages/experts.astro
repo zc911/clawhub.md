@@ -1,0 +1,79 @@
+---
+import Base from '@/layouts/Base.astro';
+import { getExperts } from '@/data/bundles';
+
+const experts = getExperts();
+---
+
+<Base
+  title="Experts"
+  description="Expert-curated skill sets for OpenClaw agents. Pick a workflow and install everything in one command."
+>
+  <h1 style="margin-bottom: 10px;">Experts</h1>
+  <p style="color: var(--text-secondary); font-size: 15px; margin-bottom: 48px;">
+    Curated skill sets built around real workflows. Each expert tells you what to install, how to configure it, and what to say to your agent.
+  </p>
+
+  <nav class="expert-list" aria-label="All experts">
+    {experts.map(expert => (
+      <a class="expert-list-item" href={`/expert/${expert.slug}`}>
+        <span class="expert-list-goal">{expert.goal} →</span>
+        <span class="expert-list-desc">{expert.description}</span>
+        <span class="expert-list-skills">
+          {expert.skillsWithReason.length} skill{expert.skillsWithReason.length !== 1 ? 's' : ''} · {expert.skillsWithReason.map(s => s.slug.split('/')[1]).join(', ')}
+        </span>
+      </a>
+    ))}
+  </nav>
+
+  <hr />
+  <div class="footer-links">
+    <a href="/">← Home</a>
+    <a href="/browse">Browse all skills →</a>
+  </div>
+</Base>
+
+<style>
+.expert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.expert-list-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 24px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.expert-list-item:hover {
+  background: var(--bg-elevated);
+  border-color: var(--border-strong);
+  text-decoration: none;
+}
+
+.expert-list-goal {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.expert-list-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.expert-list-skills {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-top: 4px;
+}
+</style>
