@@ -2,6 +2,12 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.2.4] - 2026-03-27
+
+### Changed
+- **Logo rebrand**: replaced `#` character favicon with a three-stroke claw mark — three curved prongs converging at a hub node, in `#58a6ff` accent on `#0d1117` background
+- **OG image redesign**: replaced warm-brown Georgia palette (`#14100d`, `#c9a96e`) with site design system (`#0d1117` bg, `#58a6ff` accent, `#e6edf3` text, IBM Plex Mono); layout now mirrors favicon icon + wordmark side-by-side
+
 ## [1.2.3] - 2026-03-27
 
 ### Added

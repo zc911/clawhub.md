@@ -1,22 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <!-- Background: warm dark matching site palette -->
-  <rect width="1200" height="630" fill="#14100d"/>
-  <!-- Subtle warm gradient overlay -->
-  <rect width="1200" height="630" fill="url(#grad)" opacity="0.4"/>
-  <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#2a1f14;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#14100d;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-  <!-- Decorative accent line -->
-  <rect x="100" y="180" width="60" height="4" fill="#c9a96e" rx="2"/>
-  <!-- Main wordmark -->
-  <text x="100" y="310" font-family="Georgia, 'Times New Roman', serif" font-size="96" font-weight="700" fill="#f0ebe6" letter-spacing="-2">clawhub</text>
-  <text x="728" y="310" font-family="Georgia, 'Times New Roman', serif" font-size="96" font-weight="400" fill="#c9a96e" letter-spacing="-2">.md</text>
+  <!-- Background: site dark palette -->
+  <rect width="1200" height="630" fill="#0d1117"/>
+
+  <!-- Icon: 32x32 claw mark scaled 6x (192x192), centered at (225, 315) -->
+  <!-- transform origin offset: (225-96, 315-96) = (129, 219) -->
+  <g transform="translate(129,219) scale(6)">
+    <path d="M16,26 C12,20 7,14 5,5" stroke="#58a6ff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    <path d="M16,26 C15,19 15,12 16,4" stroke="#58a6ff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    <path d="M16,26 C20,20 25,14 27,5" stroke="#58a6ff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    <circle cx="16" cy="26" r="2" fill="#58a6ff"/>
+  </g>
+
+  <!-- Divider -->
+  <rect x="380" y="190" width="1" height="260" fill="#30363d"/>
+
+  <!-- Wordmark -->
+  <text x="430" y="360" font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="96" font-weight="600" letter-spacing="-1">
+    <tspan fill="#e6edf3">clawhub</tspan><tspan fill="#58a6ff" font-weight="400">.md</tspan>
+  </text>
+
   <!-- Tagline -->
-  <text x="100" y="390" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#a09080" letter-spacing="0.5">Curated skills for OpenClaw and Claude Code agents</text>
-  <!-- Bottom subtle accent -->
-  <rect x="100" y="460" width="1000" height="1" fill="#2a2018" />
-  <text x="100" y="500" font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="#5a4a3a" letter-spacing="0.5">clawhub.md</text>
+  <text x="432" y="428" font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="26" fill="#6e7681">Expert-curated skills for OpenClaw agents</text>
 </svg>
