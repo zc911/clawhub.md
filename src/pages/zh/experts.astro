@@ -1,0 +1,81 @@
+---
+import Base from '@/layouts/Base.astro';
+import { getExperts, t } from '@/data/bundles';
+
+const locale = 'zh';
+const experts = getExperts();
+---
+
+<Base
+  title="Experts"
+  description="面向 OpenClaw Agent 的专家精选技能集。选择一个工作流，一条命令完成安装。"
+  lang="zh"
+>
+  <h1 style="margin-bottom: 10px;">Experts</h1>
+  <p style="color: var(--text-secondary); font-size: 15px; margin-bottom: 48px;">
+    围绕真实工作流精心策划的技能集。每个 Expert 告诉你要安装什么、如何配置，以及对 Agent 说什么。
+  </p>
+
+  <nav class="expert-list" aria-label="全部 Experts">
+    {experts.map(expert => (
+      <a class="expert-list-item" href={`/zh/expert/${expert.slug}`}>
+        <span class="expert-list-goal">{t(expert.goal, locale)} →</span>
+        <span class="expert-list-desc">{t(expert.description, locale)}</span>
+        <span class="expert-list-skills">
+          {expert.skillsWithReason.length} 个技能 · {expert.skillsWithReason.map(s => s.slug.split('/')[1]).join(', ')}
+        </span>
+      </a>
+    ))}
+  </nav>
+
+  <hr />
+  <div class="footer-links">
+    <a href="/zh">← 首页</a>
+    <a href="/browse">浏览所有技能 →</a>
+  </div>
+</Base>
+
+<style>
+.expert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.expert-list-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 24px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.expert-list-item:hover {
+  background: var(--bg-elevated);
+  border-color: var(--border-strong);
+  text-decoration: none;
+}
+
+.expert-list-goal {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.expert-list-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.expert-list-skills {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-top: 4px;
+}
+</style>
