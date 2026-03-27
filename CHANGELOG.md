@@ -2,6 +2,11 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.2.5] - 2026-03-27
+
+### Changed
+- **Nav logo icon**: added inline SVG claw mark icon to the site navigation — the three-stroke prong mark now appears beside the wordmark in the top-left nav, using `currentColor` to inherit the `--accent` CSS variable (`#58a6ff`)
+
 ## [1.2.4] - 2026-03-27
 
 ### Changed
