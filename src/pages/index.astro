@@ -6,11 +6,16 @@ import { sotw } from '@/data/sotw';
 
 const experts = getExperts();
 
-// Featured expert — from sotw.ts, falls back to first expert
 const featuredExpert = sotw
   ? getExpert(sotw.expert) ?? experts[0] ?? null
   : experts[0] ?? null;
 const featuredReason = featuredExpert && sotw?.expert === featuredExpert.slug ? sotw.reason : null;
+const agentPrompt = featuredExpert
+  ? `Read https://clawhub.md/expert/${featuredExpert.slug}.md and set me up as ${featuredExpert.name}`
+  : null;
+const featuredExamples = featuredExpert
+  ? featuredExpert.skillsWithReason.flatMap(s => s.examples ?? []).slice(0, 4)
+  : [];
 ---
 
 <Base
@@ -21,53 +26,57 @@ const featuredReason = featuredExpert && sotw?.expert === featuredExpert.slug ? 
   <section class="hero">
     <h1>Let your agent<br />handle it.</h1>
     <p class="hero-sub">
-      Curated skill sets for OpenClaw agents. Pick a workflow, install in one command — then get on with your day.
+      Pick an Expert. Install it with one message to your agent.<br />
+      Then just tell your agent what to do.
     </p>
   </section>
 
-  <!-- Featured Expert — editor's pick -->
-  {featuredExpert && (
+  <!-- Featured Expert — two-step demo -->
+  {featuredExpert && agentPrompt && (
     <section style="margin-bottom: 48px;">
-      <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 14px;">
+      <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 16px;">
         Expert pick this week
       </p>
 
-      <a href={`/expert/${featuredExpert.slug}`} style="display: block; text-decoration: none; margin-bottom: 10px;">
-        <span style="font-size: 18px; font-weight: 700; color: var(--text-primary);">{featuredExpert.goal} →</span>
+      <a href={`/expert/${featuredExpert.slug}`} style="display: block; text-decoration: none; margin-bottom: 6px;">
+        <span style="font-size: 18px; font-weight: 700; color: var(--text-primary); font-family: var(--font-display); letter-spacing: -0.02em;">{featuredExpert.goal} →</span>
       </a>
-
-      <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; max-width: 520px; margin-bottom: 14px;">
+      <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; max-width: 500px; margin-bottom: 22px;">
         {featuredReason ?? featuredExpert.outcome}
       </p>
 
-      {featuredExpert.installAll && <InstallBox command={featuredExpert.installAll} />}
+      <!-- Step 1 -->
+      <div class="home-step" style="margin-bottom: 20px;">
+        <span class="home-step-badge">①</span>
+        <div style="flex: 1; min-width: 0;">
+          <p class="home-step-title">Expert Install</p>
+          <InstallBox command={agentPrompt} label="Say to your agent" />
+        </div>
+      </div>
 
-      {(() => {
-        const examples = featuredExpert.skillsWithReason
-          .flatMap(s => s.examples ?? [])
-          .slice(0, 4);
-        return examples.length > 0 ? (
-          <div style="margin-top: 14px;">
-            <p style="font-size: 12px; color: var(--text-tertiary); margin-bottom: 8px; font-weight: 500;">
-              After installing, say to your agent:
-            </p>
-            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 5px;">
-              {examples.map(ex => (
-                <li style="font-size: 13px; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 8px;">
-                  <span style="color: var(--text-tertiary); flex-shrink: 0;">›</span>
+      <!-- Step 2 -->
+      {featuredExamples.length > 0 && (
+        <div class="home-step">
+          <span class="home-step-badge">②</span>
+          <div style="flex: 1; min-width: 0;">
+            <p class="home-step-title">Talk and handle it</p>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+              {featuredExamples.map(ex => (
+                <li style="font-size: 13px; color: var(--text-secondary); display: flex; gap: 8px; align-items: flex-start; line-height: 1.6;">
+                  <span style="color: var(--accent); flex-shrink: 0;">›</span>
                   <span style="font-style: italic;">"{ex}"</span>
                 </li>
               ))}
             </ul>
           </div>
-        ) : null;
-      })()}
+        </div>
+      )}
     </section>
   )}
 
   <hr />
 
-  <!-- Expert grid — all workflows -->
+  <!-- Expert grid -->
   <section aria-labelledby="experts-heading" style="margin-bottom: 48px; margin-top: 32px;">
     <h2 id="experts-heading" style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 14px;">
       What are you trying to do?
@@ -93,3 +102,31 @@ const featuredReason = featuredExpert && sotw?.expert === featuredExpert.slug ? 
     <a href="/browse">Browse all skills →</a>
   </div>
 </Base>
+
+<style>
+.home-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.home-step-badge {
+  flex-shrink: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  font-family: var(--font-display);
+  line-height: 1;
+  margin-top: 3px;
+  width: 20px;
+}
+
+.home-step-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+</style>
