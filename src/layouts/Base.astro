@@ -4,15 +4,25 @@ import '@/styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  lang?: 'en' | 'zh';
 }
 
-const { title, description = 'Let your agent handle it. Expert-curated skill sets for OpenClaw agents — install in one command.' } = Astro.props;
+const {
+  title,
+  description = 'Let your agent handle it. Expert-curated skill sets for OpenClaw agents — install in one command.',
+  lang = 'en',
+} = Astro.props;
 const pageTitle = title ? `${title} — clawhub.md` : 'clawhub.md';
 const canonicalUrl = new URL(Astro.url.pathname, 'https://clawhub.md').href;
+
+// Compute the alternate-language URL for the language switcher
+const path = Astro.url.pathname;
+const zhPath = path.startsWith('/zh') ? path : `/zh${path === '/' ? '' : path}`;
+const enPath = path.startsWith('/zh') ? path.slice(3) || '/' : path;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,12 +43,18 @@ const canonicalUrl = new URL(Astro.url.pathname, 'https://clawhub.md').href;
   </head>
   <body>
     <nav class="site-nav">
-      <a class="nav-logo" href="/">clawhub<span class="logo-accent">.md</span></a>
+      <a class="nav-logo" href={lang === 'zh' ? '/zh' : '/'}>clawhub<span class="logo-accent">.md</span></a>
       <div class="nav-links">
-        <a href="/browse">Browse</a>
-        <a href="/experts">Experts</a>
-        <a href="/r/">Any skill</a>
+        <a href="/browse">{lang === 'zh' ? '技能库' : 'Browse'}</a>
+        <a href={lang === 'zh' ? '/zh/experts' : '/experts'}>{lang === 'zh' ? 'Experts' : 'Experts'}</a>
+        <a href="/r/">{lang === 'zh' ? '任意技能' : 'Any skill'}</a>
         <a href="https://clawhub.ai" target="_blank" rel="noopener" class="nav-external">clawhub.ai ↗</a>
+        <span class="lang-switcher">
+          {lang === 'zh'
+            ? <a href={enPath} class="lang-link lang-inactive">EN</a>
+            : <a href={zhPath} class="lang-link lang-inactive">中文</a>
+          }
+        </span>
       </div>
     </nav>
     <main>
@@ -50,12 +66,35 @@ const canonicalUrl = new URL(Astro.url.pathname, 'https://clawhub.md').href;
           clawhub.md · The curated companion to <a href="https://clawhub.ai" target="_blank" rel="noopener">clawhub.ai</a> · Part of the <a href="https://openclaw.ai" target="_blank" rel="noopener">OpenClaw</a> ecosystem
         </div>
         <div class="footer-links">
-          <a href="/browse">Browse</a>
-          <a href="/experts">Experts</a>
-          <a href="/r/">Any skill →</a>
+          <a href="/browse">{lang === 'zh' ? '技能库' : 'Browse'}</a>
+          <a href={lang === 'zh' ? '/zh/experts' : '/experts'}>Experts</a>
+          <a href="/r/">{lang === 'zh' ? '任意技能 →' : 'Any skill →'}</a>
           <a href="https://github.com/zc911/clawhub.md" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
     </footer>
   </body>
 </html>
+
+<style>
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  padding-left: 6px;
+  border-left: 1px solid var(--border);
+  margin-left: 4px;
+}
+
+.lang-link {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: color 0.12s;
+}
+
+.lang-link:hover {
+  color: var(--accent);
+}
+</style>

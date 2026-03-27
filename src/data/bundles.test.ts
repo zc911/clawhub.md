@@ -3,19 +3,37 @@ import {
   experts,
   getExpert,
   getExperts,
+  t,
   type Expert,
+  type L,
 } from './bundles';
 
 const sampleExpert: Expert = {
   slug: 'test-expert',
-  name: 'Test Expert',
-  description: 'A test expert',
-  goal: 'Test goal',
-  outcome: 'Test outcome',
-  skillsWithReason: [{ slug: 'openclaw/gog', reason: 'Because', order: 1 }],
+  name: { en: 'Test Expert', zh: '测试助理' },
+  description: { en: 'A test expert', zh: '一个测试助理' },
+  goal: { en: 'Test goal', zh: '测试目标' },
+  outcome: { en: 'Test outcome', zh: '测试结果' },
+  skillsWithReason: [{ slug: 'openclaw/gog', reason: { en: 'Because', zh: '因为' }, order: 1 }],
   curator: 'clawhub',
   created: '2026-03-26',
 };
+
+describe('t() helper', () => {
+  const field: L = { en: 'Hello', zh: '你好' };
+
+  it('returns English for locale "en"', () => {
+    expect(t(field, 'en')).toBe('Hello');
+  });
+
+  it('returns Chinese for locale "zh"', () => {
+    expect(t(field, 'zh')).toBe('你好');
+  });
+
+  it('defaults to English for unknown locale', () => {
+    expect(t(field, 'fr')).toBe('Hello');
+  });
+});
 
 describe('getExpert', () => {
   it('returns the expert for a known slug', () => {
@@ -106,6 +124,29 @@ describe('experts data integrity', () => {
     getExperts().forEach(e => {
       e.skillsWithReason.forEach(s => {
         expect(s.slug).not.toMatch(/^gstack\//);
+      });
+    });
+  });
+
+  it('all expert name fields have both en and zh', () => {
+    getExperts().forEach(e => {
+      expect(e.name.en).toBeTruthy();
+      expect(e.name.zh).toBeTruthy();
+    });
+  });
+
+  it('all expert descriptions have both en and zh', () => {
+    getExperts().forEach(e => {
+      expect(e.description.en).toBeTruthy();
+      expect(e.description.zh).toBeTruthy();
+    });
+  });
+
+  it('all skill reasons have both en and zh', () => {
+    getExperts().forEach(e => {
+      e.skillsWithReason.forEach(s => {
+        expect(s.reason.en).toBeTruthy();
+        expect(s.reason.zh).toBeTruthy();
       });
     });
   });

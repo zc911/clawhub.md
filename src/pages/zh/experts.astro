@@ -2,27 +2,27 @@
 import Base from '@/layouts/Base.astro';
 import { getExperts, t } from '@/data/bundles';
 
-const locale = 'en';
+const locale = 'zh';
 const experts = getExperts();
 ---
 
 <Base
   title="Experts"
-  description="Expert-curated skill sets for OpenClaw agents. Pick a workflow and install everything in one command."
-  lang="en"
+  description="面向 OpenClaw Agent 的专家精选技能集。选择一个工作流，一条命令完成安装。"
+  lang="zh"
 >
   <h1 style="margin-bottom: 10px;">Experts</h1>
   <p style="color: var(--text-secondary); font-size: 15px; margin-bottom: 48px;">
-    Curated skill sets built around real workflows. Each expert tells you what to install, how to configure it, and what to say to your agent.
+    围绕真实工作流精心策划的技能集。每个 Expert 告诉你要安装什么、如何配置，以及对 Agent 说什么。
   </p>
 
-  <nav class="expert-list" aria-label="All experts">
+  <nav class="expert-list" aria-label="全部 Experts">
     {experts.map(expert => (
-      <a class="expert-list-item" href={`/expert/${expert.slug}`}>
+      <a class="expert-list-item" href={`/zh/expert/${expert.slug}`}>
         <span class="expert-list-goal">{t(expert.goal, locale)} →</span>
         <span class="expert-list-desc">{t(expert.description, locale)}</span>
         <span class="expert-list-skills">
-          {expert.skillsWithReason.length} skill{expert.skillsWithReason.length !== 1 ? 's' : ''} · {expert.skillsWithReason.map(s => s.slug.split('/')[1]).join(', ')}
+          {expert.skillsWithReason.length} 个技能 · {expert.skillsWithReason.map(s => s.slug.split('/')[1]).join(', ')}
         </span>
       </a>
     ))}
@@ -30,8 +30,8 @@ const experts = getExperts();
 
   <hr />
   <div class="footer-links">
-    <a href="/">← Home</a>
-    <a href="/browse">Browse all skills →</a>
+    <a href="/zh">← 首页</a>
+    <a href="/browse">浏览所有技能 →</a>
   </div>
 </Base>
 

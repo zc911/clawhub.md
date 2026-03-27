@@ -4,7 +4,7 @@ import InstallBox from '@/components/InstallBox.astro';
 import { getExperts, getExpert, t } from '@/data/bundles';
 import { sotw } from '@/data/sotw';
 
-const locale = 'en';
+const locale = 'zh';
 const experts = getExperts();
 
 const featuredExpert = sotw
@@ -12,24 +12,24 @@ const featuredExpert = sotw
   : experts[0] ?? null;
 const featuredReason = featuredExpert && sotw?.expert === featuredExpert.slug ? sotw.reason : null;
 const agentPrompt = featuredExpert
-  ? `Read https://clawhub.md/expert/${featuredExpert.slug}.md and set me up as ${t(featuredExpert.name, locale)}`
+  ? `Read https://clawhub.md/expert/${featuredExpert.slug}.md and set me up as ${t(featuredExpert.name, 'en')}`
   : null;
 const featuredExamples = featuredExpert
-  ? featuredExpert.skillsWithReason.flatMap(s => s.examples?.en ?? []).slice(0, 4)
+  ? featuredExpert.skillsWithReason.flatMap(s => s.examples?.zh ?? []).slice(0, 4)
   : [];
 ---
 
 <Base
-  title="clawhub — Skills for OpenClaw agents"
-  description="Let your agent handle it. Expert-curated skill sets for OpenClaw — install in one command and get on with your day."
-  lang="en"
+  title="clawhub — OpenClaw Agent 技能库"
+  description="让你的 Agent 来处理。面向 OpenClaw Agent 的专家精选技能集——一条命令完成安装。"
+  lang="zh"
 >
   <!-- Hero -->
   <section class="hero">
-    <h1>Let your agent<br />handle it.</h1>
+    <h1>交给你的 Agent<br />来处理。</h1>
     <p class="hero-sub">
-      Pick an Expert. Say one sentence to your agent — OpenClaw, Claude Code, or any AI assistant.<br />
-      It handles the rest.
+      选择一个 Expert，对你的 Agent 说一句话——OpenClaw、Claude Code 或任何 AI 助手。<br />
+      剩下的交给它。
     </p>
   </section>
 
@@ -37,22 +37,22 @@ const featuredExamples = featuredExpert
   {featuredExpert && agentPrompt && (
     <section style="margin-bottom: 48px;">
       <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 16px;">
-        Expert pick this week
+        本周精选 Expert
       </p>
 
-      <a href={`/expert/${featuredExpert.slug}`} style="display: block; text-decoration: none; margin-bottom: 6px;">
+      <a href={`/zh/expert/${featuredExpert.slug}`} style="display: block; text-decoration: none; margin-bottom: 6px;">
         <span style="font-size: 18px; font-weight: 700; color: var(--text-primary); font-family: var(--font-display); letter-spacing: -0.02em;">{t(featuredExpert.goal, locale)} →</span>
       </a>
       <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; max-width: 500px; margin-bottom: 22px;">
-        {featuredReason ?? t(featuredExpert.outcome, locale)}
+        {t(featuredExpert.outcome, locale)}
       </p>
 
       <!-- Step 1 -->
       <div class="home-step" style="margin-bottom: 20px;">
         <span class="home-step-badge">①</span>
         <div style="flex: 1; min-width: 0;">
-          <p class="home-step-title">Expert Install</p>
-          <InstallBox command={agentPrompt} label="Say to your agent" />
+          <p class="home-step-title">Expert 安装</p>
+          <InstallBox command={agentPrompt} label="对你的 Agent 说" />
         </div>
       </div>
 
@@ -61,7 +61,7 @@ const featuredExamples = featuredExpert
         <div class="home-step">
           <span class="home-step-badge">②</span>
           <div style="flex: 1; min-width: 0;">
-            <p class="home-step-title">Talk and handle it</p>
+            <p class="home-step-title">对话，让它处理</p>
             <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
               {featuredExamples.map(ex => (
                 <li style="font-size: 13px; color: var(--text-secondary); display: flex; gap: 8px; align-items: flex-start; line-height: 1.6;">
@@ -81,27 +81,27 @@ const featuredExamples = featuredExpert
   <!-- Expert grid -->
   <section aria-labelledby="experts-heading" style="margin-bottom: 48px; margin-top: 32px;">
     <h2 id="experts-heading" style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 14px;">
-      What are you trying to do?
+      你想完成什么任务？
     </h2>
     {experts.length > 0 ? (
-      <nav class="scenario-grid" aria-label="Expert skill sets">
+      <nav class="scenario-grid" aria-label="Expert 技能集">
         {experts.map(expert => (
-          <a class="scenario-item" href={`/expert/${expert.slug}`}>
+          <a class="scenario-item" href={`/zh/expert/${expert.slug}`}>
             <span class="scenario-goal">{t(expert.goal, locale)} →</span>
             <span class="scenario-desc">{t(expert.description, locale)}</span>
           </a>
         ))}
       </nav>
     ) : (
-      <p class="empty-state">No expert paths yet — check back soon.</p>
+      <p class="empty-state">暂无 Expert，敬请期待。</p>
     )}
   </section>
 
   <hr />
 
   <div class="footer-links">
-    <a href="/experts">All experts →</a>
-    <a href="/browse">Browse all skills →</a>
+    <a href="/zh/experts">全部 Experts →</a>
+    <a href="/browse">浏览所有技能 →</a>
   </div>
 </Base>
 

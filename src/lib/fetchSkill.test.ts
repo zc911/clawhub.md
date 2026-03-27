@@ -5,10 +5,8 @@ import { fetchSkill, parseSkillPath } from './fetchSkill';
 // Mock KVStore helpers
 // ---------------------------------------------------------------------------
 
-function makeKV(entries: Record<string, unknown> = {}): {
-  get: ReturnType<typeof vi.fn>;
-  put: ReturnType<typeof vi.fn>;
-} {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function makeKV(entries: Record<string, unknown> = {}): any {
   const store = new Map(Object.entries(entries));
   return {
     get: vi.fn(async (key: string) => store.get(key) ?? null),
