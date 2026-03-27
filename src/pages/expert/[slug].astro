@@ -1,9 +1,11 @@
 ---
 import Base from '@/layouts/Base.astro';
 import InstallBox from '@/components/InstallBox.astro';
-import { getExperts, getExpert } from '@/data/bundles';
+import { getExperts, getExpert, t } from '@/data/bundles';
 import { generateExpertMarkdown } from '@/utils/expertMarkdown';
 import { marked } from 'marked';
+
+const locale = 'en';
 
 export function getStaticPaths() {
   return getExperts().map(e => ({ params: { slug: e.slug } }));
@@ -17,25 +19,25 @@ if (!expert) {
 }
 
 const mdUrl = `https://clawhub.md/expert/${expert.slug}.md`;
-const agentPrompt = `Read ${mdUrl} and set me up as ${expert.name}`;
-const metaDescription = `${expert.outcome} Tell your agent: "${agentPrompt}"`;
+const agentPrompt = `Read ${mdUrl} and set me up as ${t(expert.name, locale)}`;
+const metaDescription = `${t(expert.outcome, locale)} Tell your agent: "${agentPrompt}"`;
 
-const markdownContent = generateExpertMarkdown(expert);
+const markdownContent = generateExpertMarkdown(expert, locale);
 const renderedMarkdown = await marked.parse(markdownContent);
 
-const allExamples = expert.skillsWithReason.filter(e => e.examples && e.examples.length > 0);
+const allExamples = expert.skillsWithReason.filter(e => e.examples && (e.examples.en.length > 0 || e.examples.zh.length > 0));
 ---
 
-<Base title={expert.goal} description={metaDescription}>
+<Base title={t(expert.goal, locale)} description={metaDescription} lang="en">
 
   <!-- Header -->
   <div style="margin-bottom: 36px;">
     <a href="/experts" style="font-size: 12px; color: var(--text-secondary); text-decoration: none; display: inline-block; margin-bottom: 16px;">← Experts</a>
     <h1 style="font-size: 22px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; line-height: 1.3;">
-      {expert.goal}
+      {t(expert.goal, locale)}
     </h1>
     <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 540px; border-left: 3px solid var(--accent); padding-left: 14px; margin: 0;">
-      {expert.outcome}
+      {t(expert.outcome, locale)}
     </p>
   </div>
 
@@ -68,21 +70,25 @@ const allExamples = expert.skillsWithReason.filter(e => e.examples && e.examples
       </div>
     </div>
     <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 20px;">
-      {allExamples.map(entry => (
-        <div>
-          <p style="font-size: 12px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px;">
-            {entry.reason.split(' ').slice(0, 6).join(' ')}{entry.reason.split(' ').length > 6 ? '…' : ''}
-          </p>
-          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
-            {entry.examples!.map(ex => (
-              <li style="display: flex; gap: 8px; align-items: flex-start;">
-                <span style="color: var(--accent); flex-shrink: 0; font-size: 14px; line-height: 1.6;">›</span>
-                <span style="font-size: 14px; color: var(--text-secondary); font-style: italic; line-height: 1.6;">"{ex}"</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      {allExamples.map(entry => {
+        const reasonText = t(entry.reason, locale);
+        const exs = entry.examples?.en ?? [];
+        return (
+          <div>
+            <p style="font-size: 12px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px;">
+              {reasonText.split(' ').slice(0, 6).join(' ')}{reasonText.split(' ').length > 6 ? '…' : ''}
+            </p>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+              {exs.map(ex => (
+                <li style="display: flex; gap: 8px; align-items: flex-start;">
+                  <span style="color: var(--accent); flex-shrink: 0; font-size: 14px; line-height: 1.6;">›</span>
+                  <span style="font-size: 14px; color: var(--text-secondary); font-style: italic; line-height: 1.6;">"{ex}"</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
     </div>
   </section>
 

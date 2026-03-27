@@ -1,9 +1,10 @@
 ---
 import Base from '@/layouts/Base.astro';
 import InstallBox from '@/components/InstallBox.astro';
-import { getExperts, getExpert } from '@/data/bundles';
+import { getExperts, getExpert, t } from '@/data/bundles';
 import { sotw } from '@/data/sotw';
 
+const locale = 'en';
 const experts = getExperts();
 
 const featuredExpert = sotw
@@ -11,16 +12,17 @@ const featuredExpert = sotw
   : experts[0] ?? null;
 const featuredReason = featuredExpert && sotw?.expert === featuredExpert.slug ? sotw.reason : null;
 const agentPrompt = featuredExpert
-  ? `Read https://clawhub.md/expert/${featuredExpert.slug}.md and set me up as ${featuredExpert.name}`
+  ? `Read https://clawhub.md/expert/${featuredExpert.slug}.md and set me up as ${t(featuredExpert.name, locale)}`
   : null;
 const featuredExamples = featuredExpert
-  ? featuredExpert.skillsWithReason.flatMap(s => s.examples ?? []).slice(0, 4)
+  ? featuredExpert.skillsWithReason.flatMap(s => s.examples?.en ?? []).slice(0, 4)
   : [];
 ---
 
 <Base
   title="clawhub — Skills for OpenClaw agents"
   description="Let your agent handle it. Expert-curated skill sets for OpenClaw — install in one command and get on with your day."
+  lang="en"
 >
   <!-- Hero -->
   <section class="hero">
@@ -39,10 +41,10 @@ const featuredExamples = featuredExpert
       </p>
 
       <a href={`/expert/${featuredExpert.slug}`} style="display: block; text-decoration: none; margin-bottom: 6px;">
-        <span style="font-size: 18px; font-weight: 700; color: var(--text-primary); font-family: var(--font-display); letter-spacing: -0.02em;">{featuredExpert.goal} →</span>
+        <span style="font-size: 18px; font-weight: 700; color: var(--text-primary); font-family: var(--font-display); letter-spacing: -0.02em;">{t(featuredExpert.goal, locale)} →</span>
       </a>
       <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; max-width: 500px; margin-bottom: 22px;">
-        {featuredReason ?? featuredExpert.outcome}
+        {featuredReason ?? t(featuredExpert.outcome, locale)}
       </p>
 
       <!-- Step 1 -->
@@ -85,8 +87,8 @@ const featuredExamples = featuredExpert
       <nav class="scenario-grid" aria-label="Expert skill sets">
         {experts.map(expert => (
           <a class="scenario-item" href={`/expert/${expert.slug}`}>
-            <span class="scenario-goal">{expert.goal} →</span>
-            <span class="scenario-desc">{expert.description}</span>
+            <span class="scenario-goal">{t(expert.goal, locale)} →</span>
+            <span class="scenario-desc">{t(expert.description, locale)}</span>
           </a>
         ))}
       </nav>

@@ -1,13 +1,15 @@
 ---
 import Base from '@/layouts/Base.astro';
-import { getExperts } from '@/data/bundles';
+import { getExperts, t } from '@/data/bundles';
 
+const locale = 'en';
 const experts = getExperts();
 ---
 
 <Base
   title="Experts"
   description="Expert-curated skill sets for OpenClaw agents. Pick a workflow and install everything in one command."
+  lang="en"
 >
   <h1 style="margin-bottom: 10px;">Experts</h1>
   <p style="color: var(--text-secondary); font-size: 15px; margin-bottom: 48px;">
@@ -17,8 +19,8 @@ const experts = getExperts();
   <nav class="expert-list" aria-label="All experts">
     {experts.map(expert => (
       <a class="expert-list-item" href={`/expert/${expert.slug}`}>
-        <span class="expert-list-goal">{expert.goal} →</span>
-        <span class="expert-list-desc">{expert.description}</span>
+        <span class="expert-list-goal">{t(expert.goal, locale)} →</span>
+        <span class="expert-list-desc">{t(expert.description, locale)}</span>
         <span class="expert-list-skills">
           {expert.skillsWithReason.length} skill{expert.skillsWithReason.length !== 1 ? 's' : ''} · {expert.skillsWithReason.map(s => s.slug.split('/')[1]).join(', ')}
         </span>
