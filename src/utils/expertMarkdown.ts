@@ -1,19 +1,20 @@
 import type { Expert } from '@/data/bundles';
+import { t } from '@/data/bundles';
 import { getSkill } from '@/data/skills';
 
-export function generateExpertMarkdown(expert: Expert): string {
+export function generateExpertMarkdown(expert: Expert, locale = 'en'): string {
   const lines: string[] = [];
   const pageUrl = `https://clawhub.md/expert/${expert.slug}`;
   const mdUrl = `${pageUrl}.md`;
 
-  lines.push(`# ${expert.name}`);
+  lines.push(`# ${t(expert.name, locale)}`);
   lines.push('');
   lines.push(`> **Agentic setup file** — share this URL with your agent and it will set everything up for you:`);
   lines.push(`> \`${mdUrl}\``);
   lines.push('');
-  lines.push(`**Goal:** ${expert.goal}`);
+  lines.push(`**Goal:** ${t(expert.goal, locale)}`);
   lines.push('');
-  lines.push(`**What you'll have:** ${expert.outcome}`);
+  lines.push(`**What you'll have:** ${t(expert.outcome, locale)}`);
   lines.push('');
   lines.push('---');
   lines.push('');
@@ -44,7 +45,7 @@ export function generateExpertMarkdown(expert: Expert): string {
     for (const { entry, skill } of skillsWithSetup) {
       lines.push(`### ${entry.slug}`);
       lines.push('');
-      lines.push(`_${entry.reason}_`);
+      lines.push(`_${t(entry.reason, locale)}_`);
       lines.push('');
       for (const step of skill?.setupSteps ?? []) {
         lines.push(`- ${step}`);
@@ -60,10 +61,11 @@ export function generateExpertMarkdown(expert: Expert): string {
   lines.push('After setup, say these to your agent to verify everything works:');
   lines.push('');
   for (const entry of expert.skillsWithReason) {
-    if (entry.examples && entry.examples.length > 0) {
+    const exs = entry.examples ? entry.examples[locale === 'zh' ? 'zh' : 'en'] : undefined;
+    if (exs && exs.length > 0) {
       lines.push(`**${entry.slug}**`);
       lines.push('');
-      for (const ex of entry.examples.slice(0, 3)) {
+      for (const ex of exs.slice(0, 3)) {
         lines.push(`- "${ex}"`);
       }
       lines.push('');
@@ -72,7 +74,7 @@ export function generateExpertMarkdown(expert: Expert): string {
 
   lines.push('---');
   lines.push('');
-  lines.push(`*${expert.name} · [clawhub.md/expert/${expert.slug}](${pageUrl})*`);
+  lines.push(`*${t(expert.name, locale)} · [clawhub.md/expert/${expert.slug}](${pageUrl})*`);
 
   return lines.join('\n');
 }
