@@ -38,6 +38,14 @@
 
 - ~~**?refresh=1 UI hint**~~ ✅ Done — stale banner in `SkillRenderer.astro` already shows `?refresh=1` hint.
 
+## Deferred from CEO Review (2026-03-27)
+
+- **Cache-Control TTL for agent `.md` files** — `/expert/[slug].md` currently returns `Cache-Control: public, max-age=3600`. Agents execute these files once — the 1h TTL is optimized for repeat page visitors, not agent consumers. Reduce to `max-age=60` or `no-store` for the `.md` endpoint. **Context:** `src/pages/expert/[slug].md.ts` line 18. Effort: XS (CC: ~5 min). Priority: P3.
+
+- **Rename `bundles.ts` → `experts.ts`** — The concept was renamed from Bundles to Experts but the primary data file is still `bundles.ts`. New developers get a broken mental model on their first file open. **Context:** Rename `src/data/bundles.ts`, update all imports across `src/pages/`. Run `grep -r "from '@/data/bundles'"` to find all callers. Effort: S (CC: ~10 min). Priority: P3.
+
+- **Document Expert lineup selection rationale** — No documented rationale for why these 6 Experts were chosen. Without it, there is no basis for prioritizing what to add/remove next. **Context:** Add a comment block at the top of `src/data/bundles.ts` explaining the selection criteria. Effort: XS. Priority: P4.
+
 ## P1: From autoplan Review (2026-03-26)
 
 - **fetchSkill.ts: 0% test coverage** — The core caching/fetching logic has no tests. Critical gap: any refactor of KV cache logic, branch fallback (main→master), or stale-serve behavior can silently regress with no test catching it. **Context:** Write `src/lib/fetchSkill.test.ts` covering 8 paths: fresh cache hit, stale+fresh, stale+error fallback, not_found, branch fallback, forceRefresh, KV write-through, concurrent. Use Vitest with a mock `KVStore`. Effort: S (human: ~3h / CC: ~30 min). Priority: P1. Start: `src/lib/fetchSkill.test.ts`.

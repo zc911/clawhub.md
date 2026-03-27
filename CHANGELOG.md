@@ -2,6 +2,12 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.2.2] - 2026-03-27
+
+### Changed
+- **Hero copy**: updated homepage sub-headline to agent-agnostic wording — "Pick an Expert. Say one sentence to your agent — OpenClaw, Claude Code, or any AI assistant. It handles the rest." (was: OpenClaw-only framing)
+- **`expertMarkdown.ts` defensive guard**: replaced non-null assertion `skill!.setupSteps!` with safe optional chain `skill?.setupSteps ?? []` — prevents build crash if a skill slug in an Expert's `skillsWithReason` is not found by `getSkill()`
+
 ## [1.2.1] - 2026-03-27
 
 ### Changed

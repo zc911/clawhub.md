@@ -46,7 +46,7 @@ export function generateExpertMarkdown(expert: Expert): string {
       lines.push('');
       lines.push(`_${entry.reason}_`);
       lines.push('');
-      for (const step of skill!.setupSteps!) {
+      for (const step of skill?.setupSteps ?? []) {
         lines.push(`- ${step}`);
       }
       lines.push('');
