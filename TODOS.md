@@ -62,8 +62,8 @@
 
 ## Deferred from Eng Review (2026-03-27)
 
-- **Recipes: missing `/recipes/[slug].md` machine-readable endpoints** — Experts have `.md` endpoints for agent consumption. Recipes are workflow compositions agents would also benefit from reading programmatically. Skipping this in v1 (static-first approach) is fine, but v2 should add them for consistency with the agentic pattern. **Context:** Follow the pattern in `src/pages/expert/[slug].md.ts`. Effort: XS (CC: ~10 min). Priority: P2. Depends on: Workflow Recipes v1 shipping.
+- ~~**Recipes: missing `/recipes/[slug].md` machine-readable endpoints**~~ ✅ Superseded — Recipe concept merged into Expert. Chinese-focused Experts added directly to `bundles.ts`. No separate `/recipes` route needed.
 
-- **Recipe content language: Chinese titles in design doc** — The design doc strawman has Chinese recipe titles and content; the rest of the site is English. This needs a decision before recipes ship: (A) write recipes in English only, (B) write bilingual (EN + ZH), or (C) write in Chinese first for the target audience. **Context:** Design doc `~/.gstack/projects/zc911-clawhub.md/chenzhen-master-design-20260326-165345.md` — strawman section is in Chinese. Effort: editorial (not code). Priority: P2. Blocks: Recipe launch.
+- ~~**Recipe content language: Chinese titles in design doc**~~ ✅ Resolved — Chinese Experts added with Chinese content (飞书助理, 钉钉会议助理, 企微客服助理, 开发者助理中文版). Language decision: Chinese content in Chinese Expert entries, English content in English Expert entries.
 
-- **Recipe ↔ Expert ↔ Scenario taxonomy** — No documented rule for when content should be a Recipe vs. Expert vs. scenario. Without this, the content model drifts immediately after launch. **Context:** Define the taxonomy in a comment block at the top of `src/data/recipes.ts` (once created). Effort: XS. Priority: P3.
+- ~~**Recipe ↔ Expert ↔ Scenario taxonomy**~~ ✅ Resolved — Recipe concept absorbed into Expert. One unified concept: Expert = curated skill set for a specific workflow goal, whether persona-based (Dev Expert) or task-based (飞书助理).
