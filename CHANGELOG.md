@@ -2,6 +2,21 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.2.6] - 2026-03-30
+
+### Added
+- **10 new experts** — expanded the expert roster from 10 to 20, covering new personas:
+  - `ai-builder-expert` — AI developers building Claude apps, MCP servers, and reusable skills (claude-api + mcp-builder + skill-creator + coding-agent)
+  - `indie-dev-expert` — Solo developers building in public, shipping frequently, and growing an audience (github + coding-agent + xurl + skill-creator)
+  - `pm-expert` — Product managers managing specs, stakeholder comms, and meeting outputs (gog + notion + slack + summarize)
+  - `writing-expert` — Writers and knowledge workers drafting posts and maintaining a connected note system (obsidian + notion + summarize + pdf)
+  - `social-media-expert` — Social media managers posting consistently and monitoring engagement (xurl + summarize + slack)
+  - `founder-expert` — Startup founders running investor updates, team coordination, and product from one place (gog + github + slack + notion + summarize)
+  - `ops-cn-expert` — Chinese enterprise ops teams managing Feishu, DingTalk, and WeCom in one workflow (feishu + dingtalk + wecom)
+  - `student-expert` — Students and researchers reading faster, taking better notes, and retaining more (summarize + obsidian + pdf + gog)
+  - `open-source-expert` — OSS maintainers triaging issues, engaging contributors, and announcing releases (github + xurl + slack + summarize)
+  - `personal-expert` — Personal productivity: daily briefing, weather, idea capture, and skill discovery (gog + weather + obsidian + clawhub)
+
 ## [1.2.5] - 2026-03-27
 
 ### Changed
