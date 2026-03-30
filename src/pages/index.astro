@@ -7,6 +7,9 @@ import { sotw } from '@/data/sotw';
 const locale = 'en';
 const experts = getExperts();
 
+const FEATURED_EXPERT_SLUGS = ['dev-expert', 'meeting-expert', 'founder-expert', 'pm-expert', 'daily-briefing'];
+const featuredExperts = FEATURED_EXPERT_SLUGS.map(s => getExpert(s)).filter(Boolean);
+
 const featuredExpert = sotw
   ? getExpert(sotw.expert) ?? experts[0] ?? null
   : experts[0] ?? null;
@@ -83,14 +86,18 @@ const featuredExamples = featuredExpert
     <h2 id="experts-heading" style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 14px;">
       What are you trying to do?
     </h2>
-    {experts.length > 0 ? (
+    {featuredExperts.length > 0 ? (
       <nav class="scenario-grid" aria-label="Expert skill sets">
-        {experts.map(expert => (
-          <a class="scenario-item" href={`/expert/${expert.slug}`}>
-            <span class="scenario-goal">{t(expert.goal, locale)} →</span>
-            <span class="scenario-desc">{t(expert.description, locale)}</span>
+        {featuredExperts.map(expert => (
+          <a class="scenario-item" href={`/expert/${expert!.slug}`}>
+            <span class="scenario-goal">{t(expert!.goal, locale)} →</span>
+            <span class="scenario-desc">{t(expert!.description, locale)}</span>
           </a>
         ))}
+        <a class="scenario-item scenario-item--more" href="/experts">
+          <span class="scenario-goal">See all {experts.length} experts →</span>
+          <span class="scenario-desc">AI Builder, Open Source, Writing, Research, and more</span>
+        </a>
       </nav>
     ) : (
       <p class="empty-state">No expert paths yet — check back soon.</p>
