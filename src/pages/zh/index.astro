@@ -7,6 +7,9 @@ import { sotw } from '@/data/sotw';
 const locale = 'zh';
 const experts = getExperts();
 
+const FEATURED_EXPERT_SLUGS = ['dev-expert', 'meeting-expert', 'founder-expert', 'pm-expert', 'daily-briefing'];
+const featuredExperts = FEATURED_EXPERT_SLUGS.map(s => getExpert(s)).filter(Boolean);
+
 const featuredExpert = sotw
   ? getExpert(sotw.expert) ?? experts[0] ?? null
   : experts[0] ?? null;
@@ -83,14 +86,18 @@ const featuredExamples = featuredExpert
     <h2 id="experts-heading" style="font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 14px;">
       你想完成什么任务？
     </h2>
-    {experts.length > 0 ? (
+    {featuredExperts.length > 0 ? (
       <nav class="scenario-grid" aria-label="Expert 技能集">
-        {experts.map(expert => (
-          <a class="scenario-item" href={`/zh/expert/${expert.slug}`}>
-            <span class="scenario-goal">{t(expert.goal, locale)} →</span>
-            <span class="scenario-desc">{t(expert.description, locale)}</span>
+        {featuredExperts.map(expert => (
+          <a class="scenario-item" href={`/zh/expert/${expert!.slug}`}>
+            <span class="scenario-goal">{t(expert!.goal, locale)} →</span>
+            <span class="scenario-desc">{t(expert!.description, locale)}</span>
           </a>
         ))}
+        <a class="scenario-item scenario-item--more" href="/zh/experts">
+          <span class="scenario-goal">查看全部 {experts.length} 个 Experts →</span>
+          <span class="scenario-desc">AI 开发者、开源维护者、写作、研究等更多场景</span>
+        </a>
       </nav>
     ) : (
       <p class="empty-state">暂无 Expert，敬请期待。</p>
