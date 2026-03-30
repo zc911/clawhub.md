@@ -53,8 +53,8 @@ const enPath = path.startsWith('/zh') ? path.slice(3) || '/' : path;
         clawhub<span class="logo-accent">.md</span>
       </a>
       <div class="nav-links">
-        <a href="/browse">{lang === 'zh' ? '技能库' : 'Browse'}</a>
         <a href={lang === 'zh' ? '/zh/experts' : '/experts'}>{lang === 'zh' ? 'Experts' : 'Experts'}</a>
+        <a href="/browse">{lang === 'zh' ? '技能库' : 'Browse'}</a>
         <a href="/r/">{lang === 'zh' ? '任意技能' : 'Any skill'}</a>
         <a href="https://clawhub.ai" target="_blank" rel="noopener" class="nav-external">clawhub.ai ↗</a>
         <span class="lang-switcher">
@@ -74,8 +74,8 @@ const enPath = path.startsWith('/zh') ? path.slice(3) || '/' : path;
           clawhub.md · The curated companion to <a href="https://clawhub.ai" target="_blank" rel="noopener">clawhub.ai</a> · Part of the <a href="https://openclaw.ai" target="_blank" rel="noopener">OpenClaw</a> ecosystem
         </div>
         <div class="footer-links">
-          <a href="/browse">{lang === 'zh' ? '技能库' : 'Browse'}</a>
           <a href={lang === 'zh' ? '/zh/experts' : '/experts'}>Experts</a>
+          <a href="/browse">{lang === 'zh' ? '技能库' : 'Browse'}</a>
           <a href="/r/">{lang === 'zh' ? '任意技能 →' : 'Any skill →'}</a>
           <a href="https://github.com/zc911/clawhub.md" target="_blank" rel="noopener">GitHub</a>
         </div>
