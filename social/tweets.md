@@ -65,7 +65,7 @@ PM Expert → draft PRDs, manage inbox, coordinate Slack
 Founder Expert → investor updates, team, product — one agent
 Open Source Expert → triage issues, announce releases, engage contributors
 
-20 experts. Pick yours at clawhub.md/experts
+20 experts. Pick yours at https://clawhub.md/experts
 ```
 
 **4/5**
@@ -73,7 +73,7 @@ Open Source Expert → triage issues, announce releases, engage contributors
 The setup is a URL.
 
 Every Expert has a machine-readable file:
-clawhub.md/expert/founder-expert.md
+https://clawhub.md/expert/founder-expert.md
 
 Your agent reads it and follows the setup steps inside.
 No copy-paste prompts. No manual config. The agent does it.
@@ -97,7 +97,7 @@ github.com/zc911/clawhub.md
 ```
 The founder's agent:
 
-Say: "Read clawhub.md/expert/founder-expert.md and set me up as Founder Expert"
+Say: "Read https://clawhub.md/expert/founder-expert.md and set me up as Founder Expert"
 
 Then:
 → "Draft my monthly investor update"
@@ -107,7 +107,7 @@ Then:
 
 Gmail, GitHub, Slack, Notion — one agent covers it.
 
-clawhub.md/expert/founder-expert
+https://clawhub.md/expert/founder-expert
 ```
 
 ### Meeting Expert
@@ -121,21 +121,21 @@ After:
 
 Meeting Expert for OpenClaw.
 
-clawhub.md/expert/meeting-expert
+https://clawhub.md/expert/meeting-expert
 ```
 
 ### Feishu / DingTalk / WeCom (Chinese)
 ```
 三个平台，一个 Agent。
 
-说：「Read clawhub.md/expert/ops-cn-expert.md and set me up as Chinese Enterprise Ops Expert」
+说：「Read https://clawhub.md/expert/ops-cn-expert.md and set me up as Chinese Enterprise Ops Expert」
 
 然后：
 →「汇总今天飞书未读消息」
 →「整理钉钉会议纪要并发给参会人」
 →「有哪些企业微信客户消息还没回？」
 
-clawhub.md/expert/ops-cn-expert
+https://clawhub.md/expert/ops-cn-expert
 ```
 
 ### Open Source Expert
@@ -148,7 +148,7 @@ Open Source Expert:
 → "Post the v2.0 release announcement"
 → "What are contributors discussing today?"
 
-clawhub.md/expert/open-source-expert
+https://clawhub.md/expert/open-source-expert
 ```
 
 ### Daily Briefing
@@ -164,7 +164,7 @@ Every morning:
 
 One sentence. 30 seconds to read. Day starts clear.
 
-clawhub.md/expert/daily-briefing
+https://clawhub.md/expert/daily-briefing
 ```
 
 ### PM Expert
@@ -177,7 +177,7 @@ PM Expert:
 → "What are the current blockers in #engineering?"
 → "Schedule a stakeholder sync for next week"
 
-clawhub.md/expert/pm-expert
+https://clawhub.md/expert/pm-expert
 ```
 
 ---
@@ -196,7 +196,7 @@ New this week:
 
 Pick an Expert. Say one sentence. Let your agent handle it.
 
-clawhub.md/experts
+https://clawhub.md/experts
 ```
 
 ---

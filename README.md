@@ -65,9 +65,11 @@ Skills are the building blocks inside each Expert. You can also install them ind
 
 → **[Browse all skills](https://clawhub.md/browse)**
 
-**openclaw** — Gmail, GitHub, Slack, Notion, Obsidian, X, Feishu, DingTalk, WeCom, weather, summarize
+**openclaw** — Gmail, GitHub, Slack, Notion, Obsidian, X, weather, summarize, coding-agent, clawhub
 **anthropics** — PDF, MCP builder, skill creator, Claude API
-**gstack** — ship, review, investigate, QA, retro
+**gstack** — ship, review, investigate, QA, design-review, retro
+
+> Feishu, DingTalk, and WeCom skills are referenced by Chinese Enterprise experts and will be added to the registry shortly.
 
 ---
 
@@ -95,5 +97,7 @@ npm run dev    # http://localhost:4321
 npm test
 npm run build
 ```
+
+**GitHub token (optional but recommended):** Without a token the GitHub API rate limit is 60 req/hr. Set `GITHUB_TOKEN` in your `.env` or Cloudflare Workers secrets to raise it to 5000 req/hr.
 
 Stack: Astro · TypeScript · Cloudflare Workers · Cloudflare KV
