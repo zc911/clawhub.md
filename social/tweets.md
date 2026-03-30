@@ -1,177 +1,206 @@
 # clawhub.md — X/Twitter Content
 
-Ready-to-post. Each post leads with a concrete moment of delegation, not a feature list.
+Two beliefs drive everything here:
+1. People don't need skills. They need an expert who handles a specific type of work.
+2. An agent is a markdown file. Which means an expert is a URL.
+
+Every post should flow from one of these two beliefs — or from the moment of delegation they make possible.
 
 ---
 
-## What is clawhub / Intro Posts
+## Core Belief Posts
 
-### One-liner intro
+### Belief 1: Expert, not skills
+
 ```
-clawhub.md — skill registry for OpenClaw agents.
+You don't hire an accountant because they "know Excel."
 
-Pick an Expert for your role.
-Say one sentence to your agent.
-It handles the setup and the work.
+You hire them because they handle your books.
+
+Same logic applies to AI.
+
+You don't need skills. You need an expert.
 
 clawhub.md
 ```
 
-### The core interaction (show don't tell)
-```
-The whole thing is two steps:
+---
 
-① Say to your agent:
+```
+Most AI setups look like a toolbox.
+
+A bunch of capabilities. No one in charge.
+
+An expert is different. It knows your context, your workflow, your defaults.
+It doesn't wait to be asked — it handles things.
+
+That's what clawhub.md publishes.
+
+https://clawhub.md/experts
+```
+
+---
+
+### Belief 2: An agent is a markdown file
+
+```
+An agent is a markdown file.
+
+Instructions, skills, configuration — all in a .md file with a URL.
+
+Which means deploying an expert looks like this:
+
 "Read https://clawhub.md/expert/dev-expert.md and set me up as Dev Expert"
 
-② Then:
-"Review my open PRs for anything blocking"
-"Check CI status on my current branch"
-"Triage my issues by priority"
-
-Your agent handles it. You get on with your day.
+Your AI reads the file. Becomes that expert. Ready to work.
 ```
 
-### Intro thread (5 tweets)
+---
+
+```
+Most people don't realize this:
+
+You can read your agent.
+
+A clawhub Expert is a plain markdown file.
+Open it. See exactly what it does, what it installs, how it behaves.
+
+No black box. No trust me. Just a URL.
+
+https://clawhub.md/expert/dev-expert.md
+```
+
+---
+
+## Intro Thread (5 tweets)
 
 **1/5**
 ```
-Most people use Claude for questions.
+Most people use AI as a smarter search engine.
 
-A small number use it for delegation — giving their agent a skill set and saying "handle it."
+A smaller group uses it differently.
+
+They give their AI a job title.
+Then they give it work.
 
 clawhub.md is built for the second group.
 ```
 
 **2/5**
 ```
-Here's how it works:
+The insight behind clawhub:
 
-Say this to your agent:
-"Read https://clawhub.md/expert/meeting-expert.md and set me up as Meeting Expert"
+You don't need more skills.
+You need an expert — someone who owns a specific type of work end to end.
 
-Your agent reads the file. Installs the skills. Configures itself.
+Dev Expert. PM Expert. Founder Expert.
 
-Then: "Prepare background materials for my 3pm call."
-
-Done.
+Each one is a curated set of capabilities, tuned for a real workflow.
 ```
 
 **3/5**
 ```
-Experts are curated skill sets built around real workflows.
+Here's the part that surprised people:
 
-PM Expert → draft PRDs, manage inbox, coordinate Slack
-Founder Expert → investor updates, team, product — one agent
-Open Source Expert → triage issues, announce releases, engage contributors
+An agent is just a markdown file.
 
-20 experts. Pick yours at https://clawhub.md/experts
+So deploying an expert is one sentence:
+
+"Read https://clawhub.md/expert/meeting-expert.md and set me up as Meeting Expert"
+
+Your AI reads the file. Installs the skills. Configures itself. Done.
 ```
 
 **4/5**
 ```
-The setup is a URL.
+Then you stop doing things manually.
 
-Every Expert has a machine-readable file:
-https://clawhub.md/expert/founder-expert.md
+→ "Prepare background materials for my 3pm call"
+→ "Draft minutes from what we discussed"
+→ "Review my open PRs for anything blocking"
+→ "Draft my investor update"
 
-Your agent reads it and follows the setup steps inside.
-No copy-paste prompts. No manual config. The agent does it.
+You talk. It works.
 ```
 
 **5/5**
 ```
-Works on OpenClaw, Claude Code, Telegram, Feishu — any agent interface.
+The experts are open. The files are readable.
 
-The skills are open. The experts are open.
-If you build a workflow worth sharing, open an issue.
+If you build a workflow worth sharing, it belongs here.
 
-github.com/zc911/clawhub.md
+20 experts today.
+Every one a markdown file.
+Every one a URL.
+
+https://clawhub.md/experts
 ```
 
 ---
 
 ## Expert Spotlight Posts
 
-### Founder Expert
+### Dev Expert
 ```
-The founder's agent:
+A dev expert isn't someone who helps you write code.
 
-Say: "Read https://clawhub.md/expert/founder-expert.md and set me up as Founder Expert"
+It's someone who handles your dev work.
 
-Then:
-→ "Draft my monthly investor update"
-→ "What PRs need my review today?"
-→ "What's the latest blocking issue in #engineering?"
-→ "Update the Q2 roadmap with this new priority"
+→ "Review my open PRs for anything blocking"
+→ "What's the CI status on my current branch?"
+→ "Triage my issues by priority"
+→ "Create an issue: login page crashes on Safari"
 
-Gmail, GitHub, Slack, Notion — one agent covers it.
+One sentence. It handles it.
 
-https://clawhub.md/expert/founder-expert
+https://clawhub.md/expert/dev-expert
 ```
+
+---
 
 ### Meeting Expert
 ```
-Before: open calendar, find the doc, prep notes, take minutes, send follow-up.
+Before: open calendar, find the doc, prep notes, take minutes, write follow-up.
 
 After:
+
 "Prepare background materials for my 3pm call"
 "Draft minutes from what we just discussed"
 "Send the minutes to all attendees"
 
-Meeting Expert for OpenClaw.
+That's not AI assistance. That's delegation.
 
 https://clawhub.md/expert/meeting-expert
 ```
 
-### Feishu / DingTalk / WeCom (Chinese)
+---
+
+### Founder Expert
 ```
-三个平台，一个 Agent。
+A founder's job is context-switching.
 
-说：「Read https://clawhub.md/expert/ops-cn-expert.md and set me up as Chinese Enterprise Ops Expert」
+Investor email. Engineering blocker. Product decision. Team update.
 
-然后：
-→「汇总今天飞书未读消息」
-→「整理钉钉会议纪要并发给参会人」
-→「有哪些企业微信客户消息还没回？」
+Founder Expert holds all of it:
 
-https://clawhub.md/expert/ops-cn-expert
-```
+→ "Draft my monthly investor update"
+→ "What's blocking the engineering team right now?"
+→ "What PRs need my review?"
+→ "Update the Q2 roadmap with this new priority"
 
-### Open Source Expert
-```
-Maintaining an OSS project means a lot of reading and writing, not coding.
+One agent. All of it.
 
-Open Source Expert:
-→ "List issues with more than 10 thumbs-up"
-→ "Summarize this 60-comment issue thread"
-→ "Post the v2.0 release announcement"
-→ "What are contributors discussing today?"
-
-https://clawhub.md/expert/open-source-expert
+https://clawhub.md/expert/founder-expert
 ```
 
-### Daily Briefing
-```
-Every morning:
-
-"Give me my briefing"
-
-→ Unread emails, flagged urgent
-→ Today's calendar
-→ Weather
-→ Anything that needs a reply
-
-One sentence. 30 seconds to read. Day starts clear.
-
-https://clawhub.md/expert/daily-briefing
-```
+---
 
 ### PM Expert
 ```
 PM work is mostly reading, writing, and coordination.
 
-PM Expert:
+Which means most of it can be delegated.
+
 → "Summarize this user research report"
 → "Draft a PRD for this feature in Notion"
 → "What are the current blockers in #engineering?"
@@ -182,19 +211,86 @@ https://clawhub.md/expert/pm-expert
 
 ---
 
+### Chinese Enterprise Ops (Feishu / DingTalk / WeCom)
+```
+三个平台，一个 Expert。
+
+→「汇总今天飞书未读消息」
+→「整理钉钉会议纪要并发给参会人」
+→「有哪些企业微信客户消息还没回？」
+
+每一条都是一句话。
+它去处理，你继续工作。
+
+https://clawhub.md/expert/ops-cn-expert
+```
+
+---
+
+### Open Source Expert
+```
+Maintaining an OSS project is mostly reading and writing, not coding.
+
+Issue triage. Release announcements. Contributor replies.
+
+Open Source Expert:
+
+→ "List issues with the most thumbs-up"
+→ "Summarize this 60-comment thread"
+→ "Post the v2.0 release announcement"
+→ "What are contributors discussing today?"
+
+https://clawhub.md/expert/open-source-expert
+```
+
+---
+
+## The Mechanism (standalone posts)
+
+```
+How it works:
+
+① Find the expert for your role
+   clawhub.md/experts
+
+② Say this to your AI:
+   "Read https://clawhub.md/expert/[expert].md
+    and set me up"
+
+③ Your AI reads the file.
+   Installs the skills.
+   Configures itself.
+
+④ Then just talk to it.
+```
+
+---
+
+```
+The setup prompt is a URL.
+
+Every expert on clawhub has a machine-readable .md file.
+
+Your AI reads it. Follows the setup steps inside. No copy-paste. No config.
+
+The agent does the setup. That's the point.
+```
+
+---
+
 ## Milestone Post (20 experts)
 
 ```
-clawhub.md now has 20 Expert bundles.
+clawhub.md now has 20 experts.
 
-New this week:
-→ AI Builder — build Claude apps, MCP servers, reusable skills
-→ Founder — investor email, team, product from one agent
-→ Open Source Maintainer — triage, announce, engage
-→ Chinese Enterprise Ops — Feishu + DingTalk + WeCom unified
-→ Indie Dev — build in public, ship, grow an audience
+Each one is a markdown file.
+Each one is a URL.
+Each one handles a specific type of work end to end.
 
-Pick an Expert. Say one sentence. Let your agent handle it.
+Dev. PM. Founder. Meeting. Research. Writing.
+Open Source. Daily Briefing. Feishu. DingTalk. WeCom.
+
+Pick yours.
 
 https://clawhub.md/experts
 ```
@@ -203,25 +299,30 @@ https://clawhub.md/experts
 
 ## Content Principles
 
-Every post should:
-- Show a **concrete moment** of delegation ("I said X, my agent did Y")
-- Include the **actual sentence** to say to your agent, or a real example prompt
-- Link to the **specific expert page**, not just the homepage
-- Be usable without any prior knowledge of OpenClaw or clawhub
+Every post should flow from one of two beliefs:
+- People need experts, not skills
+- An agent is a markdown file (= a URL, = instantly deployable)
+
+Show the **moment of delegation** — not the setup, not the feature.
+The setup is one sentence. The payoff is the work getting done.
 
 Avoid:
-- Feature lists without context ("supports 22 skills")
-- Developer-tool framing ("install via CLI", "open source")
-- Vague AI hype ("your AI-powered workflow")
+- Feature lists without the "so what"
+- Developer framing ("install", "CLI", "open source")
+- Vague AI hype ("AI-powered", "supercharge your workflow")
+- Describing what the product does without showing what the user stops doing
+
+The test for every post: does someone read this and think
+"I want my AI to work like that"?
 
 ---
 
 ## Cadence
 
 3 posts/week:
-- **Monday** — Expert spotlight (one expert, 2-3 concrete prompts, link)
-- **Wednesday** — Use case moment (before/after, one specific delegation)
-- **Friday** — Community / update (new experts, contributor work, product news)
+- **Monday** — Expert spotlight (one expert, concrete delegation, link)
+- **Wednesday** — Belief post (expert vs skills, or agent = markdown file)
+- **Friday** — Mechanism or milestone (how it works, new experts, open files)
 
 ## Hashtags
 
