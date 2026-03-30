@@ -1,6 +1,6 @@
 # Contributing to clawhub.md
 
-clawhub.md is a curated registry of AgentSkills for Claude Code. Contributions are welcome — this document covers how to add a skill, propose an expert bundle, or improve the site.
+clawhub.md is a curated skill registry for [OpenClaw](https://openclaw.ai) agents. Contributions are welcome — this document covers how to add a skill, propose an Expert, or improve the site.
 
 ---
 
@@ -12,34 +12,36 @@ A skill is added to the registry when it meets all three criteria:
 
 1. **Has a valid `SKILL.md`** — structured according to the [AgentSkills spec](https://github.com/anthropics/skills)
 2. **Is publicly hosted** — the `SKILL.md` file is accessible via a public GitHub repo
-3. **Works immediately or with documented setup** — a developer should be able to install and use the skill within 10 minutes
+3. **Works after agent-guided setup** — a user's agent should be able to install and configure the skill within one conversation turn, following the setup steps in `SKILL.md`
 
-We prioritize skills that are actively maintained and have clear, concrete examples.
+We prioritize skills that are actively maintained and have clear, concrete example prompts — things a user would actually say to their agent.
 
 ### How to submit
 
-Open an issue using the **[Add a skill](.github/ISSUE_TEMPLATE/add-skill.md)** template. Include:
+Open an issue using the **[Add a skill](https://github.com/zc911/clawhub.md/issues/new?template=add-skill.yml)** template. Include:
 
 - Skill name and namespace (`author/slug`)
 - GitHub repo and path to `SKILL.md`
 - What the skill does (1-2 sentences)
 - Setup requirements (auth, env vars, etc.)
-- 2-3 example prompts
+- 2-3 example prompts — what a user would say to their agent after setup
 
 If the skill is approved, a maintainer will add it to `src/data/skills.ts` and it will appear on the Browse page.
 
 ---
 
-## Proposing an Expert Bundle
+## Proposing an Expert
 
-An Expert is a curated set of skills for a specific role or use case. To propose one:
+An Expert is a curated skill set built around a real workflow and a specific user role. The test: after setup, can a user delegate their most common tasks by talking to their agent?
 
-1. Open an issue using the **[Propose an expert](.github/ISSUE_TEMPLATE/propose-expert.md)** template
-2. Describe the target persona (who uses this, what they do daily)
-3. List the skills and explain why each one is included
-4. Suggest 3-5 example prompts the user would say after installing
+To propose one:
 
-Expert bundles are added to `src/data/bundles.ts`. They must use skills already in the registry.
+1. Open an issue using the **[Propose an expert](https://github.com/zc911/clawhub.md/issues/new?template=propose-expert.yml)** template
+2. Describe the target persona — who they are, what they do every day, what they currently do manually
+3. List the skills and explain why each one earns its place
+4. Provide 3-5 example prompts the user would say to their agent after setup
+
+Expert bundles are added to `src/data/bundles.ts`. All skills in the bundle must already be in the registry.
 
 ---
 
@@ -72,8 +74,8 @@ npm run build    # full production build
 
 ## What we don't accept
 
-- Skills that require paid APIs without a free tier or trial
-- Skills with no examples or unclear use cases
+- Skills that require paid APIs with no free tier or trial
+- Skills with vague or no example prompts
 - Duplicate skills that overlap heavily with an existing one
 - Expert bundles that are just one skill renamed
 
