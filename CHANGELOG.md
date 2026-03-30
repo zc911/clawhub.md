@@ -2,6 +2,15 @@
 
 All notable changes to clawhub.md are documented here.
 
+## [1.2.7] - 2026-03-30
+
+### Added
+- **README.md** — project overview with expert table, skill namespaces, quick start, and development setup
+- **CONTRIBUTING.md** — contributor guide covering skill submissions, expert proposals, and site development conventions
+- **GitHub issue templates** — structured forms for skill submissions (`add-skill`), expert proposals (`propose-expert`), and bug reports (`bug-report`)
+- **PR template** — standard pull request checklist
+- **social/tweets.md** — ready-to-post X/Twitter content: milestone announcements, expert spotlights, use case posts, and weekly content calendar template
+
 ## [1.2.6] - 2026-03-30
 
 ### Added

@@ -1,0 +1,80 @@
+name: Add a skill
+description: Submit a new skill for the clawhub.md registry
+title: "[skill] author/slug"
+labels: ["skill-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for submitting a skill! Fill out the fields below and a maintainer will review within a few days.
+
+  - type: input
+    id: slug
+    attributes:
+      label: Skill identifier
+      description: The `author/slug` reference (e.g. `openclaw/github`)
+      placeholder: author/slug
+    validations:
+      required: true
+
+  - type: input
+    id: repo
+    attributes:
+      label: GitHub repo
+      description: The `owner/repo` where the SKILL.md lives
+      placeholder: owner/repo
+    validations:
+      required: true
+
+  - type: input
+    id: path
+    attributes:
+      label: Path to SKILL.md
+      description: Path within the repo (e.g. `skills/github/SKILL.md`)
+      placeholder: skills/slug/SKILL.md
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What does this skill do?
+      description: 1-2 sentences. What can your agent do after installing this skill?
+      placeholder: "After installing, your agent can..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: setup
+    attributes:
+      label: Setup requirements
+      description: What does a user need to configure? (API keys, OAuth, env vars, etc.)
+      placeholder: |
+        - Set GITHUB_TOKEN environment variable
+        - Run `gh auth login` to authenticate
+    validations:
+      required: true
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example prompts (3-5)
+      description: What would a user actually say to their agent after installing?
+      placeholder: |
+        - Review my open PRs for anything blocking
+        - Create an issue: login page crashes on Safari
+        - What's the CI status on my current branch?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: The SKILL.md is publicly accessible at the repo/path above
+          required: true
+        - label: The skill works with a free tier or open-source tooling (no required paid subscription)
+          required: true
+        - label: I have tested this skill with Claude Code
+          required: true

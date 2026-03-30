@@ -1,0 +1,70 @@
+name: Propose an expert bundle
+description: Suggest a new Expert bundle for a specific role or use case
+title: "[expert] expert-name"
+labels: ["expert-proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        An Expert is a curated set of skills for a specific role. All skills in the bundle must already exist in the registry.
+
+  - type: input
+    id: slug
+    attributes:
+      label: Expert slug
+      description: URL-safe identifier (e.g. `data-analyst-expert`)
+      placeholder: role-expert
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Display name
+      description: Short, clear name (e.g. "Data Analyst Expert")
+      placeholder: "Role Expert"
+    validations:
+      required: true
+
+  - type: textarea
+    id: persona
+    attributes:
+      label: Target persona
+      description: Who is this for? What do they do day-to-day?
+      placeholder: "A data analyst who spends most of their day in spreadsheets and SQL, reporting to a PM and engineering lead..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: skills
+    attributes:
+      label: Skills and rationale
+      description: List each skill and why it's included. Use skills already in the registry.
+      placeholder: |
+        - openclaw/gog — Gmail and Sheets access for reporting
+        - openclaw/summarize — Digest data docs and research papers
+        - anthropics/pdf — Extract data from PDF reports
+    validations:
+      required: true
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example prompts (3-5)
+      description: What would this Expert's user say to their agent?
+      placeholder: |
+        - Summarize last week's analytics report PDF
+        - Pull the conversion data from this Sheets tab
+        - Draft a weekly metrics summary for my PM
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: All listed skills are already in the clawhub.md registry
+          required: true
+        - label: This expert is meaningfully different from existing experts on the site
+          required: true

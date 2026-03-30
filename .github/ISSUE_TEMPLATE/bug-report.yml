@@ -1,0 +1,42 @@
+name: Bug report
+description: Something on clawhub.md is broken
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Affected page or URL
+      placeholder: "https://clawhub.md/expert/dev-expert"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you see? What did you expect?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. See error
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Cosmetic (display issue, minor annoyance)
+        - Functional (feature doesn't work as expected)
+        - Broken (page errors, content missing)
+    validations:
+      required: true
