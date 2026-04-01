@@ -1,15 +1,17 @@
 import type { APIRoute } from 'astro';
-import { getExperts, getExpert } from '@/data/bundles';
+import { loadExperts, findExpert } from '@/lib/loadExperts';
 import { generateExpertMarkdown } from '@/utils/expertMarkdown';
 
 export const prerender = true;
 
-export function getStaticPaths() {
-  return getExperts().map(e => ({ params: { slug: e.slug } }));
+export async function getStaticPaths() {
+  const experts = await loadExperts();
+  return experts.map(e => ({ params: { slug: e.slug } }));
 }
 
-export const GET: APIRoute = ({ params }) => {
-  const expert = getExpert(params.slug!);
+export const GET: APIRoute = async ({ params }) => {
+  const experts = await loadExperts();
+  const expert = findExpert(experts, params.slug!);
   if (!expert) {
     return new Response('Not found', { status: 404 });
   }

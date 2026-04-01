@@ -1,17 +1,17 @@
 ---
 import Base from '@/layouts/Base.astro';
 import InstallBox from '@/components/InstallBox.astro';
-import { getExperts, getExpert, t } from '@/data/bundles';
+import { loadExperts, findExpert, t } from '@/lib/loadExperts';
 import { sotw } from '@/data/sotw';
 
 const locale = 'en';
-const experts = getExperts();
+const experts = await loadExperts();
 
 const FEATURED_EXPERT_SLUGS = ['dev-expert', 'meeting-expert', 'founder-expert', 'pm-expert', 'daily-briefing'];
-const featuredExperts = FEATURED_EXPERT_SLUGS.map(s => getExpert(s)).filter(Boolean);
+const featuredExperts = FEATURED_EXPERT_SLUGS.map(s => findExpert(experts, s)).filter(Boolean);
 
 const featuredExpert = sotw
-  ? getExpert(sotw.expert) ?? experts[0] ?? null
+  ? findExpert(experts, sotw.expert) ?? experts[0] ?? null
   : experts[0] ?? null;
 const featuredReason = featuredExpert && sotw?.expert === featuredExpert.slug ? sotw.reason : null;
 const agentPrompt = featuredExpert

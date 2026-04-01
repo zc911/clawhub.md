@@ -1,18 +1,20 @@
 ---
 import Base from '@/layouts/Base.astro';
 import InstallBox from '@/components/InstallBox.astro';
-import { getExperts, getExpert, t } from '@/data/bundles';
+import { loadExperts, findExpert, t } from '@/lib/loadExperts';
 import { generateExpertMarkdown } from '@/utils/expertMarkdown';
 import { marked } from 'marked';
 
 const locale = 'zh';
 
-export function getStaticPaths() {
-  return getExperts().map(e => ({ params: { slug: e.slug } }));
+export async function getStaticPaths() {
+  const experts = await loadExperts();
+  return experts.map(e => ({ params: { slug: e.slug } }));
 }
 
 const { slug } = Astro.params;
-const expert = getExpert(slug);
+const experts = await loadExperts();
+const expert = findExpert(experts, slug);
 
 if (!expert) {
   return Astro.redirect('/404');

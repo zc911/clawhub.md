@@ -1,10 +1,10 @@
 ---
 import Base from '@/layouts/Base.astro';
-import { getExperts, t } from '@/data/bundles';
+import { loadExperts, t } from '@/lib/loadExperts';
 import type { Division } from '@/data/bundles';
 
 const locale = 'zh';
-const experts = getExperts();
+const experts = await loadExperts();
 
 const divisionOrder: Division[] = ['Engineering', 'Product', 'Content', 'Productivity', '中文专区'];
 const divisionLabels: Record<Division, string> = {
