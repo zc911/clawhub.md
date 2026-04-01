@@ -1,9 +1,23 @@
 ---
 import Base from '@/layouts/Base.astro';
 import { getExperts, t } from '@/data/bundles';
+import type { Division } from '@/data/bundles';
 
 const locale = 'zh';
 const experts = getExperts();
+
+const divisionOrder: Division[] = ['Engineering', 'Product', 'Content', 'Productivity', '中文专区'];
+const divisionLabels: Record<Division, string> = {
+  'Engineering': '工程',
+  'Product': '产品',
+  'Content': '内容',
+  'Productivity': '效率',
+  '中文专区': '中文专区',
+};
+
+const grouped = divisionOrder
+  .map(div => ({ div, items: experts.filter(e => e.division === div) }))
+  .filter(g => g.items.length > 0);
 ---
 
 <Base
@@ -16,17 +30,22 @@ const experts = getExperts();
     围绕真实工作流精心策划的技能集。每个 Expert 告诉你要安装什么、如何配置，以及对 Agent 说什么。
   </p>
 
-  <nav class="expert-list" aria-label="全部 Experts">
-    {experts.map(expert => (
-      <a class="expert-list-item" href={`/zh/expert/${expert.slug}`}>
-        <span class="expert-list-goal">{t(expert.goal, locale)} →</span>
-        <span class="expert-list-desc">{t(expert.description, locale)}</span>
-        <span class="expert-list-skills">
-          {expert.skillsWithReason.length} 个技能 · {expert.skillsWithReason.map(s => s.slug.split('/')[1]).join(', ')}
-        </span>
-      </a>
-    ))}
-  </nav>
+  {grouped.map(({ div, items }) => (
+    <section style="margin-bottom: 40px;">
+      <h2 class="division-heading">{divisionLabels[div]}</h2>
+      <nav class="expert-list" aria-label={`${divisionLabels[div]} experts`}>
+        {items.map(expert => (
+          <a class="expert-list-item" href={`/zh/expert/${expert.slug}`}>
+            <span class="expert-list-goal">{t(expert.name, locale)} →</span>
+            <span class="expert-list-outcome">{t(expert.outcome, locale)}</span>
+            <span class="expert-list-skills">
+              {expert.skillsWithReason.length} 个技能 · {expert.skillsWithReason.map(s => s.slug.split('/')[1]).join(', ')}
+            </span>
+          </a>
+        ))}
+      </nav>
+    </section>
+  ))}
 
   <hr />
   <div class="footer-links">
@@ -36,17 +55,28 @@ const experts = getExperts();
 </Base>
 
 <style>
+.division-heading {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
 .expert-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .expert-list-item {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 22px 24px;
+  padding: 18px 20px;
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -61,21 +91,21 @@ const experts = getExperts();
 }
 
 .expert-list-goal {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--text-primary);
 }
 
-.expert-list-desc {
+.expert-list-outcome {
   font-size: 13px;
   color: var(--text-secondary);
   line-height: 1.5;
 }
 
 .expert-list-skills {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-muted);
   font-family: var(--font-mono);
-  margin-top: 4px;
+  margin-top: 2px;
 }
 </style>

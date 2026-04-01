@@ -13,12 +13,15 @@ export interface SkillWithReason {
   examples?: { en: string[]; zh: string[] };  // what to say to your agent after installing
 }
 
+export type Division = 'Engineering' | 'Product' | 'Content' | 'Productivity' | '中文专区';
+
 export interface Expert {
   slug: string;
   name: L;
   description: L;
   goal: L;          // headline on the expert page
   outcome: L;       // "After installing, your agent can..."
+  division: Division;
   skillsWithReason: SkillWithReason[];
   installAll?: string;    // single command to install all skills
   configSnippet?: string; // optional CLAUDE.md configuration snippet
@@ -29,7 +32,8 @@ export interface Expert {
 export const experts: Expert[] = [
   {
     slug: 'dev-expert',
-    name: { en: 'Dev Expert', zh: '开发者助理' },
+    name: { en: 'Ship Expert', zh: '开发者助理' },
+    division: 'Engineering',
     description: {
       en: 'review PRs, track issues, and delegate coding tasks — without leaving the terminal',
       zh: '不离开终端，完成 PR 审查、Issue 追踪和代码任务委派',
@@ -89,7 +93,8 @@ export const experts: Expert[] = [
   },
   {
     slug: 'daily-briefing',
-    name: { en: 'Daily Briefing', zh: '每日简报' },
+    name: { en: 'Morning Intel', zh: '每日简报' },
+    division: 'Productivity',
     description: {
       en: 'inbox highlights, calendar, and weather — before you open a single app',
       zh: '打开任何应用之前，先把收件箱重点、日历和天气一次搞定',
@@ -167,7 +172,8 @@ export const experts: Expert[] = [
   },
   {
     slug: 'creator-expert',
-    name: { en: 'Creator Expert', zh: '内容创作助理' },
+    name: { en: 'Content Machine', zh: '内容创作助理' },
+    division: 'Content',
     description: {
       en: 'research, draft, and publish to X — all from the terminal',
       zh: '从终端完成素材研究、内容起草和发布',
@@ -245,7 +251,8 @@ export const experts: Expert[] = [
   },
   {
     slug: 'meeting-expert',
-    name: { en: 'Meeting Expert', zh: '会议助理' },
+    name: { en: 'Meeting Ninja', zh: '会议助理' },
+    division: 'Productivity',
     description: {
       en: 'walk in prepared and walk out with notes sent — automatically',
       zh: '带着准备进会，带着自动发出的纪要离场',
@@ -323,7 +330,8 @@ export const experts: Expert[] = [
   },
   {
     slug: 'comms-expert',
-    name: { en: 'Comms Expert', zh: '沟通助理' },
+    name: { en: 'Inbox Zero', zh: '沟通助理' },
+    division: 'Productivity',
     description: {
       en: 'manage your inbox, calendar, and team channels without leaving the terminal',
       zh: '不离开终端，管理收件箱、日历和团队频道',
@@ -401,7 +409,8 @@ export const experts: Expert[] = [
   },
   {
     slug: 'research-expert',
-    name: { en: 'Research Expert', zh: '研究助理' },
+    name: { en: 'Deep Dive', zh: '研究助理' },
+    division: 'Productivity',
     description: {
       en: 'summarize anything and save insights straight to your knowledge base',
       zh: '摘要任何内容，直接保存洞察到你的知识库',
@@ -482,6 +491,7 @@ export const experts: Expert[] = [
   {
     slug: 'feishu-expert',
     name: { en: 'Feishu Assistant', zh: '飞书助理' },
+    division: '中文专区',
     description: {
       en: 'manage Feishu messages, docs, and calendar — all in one place',
       zh: '飞书消息、文档、日历一站式管理，不错过任何重要信息',
@@ -521,6 +531,7 @@ export const experts: Expert[] = [
   {
     slug: 'dingtalk-expert',
     name: { en: 'DingTalk Meeting Assistant', zh: '钉钉会议助理' },
+    division: '中文专区',
     description: {
       en: 'pre-meeting prep, post-meeting minutes, follow-up delivery — all via Agent',
       zh: '会前准备、会后纪要、跟进发送，全程交给 Agent',
@@ -560,6 +571,7 @@ export const experts: Expert[] = [
   {
     slug: 'wecom-expert',
     name: { en: 'WeCom Customer Service Assistant', zh: '企业微信客服助理' },
+    division: '中文专区',
     description: {
       en: 'track customer messages, draft replies, and send reminders — never keep clients waiting',
       zh: '客户消息跟进、回复草稿、待办提醒，不让客户等太久',
@@ -599,6 +611,7 @@ export const experts: Expert[] = [
   {
     slug: 'dev-expert-cn',
     name: { en: 'Dev Assistant (Chinese Teams)', zh: '开发者助理（中文团队）' },
+    division: '中文专区',
     description: {
       en: 'GitHub workflow + Feishu notifications + AI coding agent — built for Chinese dev teams',
       zh: 'GitHub 工作流 + 飞书通知 + AI coding agent，中文开发团队专属',
@@ -671,7 +684,8 @@ export const experts: Expert[] = [
   // ── New Experts (11–20) ───────────────────────────────────────────────────
   {
     slug: 'ai-builder-expert',
-    name: { en: 'AI Builder Expert', zh: 'AI 应用开发者' },
+    name: { en: 'Agent Builder', zh: 'AI 应用开发者' },
+    division: 'Engineering',
     description: {
       en: 'build Claude-powered apps, MCP servers, and reusable skills — end to end',
       zh: '构建 Claude 应用、MCP Server 和可复用 Skill，全链路搞定',
@@ -767,7 +781,8 @@ export const experts: Expert[] = [
   },
   {
     slug: 'indie-dev-expert',
-    name: { en: 'Indie Dev Expert', zh: '独立开发者助理' },
+    name: { en: 'Solo Founder Dev', zh: '独立开发者助理' },
+    division: 'Engineering',
     description: {
       en: 'build in public, ship frequently, and grow an audience — the solo dev who does it all',
       zh: '公开构建、频繁发布、积累受众——一人搞定所有事的独立开发者',
@@ -865,7 +880,8 @@ export const experts: Expert[] = [
   },
   {
     slug: 'pm-expert',
-    name: { en: 'Product Manager Expert', zh: '产品经理助理' },
+    name: { en: 'Product Mind', zh: '产品经理助理' },
+    division: 'Product',
     description: {
       en: 'write specs, track decisions, run stakeholder comms — all from your agent',
       zh: 'PRD 撰写、决策追踪、利益相关方沟通，全部交给 Agent',
@@ -963,7 +979,8 @@ export const experts: Expert[] = [
   },
   {
     slug: 'writing-expert',
-    name: { en: 'Writing & Docs Expert', zh: '写作与文档助理' },
+    name: { en: 'Word Surgeon', zh: '写作与文档助理' },
+    division: 'Content',
     description: {
       en: 'draft blog posts, maintain docs, and build a personal knowledge base — all in flow',
       zh: '撰写博客、维护文档、构建个人知识库，保持心流状态',
@@ -1061,7 +1078,8 @@ export const experts: Expert[] = [
   },
   {
     slug: 'social-media-expert',
-    name: { en: 'Social Media Expert', zh: '社媒运营助理' },
+    name: { en: 'Growth Hacker', zh: '社媒运营助理' },
+    division: 'Content',
     description: {
       en: 'post consistently, monitor mentions, and engage your audience — without the time sink',
       zh: '保持稳定发布、监控提及、互动受众，不再陷入时间黑洞',
@@ -1139,7 +1157,8 @@ export const experts: Expert[] = [
   },
   {
     slug: 'founder-expert',
-    name: { en: 'Startup Founder Expert', zh: '创业者助理' },
+    name: { en: 'Founder Mode', zh: '创业者助理' },
+    division: 'Product',
     description: {
       en: 'manage investors, team, and product all from one place — the founder\'s command center',
       zh: '投资人、团队、产品全部从一个地方管理——创业者的指挥中心',
@@ -1258,6 +1277,7 @@ export const experts: Expert[] = [
   {
     slug: 'ops-cn-expert',
     name: { en: 'Chinese Enterprise Ops Expert', zh: '中国企业运营助理' },
+    division: '中文专区',
     description: {
       en: 'manage Feishu, DingTalk, and WeCom all at once — the all-in-one ops stack for Chinese teams',
       zh: '同时管理飞书、钉钉、企业微信——中国团队的一站式运营平台',
@@ -1335,7 +1355,8 @@ export const experts: Expert[] = [
   },
   {
     slug: 'student-expert',
-    name: { en: 'Student & Academic Expert', zh: '学习与科研助理' },
+    name: { en: 'Study Buddy', zh: '学习与科研助理' },
+    division: 'Productivity',
     description: {
       en: 'read faster, take better notes, and retain what matters — built for students and researchers',
       zh: '读得更快、记得更好、留住重点——为学生和研究者量身打造',
@@ -1433,7 +1454,8 @@ export const experts: Expert[] = [
   },
   {
     slug: 'open-source-expert',
-    name: { en: 'Open Source Maintainer Expert', zh: '开源维护者助理' },
+    name: { en: 'OSS Maintainer', zh: '开源维护者助理' },
+    division: 'Engineering',
     description: {
       en: 'triage issues, engage contributors, and announce releases — without the burnout',
       zh: '处理 Issue、激活贡献者、发布公告——不再精疲力竭',
@@ -1531,7 +1553,8 @@ export const experts: Expert[] = [
   },
   {
     slug: 'personal-expert',
-    name: { en: 'Personal Productivity Expert', zh: '个人效率助理' },
+    name: { en: 'Life Admin', zh: '个人效率助理' },
+    division: 'Productivity',
     description: {
       en: 'organize your day, capture ideas, and stay ahead of your schedule — your AI personal assistant',
       zh: '整理你的一天、捕捉想法、掌控日程——你的 AI 个人助理',
