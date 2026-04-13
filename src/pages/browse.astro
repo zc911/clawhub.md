@@ -24,12 +24,15 @@ const grouped = namespaces.map(ns => ({
   ...ns,
   skills: skills.filter(s => s.author === ns.author),
 }));
+
+const mentorSkills = skills.filter(s => s.category === 'mentor');
+const regularSkillCount = skills.filter(s => s.category !== 'mentor').length;
 ---
 
-<Base title="Browse" description="Browse all curated skills for OpenClaw and Claude Code agents on clawhub.md">
+<Base title="Browse" description="Browse all curated skills for Claude Code, Codex, Cursor, and any AI agent on clawhub.md">
   <h1 style="margin-bottom: 10px;">Browse</h1>
   <p style="color: var(--text-secondary); font-size: 15px; margin-bottom: 48px;">
-    {skills.length} curated skills across {namespaces.length} namespaces
+    {regularSkillCount} curated skills across {namespaces.length} namespaces · {mentorSkills.length} mentor personas
   </p>
 
   {grouped.map(ns => ns.skills.length > 0 && (
@@ -52,6 +55,27 @@ const grouped = namespaces.map(ns => ({
       </ul>
     </section>
   ))}
+
+  {mentorSkills.length > 0 && (
+    <section class="namespace-section">
+      <div class="namespace-heading">
+        <h2>Mentors</h2>
+        <span class="namespace-count">{mentorSkills.length} personas</span>
+      </div>
+      <p class="namespace-meta">Famous thinkers distilled into agent skills — install a mental model, not just a tool</p>
+
+      <ul class="skill-card-grid">
+        {mentorSkills.map(skill => (
+          <li>
+            <a href={`/${skill.author}/${skill.slug}`}>
+              <span class="skill-name">{skill.author}/{skill.slug}</span>
+              <span class="skill-desc">{skill.description}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
 
   <hr />
   <div class="footer-links">

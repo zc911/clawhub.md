@@ -6,7 +6,7 @@ export interface SOTW {
 
 // Set to null to fall back to the first expert in the list
 export const sotw: SOTW | null = {
-  expert: 'dev-expert',
-  reason: 'The fastest way to stay on top of your GitHub workflow — review PRs, triage issues, and delegate to AI agents without leaving the terminal.',
-  picked: '2026-03-27',
+  expert: 'ai-builder-expert',
+  reason: 'MCP crossed 97M monthly SDK downloads and the three-layer agent protocol stack (MCP + A2A + AG-UI) has stabilized — the best time to build on top of it is now.',
+  picked: '2026-04-13',
 };
