@@ -6,7 +6,7 @@ import type { Division } from '@/data/bundles';
 const locale = 'en';
 const experts = await loadExperts();
 
-const divisionOrder: Division[] = ['Engineering', 'Product', 'Content', 'Productivity', '中文专区'];
+const divisionOrder: Division[] = ['Engineering', 'Product', 'Content', 'Productivity', 'Mentors', '中文专区'];
 const grouped = divisionOrder
   .map(div => ({ div, items: experts.filter(e => e.division === div) }))
   .filter(g => g.items.length > 0);

@@ -13,7 +13,7 @@ export interface SkillWithReason {
   examples?: { en: string[]; zh: string[] };  // what to say to your agent after installing
 }
 
-export type Division = 'Engineering' | 'Product' | 'Content' | 'Productivity' | '中文专区';
+export type Division = 'Engineering' | 'Product' | 'Content' | 'Productivity' | 'Mentors' | '中文专区';
 
 export interface Expert {
   slug: string;
@@ -1649,6 +1649,562 @@ export const experts: Expert[] = [
     installAll: 'clawhub install openclaw/gog openclaw/weather openclaw/obsidian openclaw/clawhub',
     curator: 'clawhub',
     created: '2026-03-28',
+  },
+  // ── Mentors ──────────────────────────────────────────────────────────────
+  {
+    slug: 'feynman-expert',
+    name: { en: 'Feynman Explainer', zh: '费曼解释者' },
+    division: 'Mentors',
+    description: {
+      en: 'explain any complex idea simply, teach from first principles',
+      zh: '把任何复杂概念说清楚，从第一性原理出发',
+    },
+    goal: { en: 'Explain anything simply', zh: '把任何事情讲清楚' },
+    outcome: {
+      en: 'Apply Feynman\'s explanation methodology to papers, code, or ideas — if you can\'t explain it simply, you don\'t understand it yet.',
+      zh: '用费曼的解释方法处理论文、代码或想法——如果你说不清楚，说明还没真正理解。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'alchaincyf/feynman-skill',
+        reason: {
+          en: 'Distilled Feynman teaching methodology: first principles, analogy-first explanations, and the "no jargon" rule.',
+          zh: '蒸馏自费曼教学法：第一性原理、类比优先的解释方式，以及"禁用行话"原则。',
+        },
+        examples: {
+          en: ['Explain this paper like Feynman would', 'Break down quantum computing from scratch', 'Find the simplest mental model for this concept'],
+          zh: ['像费曼一样解释这篇论文', '从零讲清楚量子计算', '为这个概念找到最简洁的心智模型'],
+        },
+      },
+      {
+        slug: 'openclaw/summarize',
+        reason: {
+          en: 'Feed any paper or doc to the Feynman skill — summarize first, then explain.',
+          zh: '把任意论文或文档喂给费曼 skill——先摘要，再解释。',
+        },
+      },
+    ],
+    installAll: 'clawhub install alchaincyf/feynman-skill openclaw/summarize',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'jobs-expert',
+    name: { en: 'Jobs Product Eye', zh: '乔布斯产品眼' },
+    division: 'Mentors',
+    description: {
+      en: 'review products through Jobs\' obsession with simplicity and craft',
+      zh: '以乔布斯对简洁与工艺的执念审视产品',
+    },
+    goal: { en: 'Design and critique products like Jobs', zh: '像乔布斯一样设计和审视产品' },
+    outcome: {
+      en: 'Apply Jobs\' product thinking: ruthless simplification, user obsession, and the "one more thing" instinct for what matters most.',
+      zh: '运用乔布斯的产品思维：无情简化、用户执念，以及对最重要事物的本能直觉。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'alchaincyf/steve-jobs-skill',
+        reason: {
+          en: 'Distilled Jobs: product simplicity doctrine, "real artists ship" instinct, and the reality distortion field.',
+          zh: '蒸馏自乔布斯：产品简洁信条、"真正的艺术家会发货"的本能，以及现实扭曲力场。',
+        },
+        examples: {
+          en: ['Review this product spec from Jobs\' perspective', 'What would Jobs cut from this feature list?', 'Write a product narrative in Jobs\' style'],
+          zh: ['从乔布斯视角审查这个产品规格', '乔布斯会砍掉功能列表里的哪些？', '用乔布斯的风格写一段产品叙事'],
+        },
+      },
+    ],
+    installAll: 'clawhub install alchaincyf/steve-jobs-skill',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'musk-expert',
+    name: { en: 'Musk First Principles', zh: '马斯克第一性原理' },
+    division: 'Mentors',
+    description: {
+      en: 'challenge assumptions and design for 10x outcomes, not 10%',
+      zh: '打破假设，以10倍而非10%的目标来设计方案',
+    },
+    goal: { en: 'Think and build at 10x scale', zh: '以10倍规模思考和构建' },
+    outcome: {
+      en: 'Apply Musk\'s first-principles method: decompose any problem to its physical limits, question every constraint, and build toward what\'s actually possible.',
+      zh: '运用马斯克的第一性原理方法：把任何问题分解到物理极限，质疑每一个约束，向真正可能的方向构建。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'alchaincyf/elon-musk-skill',
+        reason: {
+          en: 'Distilled Musk: first-principles decomposition, "physics as the only constraint" thinking, and 10x ambition framing.',
+          zh: '蒸馏自马斯克：第一性原理分解、"物理学是唯一约束"思维，以及10倍雄心框架。',
+        },
+        examples: {
+          en: ['Apply first-principles to this engineering constraint', 'What would Musk eliminate from this process?', 'Challenge every assumption in this plan'],
+          zh: ['对这个工程约束用第一性原理分析', '马斯克会从这个流程中去掉什么？', '质疑这个计划里的所有假设'],
+        },
+      },
+    ],
+    installAll: 'clawhub install alchaincyf/elon-musk-skill',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'pg-expert',
+    name: { en: 'Paul Graham Advisor', zh: 'PG 创业顾问' },
+    division: 'Mentors',
+    description: {
+      en: 'startup advice, clear writing, and contrarian market insight from PG',
+      zh: '创业建议、清晰写作和 PG 式反共识市场洞察',
+    },
+    goal: { en: 'Think clearer about startups and writing', zh: '更清晰地思考创业与写作' },
+    outcome: {
+      en: 'Get PG\'s perspective on your startup, market, or essay — direct feedback on what\'s actually hard and what\'s a distraction.',
+      zh: '获得 PG 对你的创业、市场或文章的视角——关于什么才是真正难题、什么是干扰的直接反馈。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'alchaincyf/paul-graham-skill',
+        reason: {
+          en: 'Distilled PG: "do things that don\'t scale" instinct, contrarian market take, and the relentless clarity doctrine in writing.',
+          zh: '蒸馏自 PG：做那些无法规模化的事情的本能、反共识市场判断，以及写作中毫不妥协的清晰原则。',
+        },
+        examples: {
+          en: ['Review my startup idea through PG\'s lens', 'What would PG say about this market?', 'Edit this essay to be clearer and more direct'],
+          zh: ['用 PG 的视角审查我的创业想法', 'PG 会怎么看这个市场？', '把这篇文章改得更清晰更直接'],
+        },
+      },
+    ],
+    installAll: 'clawhub install alchaincyf/paul-graham-skill',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'naval-expert',
+    name: { en: 'Naval Wisdom', zh: '纳瓦尔智慧' },
+    division: 'Mentors',
+    description: {
+      en: 'build wealth through specific knowledge, leverage, and long-term thinking',
+      zh: '通过专有知识、杠杆和长线思维积累财富',
+    },
+    goal: { en: 'Build wealth with specific knowledge', zh: '用专有知识创造财富' },
+    outcome: {
+      en: 'Apply Naval\'s frameworks: identify your specific knowledge, find the right leverage, and make decisions that compound over decades.',
+      zh: '运用纳瓦尔的框架：识别你的专有知识，找到合适的杠杆，做复利增长的决策。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'alchaincyf/naval-skill',
+        reason: {
+          en: 'Distilled Naval: specific knowledge identification, leverage types (code/media/capital), and the "long-term game" philosophy.',
+          zh: '蒸馏自纳瓦尔：专有知识识别、杠杆类型（代码/媒体/资本）和"长线游戏"哲学。',
+        },
+        examples: {
+          en: ['What is my specific knowledge?', 'Apply Naval\'s leverage framework to my situation', 'How would Naval approach this career decision?'],
+          zh: ['我的专有知识是什么？', '用纳瓦尔的杠杆框架分析我的处境', '纳瓦尔会怎么看待这个职业决策？'],
+        },
+      },
+    ],
+    installAll: 'clawhub install alchaincyf/naval-skill',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'taleb-expert',
+    name: { en: 'Taleb Risk Lens', zh: '塔勒布风险思维' },
+    division: 'Mentors',
+    description: {
+      en: 'find hidden tail risks and design antifragile systems',
+      zh: '发现隐藏的尾部风险，设计反脆弱系统',
+    },
+    goal: { en: 'Spot fragility and build antifragile systems', zh: '识别脆弱性，构建反脆弱系统' },
+    outcome: {
+      en: 'Apply Taleb\'s risk philosophy: identify hidden exposures, eliminate fragility, and structure systems that gain from disorder.',
+      zh: '运用塔勒布的风险哲学：识别隐性风险敞口，消除脆弱性，构建从无序中获益的系统。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'alchaincyf/taleb-skill',
+        reason: {
+          en: 'Distilled Taleb: fat-tail thinking, "skin in the game" test, and antifragility design heuristics.',
+          zh: '蒸馏自塔勒布：肥尾思维、"切肤之痛"检验，以及反脆弱设计启发法。',
+        },
+        examples: {
+          en: ['Identify hidden tail risks in this plan', 'Apply the skin-in-the-game test to this decision', 'Make this system more antifragile'],
+          zh: ['找出这个方案中的隐性尾部风险', '对这个决策做切肤之痛检验', '让这个系统更具反脆弱性'],
+        },
+      },
+    ],
+    installAll: 'clawhub install alchaincyf/taleb-skill',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'karpathy-expert',
+    name: { en: 'Karpathy AI Engineer', zh: 'Karpathy AI 工程师' },
+    division: 'Mentors',
+    description: {
+      en: 'deep learning intuition, model debugging, and AI engineering taste',
+      zh: '深度学习直觉、模型调试和 AI 工程品味',
+    },
+    goal: { en: 'Debug and build ML systems with expert intuition', zh: '以专家直觉调试和构建 ML 系统' },
+    outcome: {
+      en: 'Apply Karpathy\'s AI engineering mindset: measure everything, understand your loss curves, and build intuition through hands-on experimentation.',
+      zh: '运用 Karpathy 的 AI 工程思维：量化一切，理解你的损失曲线，通过实践积累直觉。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'alchaincyf/karpathy-skill',
+        reason: {
+          en: 'Distilled Karpathy: "implement from scratch to understand", loss curve intuition, and AI engineering taste.',
+          zh: '蒸馏自 Karpathy："从零实现才能真正理解"、损失曲线直觉，以及 AI 工程品味。',
+        },
+        examples: {
+          en: ['Debug this training run like Karpathy would', 'What metrics actually matter here?', 'Explain what\'s happening inside this model'],
+          zh: ['像 Karpathy 一样调试这次训练', '这里真正重要的指标是什么？', '解释这个模型内部发生了什么'],
+        },
+      },
+    ],
+    installAll: 'clawhub install alchaincyf/karpathy-skill',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'ilya-expert',
+    name: { en: 'Ilya Research Taste', zh: 'Ilya 研究品味' },
+    division: 'Mentors',
+    description: {
+      en: 'AI scaling intuition and research direction judgment from Ilya Sutskever',
+      zh: 'Ilya Sutskever 的 AI Scaling 直觉与研究方向判断',
+    },
+    goal: { en: 'Develop AI research intuition and taste', zh: '培养 AI 研究直觉与品味' },
+    outcome: {
+      en: 'Apply Ilya\'s research perspective: what scaling properties matter, which bets are worth making, and how to reason about emergent capabilities.',
+      zh: '运用 Ilya 的研究视角：哪些 Scaling 属性重要，哪些赌注值得押，如何推理涌现能力。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'alchaincyf/ilya-sutskever-skill',
+        reason: {
+          en: 'Distilled Ilya: scaling laws intuition, emergent capabilities reasoning, and long-bet AI research philosophy.',
+          zh: '蒸馏自 Ilya：Scaling 定律直觉、涌现能力推理，以及长期押注的 AI 研究哲学。',
+        },
+        examples: {
+          en: ['Think through this research direction with Ilya\'s lens', 'What scaling properties matter most for this problem?', 'Review this experiment design for blind spots'],
+          zh: ['用 Ilya 的视角思考这个研究方向', '对于这个问题，哪些 Scaling 属性最重要？', '审查这个实验设计的盲点'],
+        },
+      },
+    ],
+    installAll: 'clawhub install alchaincyf/ilya-sutskever-skill',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'rob-pike-expert',
+    name: { en: 'Rob Pike Systems Mind', zh: 'Rob Pike 系统思维' },
+    division: 'Mentors',
+    description: {
+      en: 'Unix philosophy, Go design principles, and "less is more" engineering',
+      zh: 'Unix 哲学、Go 设计原则与"少即是多"工程思维',
+    },
+    goal: { en: 'Design simpler, cleaner systems', zh: '设计更简洁的系统' },
+    outcome: {
+      en: 'Apply Rob Pike\'s design philosophy: question complexity, prefer composition over inheritance, and write code that reads like prose.',
+      zh: '运用 Rob Pike 的设计哲学：质疑复杂性，偏好组合而非继承，写出像散文一样可读的代码。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'smallnest/rob-pike-skill',
+        reason: {
+          en: 'Distilled Rob Pike: Unix design rules, Go idioms, and the "clarity over cleverness" doctrine.',
+          zh: '蒸馏自 Rob Pike：Unix 设计规则、Go 惯用法，以及"清晰胜于聪明"原则。',
+        },
+        examples: {
+          en: ['Review this API design for simplicity', 'Apply Rob Pike\'s rules to this system', 'What would Rob Pike remove from this interface?'],
+          zh: ['审查这个 API 设计的简洁性', '把 Rob Pike 的规则应用到这个系统', 'Rob Pike 会去掉这个接口里的什么？'],
+        },
+      },
+    ],
+    installAll: 'clawhub install smallnest/rob-pike-skill',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'design-masters-expert',
+    name: { en: 'Design Masters Council', zh: '设计大师议事会' },
+    division: 'Mentors',
+    description: {
+      en: 'Rams, Vignelli, Bass, Scher, Carson — graphic design critique across 7 masters',
+      zh: 'Rams、Vignelli、Bass 等7位大师联合评审你的设计',
+    },
+    goal: { en: 'Get world-class design critique', zh: '获得世界级设计评审' },
+    outcome: {
+      en: 'Run your visual design past seven graphic design masters — Dieter Rams on function, Vignelli on grid, Saul Bass on concept, and more.',
+      zh: '让七位平面设计大师评审你的视觉设计——Dieter Rams 谈功能，Vignelli 谈网格，Saul Bass 谈概念。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'HermeticOrmus/design-mastery',
+        reason: {
+          en: 'Seven masters in one skill: Rams (less is more), Vignelli (grid systems), Bass (concept), Scher (typography), Brockmann, Carson, and Rand.',
+          zh: '七位大师合一：Rams（少即是多）、Vignelli（网格系统）、Bass（概念）、Scher（排版）、Brockmann、Carson、Rand。',
+        },
+        examples: {
+          en: ['Critique this logo design across all seven masters', 'What would Dieter Rams remove from this UI?', 'Review this typography through Vignelli\'s lens'],
+          zh: ['让七位大师评审这个 Logo 设计', 'Dieter Rams 会去掉这个 UI 里的什么？', '用 Vignelli 的视角评审这段排版'],
+        },
+      },
+    ],
+    installAll: 'clawhub install HermeticOrmus/design-mastery',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'mrbeast-expert',
+    name: { en: 'MrBeast Content Engine', zh: '野兽先生内容引擎' },
+    division: 'Mentors',
+    description: {
+      en: 'virality, retention, and attention engineering from the world\'s top creator',
+      zh: '来自全球顶级创作者的病毒传播、留存和注意力工程',
+    },
+    goal: { en: 'Engineer viral content and maximum retention', zh: '打造病毒内容与最大留存率' },
+    outcome: {
+      en: 'Apply MrBeast\'s content methodology: hook in 3 seconds, maintain tension throughout, and optimize every frame for retention.',
+      zh: '运用野兽先生的内容方法论：3秒内抓住注意力，全程保持张力，对每一帧做留存优化。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'alchaincyf/mrbeast-skill',
+        reason: {
+          en: 'Distilled MrBeast: the hook formula, tension maintenance, thumbnail psychology, and the reinvestment mindset.',
+          zh: '蒸馏自野兽先生：钩子公式、张力维持、缩略图心理学，以及再投入心态。',
+        },
+        examples: {
+          en: ['Rework this video hook for maximum retention', 'What would MrBeast change about this thumbnail?', 'Apply the MrBeast content loop to this idea'],
+          zh: ['为最大留存率重写这个视频钩子', '野兽先生会怎么改这个缩略图？', '把野兽先生的内容循环应用到这个想法'],
+        },
+      },
+    ],
+    installAll: 'clawhub install alchaincyf/mrbeast-skill',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'x-creator-expert',
+    name: { en: 'X Creator Growth', zh: 'X 创作者增长' },
+    division: 'Mentors',
+    description: {
+      en: 'write for engagement and growth on X — distilled from top creators',
+      zh: '在 X 上写出高互动内容，提炼自顶级创作者经验',
+    },
+    goal: { en: 'Grow on X with creator-tested writing', zh: '用经过验证的写作方法在 X 上增长' },
+    outcome: {
+      en: 'Apply the X creator playbook: thread structure, hook writing, engagement loops, and the cadence that top accounts use to compound their audience.',
+      zh: '运用 X 创作者剧本：Thread 结构、钩子写作、互动循环，以及顶级账号用于复利增长粉丝的节奏。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'alchaincyf/x-mentor-skill',
+        reason: {
+          en: 'Distilled from Cole, Bush, Welsh, Hormozi and other top X creators — writing patterns that drive engagement and follower growth.',
+          zh: '提炼自 Cole、Bush、Welsh、Hormozi 等顶级 X 创作者——驱动互动和粉丝增长的写作模式。',
+        },
+        examples: {
+          en: ['Rewrite this thread for maximum engagement', 'Turn this idea into a viral X post', 'Critique my X content strategy'],
+          zh: ['为最大互动重写这个 Thread', '把这个想法变成病毒式 X 帖子', '评审我的 X 内容策略'],
+        },
+      },
+    ],
+    installAll: 'clawhub install alchaincyf/x-mentor-skill',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'buffett-expert',
+    name: { en: 'Buffett Investor', zh: '巴菲特投资人' },
+    division: 'Mentors',
+    description: {
+      en: 'value investing with Buffett\'s 6 mental models and 8 decision heuristics',
+      zh: '以巴菲特6大心智模型和8条决策启发进行价值投资',
+    },
+    goal: { en: 'Invest with Buffett\'s mental models', zh: '用巴菲特的心智模型做投资' },
+    outcome: {
+      en: 'Apply Buffett\'s owner mindset: economic moat analysis, circle of competence check, and Mr. Market patience — before every investment decision.',
+      zh: '运用巴菲特的所有者心态：经济护城河分析、能力圈检查，以及在每次投资决策前的市场先生耐心。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'will2025btc/buffett-perspective',
+        reason: {
+          en: 'Six mental models (moat, circle of competence, Mr. Market, compounding, institutional imperative, owner mindset) + 8 decision heuristics.',
+          zh: '六大心智模型（护城河、能力圈、市场先生、复利、机构强制性、所有者心态）+ 8条决策启发。',
+        },
+        examples: {
+          en: ['Analyze this company through Buffett\'s lens', 'Is this within my circle of competence?', 'What\'s the economic moat here?'],
+          zh: ['用巴菲特的视角分析这家公司', '这在我的能力圈范围内吗？', '这里的经济护城河是什么？'],
+        },
+      },
+      {
+        slug: 'openclaw/summarize',
+        reason: {
+          en: 'Read annual reports and financial filings — feed them to the Buffett skill for analysis.',
+          zh: '阅读年报和财务文件，喂给巴菲特 skill 进行分析。',
+        },
+      },
+    ],
+    installAll: 'clawhub install will2025btc/buffett-perspective openclaw/summarize',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'investor-council-expert',
+    name: { en: 'Investor Council', zh: '投资大师团' },
+    division: 'Mentors',
+    description: {
+      en: '12 investor personas: Buffett, Munger, Lynch, Graham, Burry, and more',
+      zh: '12位投资大师：巴菲特、芒格、林奇、格雷厄姆、伯里等',
+    },
+    goal: { en: 'Analyze investments across 12 legendary perspectives', zh: '从12位传奇视角分析投资' },
+    outcome: {
+      en: 'Run any investment thesis past 12 legendary investors simultaneously — from Graham\'s safety margin to Cathie Wood\'s disruption lens.',
+      zh: '同时让12位传奇投资人审视你的投资论点——从格雷厄姆的安全边际到 Cathie Wood 的颠覆视角。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'ancs21/ai-sub-invest',
+        reason: {
+          en: '12 investor personas in one skill: Buffett, Munger, Ben Graham, Peter Lynch, Phil Fisher, Michael Burry, Pabrai, Ackman, Cathie Wood, Druckenmiller, Jhunjhunwala, Damodaran.',
+          zh: '一个 skill 包含12位投资人视角：巴菲特、芒格、格雷厄姆、林奇、费雪、伯里、帕布莱、阿克曼、木头姐、德鲁肯米勒、拉克什、达摩达兰。',
+        },
+        examples: {
+          en: ['Run this investment thesis past all 12 investors', 'What would Peter Lynch think of this growth stock?', 'Apply Ben Graham\'s margin of safety here'],
+          zh: ['让12位投资人审视这个投资论点', '彼得·林奇会怎么看这支成长股？', '在这里应用本·格雷厄姆的安全边际'],
+        },
+      },
+    ],
+    installAll: 'clawhub install ancs21/ai-sub-invest',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'nuwa-expert',
+    name: { en: 'Nuwa Persona Forge', zh: '女娲人格蒸馏器' },
+    division: 'Mentors',
+    description: {
+      en: 'distill any public figure into an installable agent skill in minutes',
+      zh: '几分钟内把任何公众人物蒸馏成可安装的 Agent Skill',
+    },
+    goal: { en: 'Build your own mentor skill from any public figure', zh: '为任何人物创建专属导师 Skill' },
+    outcome: {
+      en: 'Use 6 parallel research agents to distill any public figure\'s mental models, decision patterns, and communication style into a reusable SKILL.md.',
+      zh: '用6个并行研究 Agent 把任何公众人物的心智模型、决策模式和表达风格蒸馏成可复用的 SKILL.md。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'alchaincyf/nuwa-skill',
+        reason: {
+          en: 'The generator: 6 parallel research agents that distill any person into SKILL.md. Produces installable skills like the ones in this Mentors section.',
+          zh: '生成器本身：6个并行研究 Agent 把任何人物蒸馏成 SKILL.md。生产出像本 Mentors 区里那些可安装的 Skill。',
+        },
+        examples: {
+          en: ['Distill Charlie Munger into a skill', 'Create a Jensen Huang leadership skill', 'Generate a Confucius wisdom skill'],
+          zh: ['把查理·芒格蒸馏成一个 Skill', '创建一个黄仁勋领导力 Skill', '生成一个孔子智慧 Skill'],
+        },
+      },
+    ],
+    installAll: 'clawhub install alchaincyf/nuwa-skill',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'council-expert',
+    name: { en: 'Council of 18 Minds', zh: '18位智者议事会' },
+    division: 'Mentors',
+    description: {
+      en: 'Aristotle, Feynman, Lao Tzu, Turing, Munger — 18 great minds deliberate your problem',
+      zh: '亚里士多德、费曼、老子、图灵、芒格——18位伟大思想家共同审议你的问题',
+    },
+    goal: { en: 'Get 18 great minds to deliberate your hardest problems', zh: '让18位伟大思想家共同审议你最难的问题' },
+    outcome: {
+      en: 'Invoke a cross-examination council spanning philosophy (Aristotle, Socrates, Lao Tzu, Marcus Aurelius), design (Dieter Rams), risk (Taleb), AI (Karpathy, Ilya), systems (Meadows), and more.',
+      zh: '召集跨领域审议团：哲学（亚里士多德、苏格拉底、老子、Marcus Aurelius）、设计（Dieter Rams）、风险（塔勒布）、AI（Karpathy、Ilya）、系统思维（Meadows）等。',
+    },
+    skillsWithReason: [
+      {
+        slug: '0xNyk/council-of-high-intelligence',
+        reason: {
+          en: '18 persona agents in one skill: Aristotle, Socrates, Sun Tzu, Marcus Aurelius, Machiavelli, Lao Tzu, Ada Lovelace, Feynman, Linus Torvalds, Musashi, Alan Watts, Karpathy, Ilya, Kahneman, Meadows, Dieter Rams, Taleb, Munger.',
+          zh: '18个人格 Agent：亚里士多德、苏格拉底、孙子、Marcus Aurelius、马基雅维利、老子、Ada Lovelace、费曼、Linus、宫本武藏、Alan Watts、Karpathy、Ilya、卡尼曼、Meadows、Dieter Rams、塔勒布、芒格。',
+        },
+        examples: {
+          en: ['Council, deliberate the ethics of this AI decision', 'What do all 18 minds think about this strategy?', 'Cross-examine my startup thesis with the full council'],
+          zh: ['议事会，审议这个 AI 决策的伦理', '18位思想家怎么看这个策略？', '让完整议事会交叉审查我的创业论点'],
+        },
+      },
+    ],
+    installAll: 'clawhub install 0xNyk/council-of-high-intelligence',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  // Chinese Mentors → 中文专区
+  {
+    slug: 'zhang-yiming-expert',
+    name: { en: 'Zhang Yiming Strategist', zh: '张一鸣产品战略家' },
+    division: '中文专区',
+    description: {
+      en: 'ByteDance product strategy and scale-first thinking from Zhang Yiming',
+      zh: '字节跳动式产品战略与规模优先思维',
+    },
+    goal: { en: 'Build products with ByteDance-scale thinking', zh: '用字节跳动规模思维做产品' },
+    outcome: {
+      en: 'Apply Zhang Yiming\'s product methodology: data-driven iteration, algorithm-first distribution, and ruthless prioritization for scale.',
+      zh: '运用张一鸣的产品方法论：数据驱动迭代、算法优先分发，以及针对规模的无情优先级排序。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'alchaincyf/zhang-yiming-skill',
+        reason: {
+          en: 'Distilled Zhang Yiming: recommendation algorithm thinking, product metrics culture, and the ByteDance organizational philosophy.',
+          zh: '蒸馏自张一鸣：推荐算法思维、产品数据文化，以及字节跳动的组织哲学。',
+        },
+        examples: {
+          en: ['Evaluate this product strategy with Zhang Yiming\'s lens', 'How would ByteDance approach this growth problem?', 'What metrics would Zhang Yiming track first?'],
+          zh: ['从张一鸣的视角评估这个产品策略', '字节跳动会怎么解决这个增长问题？', '张一鸣会先追踪哪些指标？'],
+        },
+      },
+    ],
+    installAll: 'clawhub install alchaincyf/zhang-yiming-skill',
+    curator: 'clawhub',
+    created: '2026-04-13',
+  },
+  {
+    slug: 'zhangxuefeng-expert',
+    name: { en: 'Zhang Xuefeng Career Advisor', zh: '张雪峰志愿填报顾问' },
+    division: '中文专区',
+    description: {
+      en: 'Chinese college application and career planning with Zhang Xuefeng\'s direct style',
+      zh: '张雪峰式的高考志愿填报与职业规划直接建议',
+    },
+    goal: { en: 'Navigate Chinese college applications and career', zh: '搞定高考志愿与职业规划' },
+    outcome: {
+      en: 'Get Zhang Xuefeng\'s no-nonsense advice on college major selection, career prospects, and the realities of the Chinese job market.',
+      zh: '获得张雪峰式的直接建议：专业选择、就业前景，以及中国就业市场的现实。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'alchaincyf/zhangxuefeng-skill',
+        reason: {
+          en: 'Distilled Zhang Xuefeng: blunt college major ranking, regional job market realities, and "don\'t choose based on passion, choose based on prospects."',
+          zh: '蒸馏自张雪峰：直白的专业排名、各地就业市场现实，以及"不要凭兴趣选，要凭前景选"原则。',
+        },
+        examples: {
+          en: ['Which major should a science student choose?', 'Analyze the risks in this college application combination', 'What\'s the job market like for this major in this city?'],
+          zh: ['理科生应该填报什么专业？', '分析这个志愿组合的风险', '这个城市这个专业的就业情况怎么样？'],
+        },
+      },
+    ],
+    installAll: 'clawhub install alchaincyf/zhangxuefeng-skill',
+    curator: 'clawhub',
+    created: '2026-04-13',
   },
 ];
 

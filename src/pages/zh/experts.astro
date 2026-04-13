@@ -6,12 +6,13 @@ import type { Division } from '@/data/bundles';
 const locale = 'zh';
 const experts = await loadExperts();
 
-const divisionOrder: Division[] = ['Engineering', 'Product', 'Content', 'Productivity', '中文专区'];
+const divisionOrder: Division[] = ['Engineering', 'Product', 'Content', 'Productivity', 'Mentors', '中文专区'];
 const divisionLabels: Record<Division, string> = {
   'Engineering': '工程',
   'Product': '产品',
   'Content': '内容',
   'Productivity': '效率',
+  'Mentors': '导师',
   '中文专区': '中文专区',
 };
 
