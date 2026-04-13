@@ -7,94 +7,194 @@ const locale = 'en';
 const experts = await loadExperts();
 
 const divisionOrder: Division[] = ['Engineering', 'Product', 'Content', 'Productivity', 'Mentors', '中文专区'];
+const divisionLabels: Record<Division, string> = {
+  'Engineering': 'Engineering',
+  'Product': 'Product',
+  'Content': 'Content',
+  'Productivity': 'Productivity',
+  'Mentors': 'Mentors',
+  '中文专区': '中文专区',
+};
 const grouped = divisionOrder
-  .map(div => ({ div, items: experts.filter(e => e.division === div) }))
+  .map(div => ({ div, label: divisionLabels[div], items: experts.filter(e => e.division === div) }))
   .filter(g => g.items.length > 0);
 ---
 
 <Base
   title="Experts"
-  description="Expert-curated skill sets for OpenClaw agents. Pick a workflow and install everything in one command."
+  description="Expert-curated skill sets for AI agents. Pick a role and install everything in one command."
   lang="en"
 >
-  <h1 style="margin-bottom: 10px;">Experts</h1>
-  <p style="color: var(--text-secondary); font-size: 15px; margin-bottom: 48px;">
-    Curated skill sets built around real workflows. Each expert tells you what to install, how to configure it, and what to say to your agent.
+  <h1 style="margin-bottom: 6px;">Experts</h1>
+  <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 28px;">
+    {experts.length} experts · pick a role, say one sentence to your agent
   </p>
 
-  {grouped.map(({ div, items }) => (
-    <section style="margin-bottom: 40px;">
-      <h2 class="division-heading">{div}</h2>
-      <nav class="expert-list" aria-label={`${div} experts`}>
+  <!-- Division tabs -->
+  <div class="div-tabs" role="tablist">
+    {grouped.map(({ div, label, items }, i) => (
+      <button
+        class="div-tab"
+        role="tab"
+        data-div={div}
+        aria-selected={i === 0 ? 'true' : 'false'}
+      >
+        {label}
+        <span class="div-tab-count">{items.length}</span>
+      </button>
+    ))}
+  </div>
+
+  <!-- Division panels -->
+  {grouped.map(({ div, label, items }, i) => (
+    <section
+      class="div-panel"
+      data-div={div}
+      role="tabpanel"
+      aria-hidden={i !== 0 ? 'true' : 'false'}
+    >
+      <nav class="expert-grid" aria-label={`${label} experts`}>
         {items.map(expert => (
-          <a class="expert-list-item" href={`/expert/${expert.slug}`}>
-            <span class="expert-list-goal">{t(expert.name, locale)} →</span>
-            <span class="expert-list-outcome">{t(expert.outcome, locale)}</span>
-            <span class="expert-list-skills">
-              {expert.skillsWithReason.length} skill{expert.skillsWithReason.length !== 1 ? 's' : ''} · {expert.skillsWithReason.map(s => s.slug.split('/')[1]).join(', ')}
-            </span>
+          <a class="expert-card" href={`/expert/${expert.slug}`}>
+            <span class="expert-card-name">{t(expert.name, locale)} →</span>
+            <span class="expert-card-desc">{t(expert.description, locale)}</span>
+            <span class="expert-card-meta">{expert.skillsWithReason.length} skill{expert.skillsWithReason.length !== 1 ? 's' : ''}</span>
           </a>
         ))}
       </nav>
     </section>
   ))}
 
-  <hr />
+  <hr style="margin-top: 40px;" />
   <div class="footer-links">
     <a href="/">← Home</a>
     <a href="/browse">Browse all skills →</a>
   </div>
 </Base>
 
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.div-tab');
+  const panels = document.querySelectorAll<HTMLElement>('.div-panel');
+
+  function activate(div: string) {
+    tabs.forEach(t => {
+      const active = t.dataset.div === div;
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+      t.classList.toggle('div-tab--active', active);
+    });
+    panels.forEach(p => {
+      p.setAttribute('aria-hidden', p.dataset.div !== div ? 'true' : 'false');
+    });
+    history.replaceState(null, '', `#${div.toLowerCase().replace(/\s+/g, '-')}`);
+  }
+
+  // Init from hash
+  const hash = location.hash.slice(1);
+  const initial = [...tabs].find(t =>
+    t.dataset.div?.toLowerCase().replace(/\s+/g, '-') === hash
+  )?.dataset.div ?? tabs[0]?.dataset.div;
+  if (initial) activate(initial);
+  else tabs[0]?.classList.add('div-tab--active');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => activate(tab.dataset.div!));
+  });
+</script>
+
 <style>
-.division-heading {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
+/* Tabs */
+.div-tabs {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 24px;
   border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.div-tabs::-webkit-scrollbar { display: none; }
+
+.div-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.12s, border-color 0.12s;
+}
+.div-tab:hover { color: var(--text-secondary); }
+.div-tab--active,
+.div-tab[aria-selected="true"] {
+  color: var(--text-primary);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
 }
 
-.expert-list {
-  display: flex;
-  flex-direction: column;
+.div-tab-count {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1px 6px;
+  line-height: 1.4;
+}
+.div-tab--active .div-tab-count,
+.div-tab[aria-selected="true"] .div-tab-count {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Panels */
+.div-panel[aria-hidden="true"] { display: none; }
+
+/* Expert grid */
+.expert-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
 }
+@media (max-width: 560px) {
+  .expert-grid { grid-template-columns: 1fr; }
+}
 
-.expert-list-item {
+.expert-card {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 18px 20px;
+  gap: 5px;
+  padding: 14px 16px;
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   text-decoration: none;
   transition: background 0.12s, border-color 0.12s;
 }
-
-.expert-list-item:hover {
+.expert-card:hover {
   background: var(--bg-elevated);
   border-color: var(--border-strong);
-  text-decoration: none;
 }
 
-.expert-list-goal {
-  font-size: 15px;
+.expert-card-name {
+  font-size: 14px;
   font-weight: 700;
   color: var(--text-primary);
+  line-height: 1.3;
 }
-
-.expert-list-outcome {
-  font-size: 13px;
+.expert-card-desc {
+  font-size: 12px;
   color: var(--text-secondary);
   line-height: 1.5;
 }
-
-.expert-list-skills {
+.expert-card-meta {
   font-size: 11px;
   color: var(--text-muted);
   font-family: var(--font-mono);
