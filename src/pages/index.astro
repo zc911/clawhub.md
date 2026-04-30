@@ -7,7 +7,7 @@ import { sotw } from '@/data/sotw';
 const locale = 'en';
 const experts = await loadExperts();
 
-const FEATURED_EXPERT_SLUGS = ['dev-expert', 'agent-orchestrator', 'founder-expert', 'pm-expert', 'mcp-integrator'];
+const FEATURED_EXPERT_SLUGS = ['dev-expert', 'agent-security-expert', 'founder-expert', 'pm-expert', 'mcp-integrator'];
 const featuredExperts = FEATURED_EXPERT_SLUGS.map(s => findExpert(experts, s)).filter(Boolean);
 
 const featuredExpert = sotw
@@ -35,6 +35,8 @@ const featuredExamples = featuredExpert
       MCP, A2A, or any agent protocol — it handles the rest.
     </p>
   </section>
+
+  <p class="trust-bar">Official skills are curated & reviewed · Community skills are clearly labeled</p>
 
   <!-- Featured Expert — two-step demo -->
   {featuredExpert && agentPrompt && (
@@ -113,6 +115,13 @@ const featuredExamples = featuredExpert
 </Base>
 
 <style>
+.trust-bar {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  margin-top: -8px;
+  margin-bottom: 32px;
+}
 .home-step {
   display: flex;
   gap: 14px;

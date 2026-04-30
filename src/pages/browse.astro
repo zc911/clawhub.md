@@ -20,6 +20,8 @@ const namespaces = [
   },
 ];
 
+const CURATED_AUTHORS = ['openclaw', 'anthropics', 'gstack'];
+
 const grouped = namespaces.map(ns => ({
   ...ns,
   skills: skills.filter(s => s.author === ns.author),
@@ -39,6 +41,7 @@ const regularSkillCount = skills.filter(s => s.category !== 'mentor').length;
     <section class="namespace-section">
       <div class="namespace-heading">
         <h2>{ns.label}</h2>
+        <span class="curated-badge">Curated</span>
         <span class="namespace-count">{ns.skills.length} skills</span>
       </div>
       <p class="namespace-meta">{ns.meta}</p>
@@ -82,5 +85,6 @@ const regularSkillCount = skills.filter(s => s.category !== 'mentor').length;
     <a href="/">← Home</a>
     <a href="/experts">Experts →</a>
     <a href="/r/">Any skill →</a>
+    <span class="trust-note">Community skills are not editorially reviewed. Inspect SKILL.md before installing.</span>
   </div>
 </Base>

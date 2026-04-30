@@ -6,7 +6,7 @@ export interface SOTW {
 
 // Set to null to fall back to the first expert in the list
 export const sotw: SOTW | null = {
-  expert: 'agent-orchestrator',
-  reason: 'A2A hit v1.0, MCP Registry is in API freeze, and Claude Code shipped Routines + Computer Use — the agent infrastructure stack is production-ready.',
+  expert: 'agent-security-expert',
+  reason: 'A security audit found 30 community skills silently enrolling agents into crypto swarms. Install Agent Sentinel to set up permission boundaries and injection detection — before your agents go to production.',
   picked: '2026-04-30',
 };

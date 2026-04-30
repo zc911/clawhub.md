@@ -366,6 +366,19 @@ main h1 {
   color: var(--text-primary);
 }
 
+.namespace-heading .curated-badge {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: 8px;
+  padding: 2px 8px;
+  line-height: 1.4;
+}
+
 .namespace-heading .namespace-count {
   font-size: 14px;
   color: var(--text-muted);
@@ -447,6 +460,13 @@ main h1 {
   flex-wrap: wrap;
   font-size: 14px;
 }
+.footer-links .trust-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-left: auto;
+  line-height: 1.5;
+}
+
 .footer-links a {
   color: var(--text-muted);
   font-family: var(--font-body);

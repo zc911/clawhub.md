@@ -20,6 +20,8 @@ if (!expert) {
   return Astro.redirect('/404');
 }
 
+const OFFICIAL_AUTHORS = ['openclaw', 'anthropics', 'gstack'];
+
 const mdUrl = `https://clawhub.md/expert/${expert.slug}.md`;
 const agentPrompt = `Read ${mdUrl} and set me up as ${t(expert.name, locale)}`;
 const metaDescription = `${t(expert.outcome, locale)} Tell your agent: "${agentPrompt}"`;
@@ -75,10 +77,13 @@ const allExamples = expert.skillsWithReason.filter(e => e.examples && (e.example
       {allExamples.map(entry => {
         const reasonText = t(entry.reason, locale);
         const exs = entry.examples?.en ?? [];
+        const author = entry.slug.split("/")[0];
+        const isOfficial = OFFICIAL_AUTHORS.includes(author);
         return (
           <div>
-            <p style="font-size: 12px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px;">
+            <p style="font-size: 12px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
               {reasonText.split(' ').slice(0, 6).join(' ')}{reasonText.split(' ').length > 6 ? '…' : ''}
+              <span class={isOfficial ? 'skill-badge-official' : 'skill-badge-community'}>{isOfficial ? 'Official' : 'Community'}</span>
             </p>
             <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
               {exs.map(ex => (
@@ -116,6 +121,32 @@ const allExamples = expert.skillsWithReason.filter(e => e.examples && (e.example
 </Base>
 
 <style>
+.skill-badge-official {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: 8px;
+  padding: 1px 7px;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+.skill-badge-community {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1px 7px;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
 .expert-step-header {
   display: flex;
   align-items: flex-start;
