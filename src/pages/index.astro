@@ -7,7 +7,7 @@ import { sotw } from '@/data/sotw';
 const locale = 'en';
 const experts = await loadExperts();
 
-const FEATURED_EXPERT_SLUGS = ['dev-expert', 'meeting-expert', 'founder-expert', 'pm-expert', 'daily-briefing'];
+const FEATURED_EXPERT_SLUGS = ['dev-expert', 'agent-orchestrator', 'founder-expert', 'pm-expert', 'mcp-integrator'];
 const featuredExperts = FEATURED_EXPERT_SLUGS.map(s => findExpert(experts, s)).filter(Boolean);
 
 const featuredExpert = sotw
@@ -32,7 +32,7 @@ const featuredExamples = featuredExpert
     <h1>Let your agent<br />handle it.</h1>
     <p class="hero-sub">
       Pick an Expert. Say one sentence to your agent — Claude Code, Codex, Cursor, or any AI assistant.<br />
-      It handles the rest.
+      MCP, A2A, or any agent protocol — it handles the rest.
     </p>
   </section>
 
@@ -96,7 +96,7 @@ const featuredExamples = featuredExpert
         ))}
         <a class="scenario-item scenario-item--more" href="/experts">
           <span class="scenario-goal">See all {experts.length} experts →</span>
-          <span class="scenario-desc">AI Builder, Open Source, Writing, Research, and more</span>
+          <span class="scenario-desc">Agent Orchestrator, Cloud Ops, Security, MCP, and more</span>
         </a>
       </nav>
     ) : (

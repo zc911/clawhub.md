@@ -6,7 +6,7 @@ export interface SOTW {
 
 // Set to null to fall back to the first expert in the list
 export const sotw: SOTW | null = {
-  expert: 'ai-builder-expert',
-  reason: 'MCP crossed 97M monthly SDK downloads and the three-layer agent protocol stack (MCP + A2A + AG-UI) has stabilized — the best time to build on top of it is now.',
-  picked: '2026-04-13',
+  expert: 'agent-orchestrator',
+  reason: 'A2A hit v1.0, MCP Registry is in API freeze, and Claude Code shipped Routines + Computer Use — the agent infrastructure stack is production-ready.',
+  picked: '2026-04-30',
 };

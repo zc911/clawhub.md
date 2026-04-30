@@ -35,13 +35,13 @@ export const experts: Expert[] = [
     name: { en: 'Ship Expert', zh: '开发者助理' },
     division: 'Engineering',
     description: {
-      en: 'review PRs, track issues, and delegate coding tasks — without leaving the terminal',
-      zh: '不离开终端，完成 PR 审查、Issue 追踪和代码任务委派',
+      en: 'review PRs, run cloud routines, and ship with parallel worktrees — the modern dev workflow',
+      zh: '审查 PR、运行云端 Routine、并行 worktree 交付——现代开发者工作流',
     },
     goal: { en: 'Code, review & ship faster', zh: '编码、审查、更快交付' },
     outcome: {
-      en: 'Manage your GitHub workflow and delegate coding tasks to AI agents — all from your agent, with no context switching.',
-      zh: '通过 Agent 管理 GitHub 工作流并把编码任务委派给 AI——全程无需切换上下文。',
+      en: 'Manage your GitHub workflow, delegate coding tasks to AI agents, run scheduled Routines in the cloud, and use worktree parallelism to ship multiple features at once — all from your agent, with no context switching.',
+      zh: '通过 Agent 管理 GitHub 工作流、把编码任务委派给 AI、在云端运行定时 Routine、用 worktree 并行同时交付多个功能——全程无需切换上下文。',
     },
     skillsWithReason: [
       {
@@ -86,8 +86,28 @@ export const experts: Expert[] = [
           ],
         },
       },
+      {
+        slug: 'openclaw/cloud-routines',
+        reason: {
+          en: 'Schedule CI checks, auto-review routines, and nightly test runs on Anthropic infrastructure — your agent ships even when you\'re offline.',
+          zh: '在 Anthropic 基础设施上调度 CI 检查、自动审查 Routine 和夜间测试——即使你离线，Agent 也在交付。',
+        },
+        order: 3,
+        examples: {
+          en: [
+            'Set up a routine that runs tests when a PR is opened',
+            'Schedule a nightly build and deploy routine',
+            'Auto-assign reviewers via a cloud routine',
+          ],
+          zh: [
+            '设置 PR 打开时自动运行测试的 Routine',
+            '安排夜间构建和部署 Routine',
+            '通过云端 Routine 自动分配审查者',
+          ],
+        },
+      },
     ],
-    installAll: 'clawhub install openclaw/github openclaw/coding-agent',
+    installAll: 'clawhub install openclaw/github openclaw/coding-agent openclaw/cloud-routines',
     curator: 'clawhub',
     created: '2026-03-27',
   },
@@ -687,72 +707,92 @@ export const experts: Expert[] = [
     name: { en: 'Agent Builder', zh: 'AI 应用开发者' },
     division: 'Engineering',
     description: {
-      en: 'build Claude-powered apps, MCP servers, and reusable skills — end to end',
-      zh: '构建 Claude 应用、MCP Server 和可复用 Skill，全链路搞定',
+      en: 'build agents with Claude SDK, MCP servers, A2A protocol, and publish to the marketplace',
+      zh: '用 Claude SDK 构建 Agent、MCP Server、A2A 协议，并发布到市场',
     },
-    goal: { en: 'Build AI apps and agent skills faster', zh: '快速构建 AI 应用与 Agent Skill' },
+    goal: { en: 'Build and ship AI agents end to end', zh: '端到端构建和发布 AI Agent' },
     outcome: {
-      en: 'Scaffold Claude API apps, build MCP servers that give LLMs new capabilities, package workflows as reusable skills, and delegate coding grunt work to an agent.',
-      zh: '快速搭建 Claude API 应用、构建 MCP Server 赋予 LLM 新能力、把工作流打包成可复用 Skill，并把重复编码任务委托给 Agent。',
+      en: 'Scaffold Claude API apps with the Agent SDK (Python/TS), build MCP servers that give LLMs new tools, add A2A protocol for agent-to-agent communication, publish skills to the Claude Code marketplace, and delegate coding to agents — the full agent builder stack.',
+      zh: '用 Agent SDK (Python/TS) 搭建 Claude API 应用、构建 MCP Server 赋予 LLM 新工具、添加 A2A 协议实现 Agent 间通信、发布 Skill 到 Claude Code 市场、委托编码给 Agent——完整的 Agent 构建技术栈。',
     },
     skillsWithReason: [
       {
         slug: 'anthropics/claude-api',
         reason: {
-          en: 'Build streaming chat apps, implement tool use, and integrate Claude into any product — with Anthropic SDK examples you can run immediately.',
-          zh: '构建流式对话应用、实现 tool use、把 Claude 集成进任意产品——配有可立即运行的 Anthropic SDK 示例。',
+          en: 'Build with the Claude Agent SDK (Python/TS) — streaming, tool use, structured output, subagents, and OpenTelemetry observability.',
+          zh: '用 Claude Agent SDK (Python/TS) 构建——流式输出、tool use、结构化输出、子 Agent 和 OpenTelemetry 可观测性。',
         },
         order: 1,
         examples: {
           en: [
-            'Build a streaming chat app with the Claude API',
-            'Add tool use to my existing Claude integration',
-            'Show me how to implement multi-turn conversations',
+            'Build an agent with the Claude Agent SDK',
+            'Add tool use and structured output to my agent',
+            'Set up subagents for parallel task execution',
           ],
           zh: [
-            '用 Claude API 构建一个流式对话应用',
-            '给我现有的 Claude 集成加上 tool use',
-            '演示如何实现多轮对话',
+            '用 Claude Agent SDK 构建一个 Agent',
+            '为我的 Agent 添加 tool use 和结构化输出',
+            '设置子 Agent 执行并行任务',
           ],
         },
       },
       {
         slug: 'anthropics/mcp-builder',
         reason: {
-          en: 'Build MCP servers that let LLMs call your APIs, read databases, or trigger workflows — a first-class integration layer for AI agents.',
-          zh: '构建 MCP Server，让 LLM 调用你的 API、读取数据库或触发工作流——AI Agent 的标准集成层。',
+          en: 'Build MCP servers that let LLMs call your APIs, read databases, or trigger workflows — with Elicitation support for interactive agent workflows.',
+          zh: '构建 MCP Server，让 LLM 调用你的 API、读取数据库或触发工作流——支持 Elicitation 实现交互式 Agent 工作流。',
         },
         order: 2,
         examples: {
           en: [
             'Build an MCP server for my REST API',
-            'Add a database read tool to my MCP server',
-            'Create a new MCP server from scratch',
+            'Add Elicitation support for user prompts',
+            'Create a new MCP server with TypeScript SDK',
           ],
           zh: [
             '为我的 REST API 构建 MCP Server',
-            '给 MCP Server 添加数据库读取工具',
-            '从零开始创建一个 MCP Server',
+            '添加 Elicitation 支持实现用户提示',
+            '用 TypeScript SDK 创建 MCP Server',
+          ],
+        },
+      },
+      {
+        slug: 'openclaw/a2a',
+        reason: {
+          en: 'Add A2A v1.0 support — generate Agent Cards, enable inter-agent discovery and task streaming, so your agent can collaborate with other agents.',
+          zh: '添加 A2A v1.0 支持——生成 Agent Cards、启用 Agent 间发现和任务流式传输，让你的 Agent 能与其他 Agent 协作。',
+        },
+        order: 3,
+        examples: {
+          en: [
+            'Generate an Agent Card for my agent',
+            'Add A2A skill discovery to my agent',
+            'Set up task streaming between my agent and others',
+          ],
+          zh: [
+            '为我的 Agent 生成 Agent Card',
+            '给我的 Agent 添加 A2A 技能发现',
+            '设置我的 Agent 与其他 Agent 之间的任务流',
           ],
         },
       },
       {
         slug: 'anthropics/skill-creator',
         reason: {
-          en: 'Turn any repeatable workflow into a shareable AgentSkill — with proper SKILL.md structure, tool declarations, and audit-ready output.',
-          zh: '把任何可重复的工作流打包成可分享的 AgentSkill——包含规范的 SKILL.md 结构、工具声明和审计友好的输出。',
+          en: 'Package workflows as skills and publish to the Claude Code marketplace — with proper SKILL.md, tool declarations, and marketplace submission.',
+          zh: '把工作流打包成 Skill 并发布到 Claude Code 市场——包含规范的 SKILL.md、工具声明和市场提交流程。',
         },
-        order: 3,
+        order: 4,
         examples: {
           en: [
-            'Package this workflow as a reusable skill',
-            'Audit my SKILL.md for best practices',
-            'Create a new skill that wraps this API',
+            'Package this agent as a publishable skill',
+            'Audit my SKILL.md for marketplace requirements',
+            'Create a namespaced plugin for the Claude Code marketplace',
           ],
           zh: [
-            '把这个工作流打包成可复用的 Skill',
-            '审查我的 SKILL.md 是否符合最佳实践',
-            '创建一个封装这个 API 的新 Skill',
+            '把这个 Agent 打包成可发布的 Skill',
+            '审查我的 SKILL.md 是否符合市场要求',
+            '为 Claude Code 市场创建命名空间插件',
           ],
         },
       },
@@ -762,7 +802,7 @@ export const experts: Expert[] = [
           en: 'Delegate boilerplate, test generation, and refactors to Claude Code or Codex — so you stay in flow on architecture and product.',
           zh: '把样板代码、测试生成和重构任务委托给 Claude Code 或 Codex——自己专注于架构和产品。',
         },
-        order: 4,
+        order: 5,
         examples: {
           en: [
             'Delegate writing tests for this module to an agent',
@@ -775,7 +815,7 @@ export const experts: Expert[] = [
         },
       },
     ],
-    installAll: 'clawhub install anthropics/claude-api anthropics/mcp-builder anthropics/skill-creator openclaw/coding-agent',
+    installAll: 'clawhub install anthropics/claude-api anthropics/mcp-builder openclaw/a2a anthropics/skill-creator openclaw/coding-agent',
     curator: 'clawhub',
     created: '2026-03-28',
   },
@@ -2144,6 +2184,402 @@ export const experts: Expert[] = [
     installAll: 'clawhub install 0xNyk/council-of-high-intelligence',
     curator: 'clawhub',
     created: '2026-04-13',
+  },
+  // ── 2026 Q2 Agent Ecosystem Experts ────────────────────────────────────────
+  {
+    slug: 'agent-orchestrator',
+    name: { en: 'Agent Orchestrator', zh: 'Agent 编排师' },
+    division: 'Engineering',
+    description: {
+      en: 'build multi-agent systems with A2A, MCP, and inter-agent communication',
+      zh: '用 A2A、MCP 和跨 Agent 通信构建多 Agent 协作系统',
+    },
+    goal: { en: 'Orchestrate agents that talk to each other', zh: '编排能互相协作的 Agent' },
+    outcome: {
+      en: 'Design multi-agent architectures where agents discover each other via A2A Agent Cards, communicate through standard protocols, and build on MCP for tool integration — the full stack for agent-to-agent collaboration.',
+      zh: '设计多 Agent 架构——Agent 通过 A2A Agent Cards 互相发现，通过标准协议通信，基于 MCP 集成工具——Agent 间协作的完整技术栈。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'openclaw/a2a',
+        reason: {
+          en: 'Build agents that discover, communicate, and collaborate using the A2A v1.0 protocol — Agent Cards, skill querying, and task streaming.',
+          zh: '用 A2A v1.0 协议构建能互相发现、通信和协作的 Agent——Agent Cards、技能查询和任务流式传输。',
+        },
+        order: 1,
+        examples: {
+          en: [
+            'Create an Agent Card for my research agent',
+            'Discover agents that can handle PDF analysis',
+            'Send a long-running task to another agent with streaming',
+          ],
+          zh: [
+            '为我的研究 Agent 创建 Agent Card',
+            '发现能处理 PDF 分析的 Agent',
+            '向另一个 Agent 发送长时任务并流式获取结果',
+          ],
+        },
+      },
+      {
+        slug: 'anthropics/mcp-builder',
+        reason: {
+          en: 'Build MCP servers that give your agents new tools and data sources — the standard integration layer every agent needs.',
+          zh: '构建 MCP Server，为你的 Agent 提供新工具和数据源——每个 Agent 都需要的标准集成层。',
+        },
+        order: 2,
+        examples: {
+          en: [
+            'Build an MCP server for my REST API',
+            'Add a database read tool to my MCP server',
+            'Create an MCP server from scratch',
+          ],
+          zh: [
+            '为我的 REST API 构建 MCP Server',
+            '给 MCP Server 添加数据库读取工具',
+            '从零创建一个 MCP Server',
+          ],
+        },
+      },
+      {
+        slug: 'openclaw/coding-agent',
+        reason: {
+          en: 'Delegate implementation tasks to Claude Code or Codex while you focus on orchestration logic and agent architecture.',
+          zh: '把实现任务委托给 Claude Code 或 Codex，自己专注于编排逻辑和 Agent 架构。',
+        },
+        order: 3,
+        examples: {
+          en: [
+            'Delegate the MCP server boilerplate to a coding agent',
+            'Have Codex scaffold the A2A transport layer',
+            'Run this integration test in a background agent',
+          ],
+          zh: [
+            '把 MCP Server 脚手架交给 coding agent',
+            '让 Codex 生成 A2A 传输层代码',
+            '在后台 agent 中运行这个集成测试',
+          ],
+        },
+      },
+    ],
+    installAll: 'clawhub install openclaw/a2a anthropics/mcp-builder openclaw/coding-agent',
+    curator: 'clawhub',
+    created: '2026-04-30',
+  },
+  {
+    slug: 'cloud-agent-ops',
+    name: { en: 'Cloud Agent Ops', zh: '云端 Agent 运维' },
+    division: 'Engineering',
+    description: {
+      en: 'run agents on a schedule, trigger from webhooks, and monitor from anywhere',
+      zh: '定时运行 Agent、Webhook 触发、随时随地监控',
+    },
+    goal: { en: 'Run agents in the cloud, not just locally', zh: '让 Agent 在云端持续运行' },
+    outcome: {
+      en: 'Set up Claude Code Routines that run on Anthropic infrastructure even when your computer is off, trigger Managed Agents via REST API or webhooks, and push results to Slack, GitHub, or email — cloud-native agent operations.',
+      zh: '设置在 Anthropic 基础设施上定时运行的 Claude Code Routines（即使电脑关机也照常执行），通过 REST API 或 Webhook 触发 Managed Agent，推送结果到 Slack、GitHub 或邮件——云端原生 Agent 运维。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'openclaw/cloud-routines',
+        reason: {
+          en: 'Schedule Claude Code tasks via cron, trigger from GitHub/Slack webhooks, and run Managed Agents in Anthropic\'s sandbox — the core of cloud agent operations.',
+          zh: '通过 cron 定时调度 Claude Code 任务，从 GitHub/Slack Webhook 触发，在 Anthropic 沙盒中运行 Managed Agent——云端 Agent 运维的核心。',
+        },
+        order: 1,
+        examples: {
+          en: [
+            'Set up a routine that runs tests every morning at 9am',
+            'Create a webhook-triggered routine for PR auto-review',
+            'Schedule a weekly report and post to Slack',
+          ],
+          zh: [
+            '设置每天早 9 点运行测试的 Routine',
+            '创建 Webhook 触发的 PR 自动审查 Routine',
+            '安排每周报告并自动发到 Slack',
+          ],
+        },
+      },
+      {
+        slug: 'openclaw/github',
+        reason: {
+          en: 'Cloud agents need to interact with your repo — review PRs, check CI, and create issues as part of automated workflows.',
+          zh: '云端 Agent 需要与你的仓库交互——审查 PR、检查 CI、创建 Issue，作为自动化工作流的一部分。',
+        },
+        order: 2,
+        examples: {
+          en: [
+            'Check CI status on the release branch',
+            'Auto-assign reviewers when a PR is opened',
+            'Create an issue from the routine output',
+          ],
+          zh: [
+            '检查发布分支的 CI 状态',
+            'PR 打开时自动分配审查者',
+            '从 Routine 输出创建 Issue',
+          ],
+        },
+      },
+      {
+        slug: 'openclaw/coding-agent',
+        reason: {
+          en: 'Delegate the actual coding work to a local or cloud agent — your routines orchestrate, agents execute.',
+          zh: '把实际编码工作委托给本地或云端 Agent——你的 Routine 做编排，Agent 做执行。',
+        },
+        order: 3,
+        examples: {
+          en: [
+            'Have the routine delegate bug fixes to a coding agent',
+            'Run a background agent for the long migration script',
+            'Trigger Codex from a scheduled routine',
+          ],
+          zh: [
+            '让 Routine 把 bug 修复委托给 coding agent',
+            '在后台 agent 中运行长时间迁移脚本',
+            '从定时 Routine 触发 Codex',
+          ],
+        },
+      },
+    ],
+    installAll: 'clawhub install openclaw/cloud-routines openclaw/github openclaw/coding-agent',
+    curator: 'clawhub',
+    created: '2026-04-30',
+  },
+  {
+    slug: 'agent-security-expert',
+    name: { en: 'Agent Sentinel', zh: 'Agent 安全哨兵' },
+    division: 'Engineering',
+    description: {
+      en: 'sandbox execution, injection defense, and permission guardrails for production agents',
+      zh: '生产级 Agent 的沙盒执行、注入防御和权限护栏',
+    },
+    goal: { en: 'Secure your agents before they go to production', zh: 'Agent 上线前先上锁' },
+    outcome: {
+      en: 'Configure sandbox boundaries, detect indirect prompt injections, enforce permission allow/deny lists, and add human-in-the-loop approval for sensitive operations — so your agents are safe to run in production.',
+      zh: '配置沙盒边界、检测间接提示注入、强制权限白名单/黑名单、为敏感操作添加人工审批——让你的 Agent 安全地跑在生产环境中。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'openclaw/agent-guard',
+        reason: {
+          en: 'The core security layer: sandbox configuration, injection detection, permission boundaries, and audit logging — everything your agent needs before it touches production.',
+          zh: '核心安全层：沙盒配置、注入检测、权限边界和审计日志——Agent 接触生产环境前需要的所有保障。',
+        },
+        order: 1,
+        examples: {
+          en: [
+            'Set up permission boundaries for my agent',
+            'Block my agent from running sudo or rm -rf',
+            'Scan this URL for indirect prompt injection',
+          ],
+          zh: [
+            '为我的 Agent 设置权限边界',
+            '禁止 Agent 执行 sudo 或 rm -rf',
+            '扫描这个 URL 是否存在间接提示注入',
+          ],
+        },
+      },
+      {
+        slug: 'anthropics/mcp-builder',
+        reason: {
+          en: 'Build MCP servers with proper auth and scope — ensure your agent\'s integrations don\'t expose more than intended.',
+          zh: '构建带认证和作用域的 MCP Server——确保 Agent 集成不会暴露超出预期的能力。',
+        },
+        order: 2,
+        examples: {
+          en: [
+            'Build an MCP server with scoped read-only access',
+            'Add authentication to my existing MCP server',
+            'Audit my MCP server for excessive permissions',
+          ],
+          zh: [
+            '构建带作用域只读访问的 MCP Server',
+            '为我现有的 MCP Server 添加认证',
+            '审查我的 MCP Server 是否权限过大',
+          ],
+        },
+      },
+      {
+        slug: 'openclaw/coding-agent',
+        reason: {
+          en: 'Delegate security test generation and vulnerability scanning to a coding agent — automate your security QA.',
+          zh: '把安全测试生成和漏洞扫描委托给 coding agent——自动化你的安全 QA。',
+        },
+        order: 3,
+        examples: {
+          en: [
+            'Delegate security test generation to Claude Code',
+            'Have Codex scan this codebase for injection vulnerabilities',
+            'Run OWASP compliance checks in a background agent',
+          ],
+          zh: [
+            '让 Claude Code 生成安全测试',
+            '让 Codex 扫描代码库的注入漏洞',
+            '在后台 agent 中运行 OWASP 合规检查',
+          ],
+        },
+      },
+    ],
+    installAll: 'clawhub install openclaw/agent-guard anthropics/mcp-builder openclaw/coding-agent',
+    curator: 'clawhub',
+    created: '2026-04-30',
+  },
+  {
+    slug: 'mcp-integrator',
+    name: { en: 'MCP Integrator', zh: 'MCP 集成师' },
+    division: 'Product',
+    description: {
+      en: 'discover, build, and publish MCP servers — the integration layer for AI agents',
+      zh: '发现、构建和发布 MCP Server——AI Agent 的标准集成层',
+    },
+    goal: { en: 'Connect agents to the world via MCP', zh: '用 MCP 让 Agent 连接全世界' },
+    outcome: {
+      en: 'Find MCP servers in the Registry and Smithery marketplace, install and configure them for your agent, build custom servers for your APIs, and publish them back to the community — full MCP lifecycle management.',
+      zh: '在 Registry 和 Smithery 市场找到 MCP Server，安装配置到你的 Agent，为你的 API 构建自定义 Server，发布回社区——完整的 MCP 生命周期管理。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'openclaw/mcp-registry',
+        reason: {
+          en: 'Search, install, and publish MCP servers via the official Registry and Smithery marketplace — the discovery and distribution layer for MCP.',
+          zh: '通过官方 Registry 和 Smithery 市场搜索、安装和发布 MCP Server——MCP 的发现和分发层。',
+        },
+        order: 1,
+        examples: {
+          en: [
+            'Search for MCP servers that connect to PostgreSQL',
+            'Install the GitHub MCP server from the Registry',
+            'Publish my MCP server for community discovery',
+          ],
+          zh: [
+            '搜索连接 PostgreSQL 的 MCP Server',
+            '从 Registry 安装 GitHub MCP Server',
+            '发布我的 MCP Server 供社区发现',
+          ],
+        },
+      },
+      {
+        slug: 'anthropics/mcp-builder',
+        reason: {
+          en: 'Build MCP servers from scratch — tool definitions, resource handlers, prompt templates, and Elicitation support.',
+          zh: '从零构建 MCP Server——工具定义、资源处理器、提示模板和 Elicitation 支持。',
+        },
+        order: 2,
+        examples: {
+          en: [
+            'Build an MCP server for my REST API',
+            'Add Elicitation support for interactive workflows',
+            'Create an MCP server with TypeScript SDK',
+          ],
+          zh: [
+            '为我的 REST API 构建 MCP Server',
+            '添加 Elicitation 支持实现交互式工作流',
+            '用 TypeScript SDK 创建 MCP Server',
+          ],
+        },
+      },
+      {
+        slug: 'anthropics/skill-creator',
+        reason: {
+          en: 'Package your MCP integration workflow as a reusable skill — so others can install your server + configuration in one command.',
+          zh: '把你的 MCP 集成工作流打包成可复用 Skill——让别人一条命令安装你的 Server + 配置。',
+        },
+        order: 3,
+        examples: {
+          en: [
+            'Package this MCP server as an installable skill',
+            'Create a skill that bundles my MCP server with config',
+            'Audit my skill for MCP best practices',
+          ],
+          zh: [
+            '把这个 MCP Server 打包成可安装的 Skill',
+            '创建一个将 MCP Server 和配置打包的 Skill',
+            '审查我的 Skill 是否符合 MCP 最佳实践',
+          ],
+        },
+      },
+    ],
+    installAll: 'clawhub install openclaw/mcp-registry anthropics/mcp-builder anthropics/skill-creator',
+    curator: 'clawhub',
+    created: '2026-04-30',
+  },
+  {
+    slug: 'self-driving-dev',
+    name: { en: 'Self-Driving Dev', zh: '自动驾驶开发者' },
+    division: 'Engineering',
+    description: {
+      en: 'parallel worktrees, multi-IDE agents, and cloud/local hybrid workflows',
+      zh: '并行 worktree、多 IDE Agent、云端/本地混合工作流',
+    },
+    goal: { en: 'Run multiple agents in parallel across IDEs', zh: '跨 IDE 并行驱动多个 Agent' },
+    outcome: {
+      en: 'Run parallel git worktrees with Cursor SDK, Windsurf+Devin, and Claude Code simultaneously — local agents for fast iteration, cloud agents for long-running tasks, adaptive model routing for optimal results per task type.',
+      zh: '同时用 Cursor SDK、Windsurf+Devin 和 Claude Code 运行并行 git worktree——本地 Agent 做快速迭代，云端 Agent 跑长时任务，自适应模型路由为每类任务选择最优模型。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'openclaw/cursor-sdk',
+        reason: {
+          en: 'Orchestrate multi-IDE agent workflows with Cursor SDK, Windsurf+Devin, worktree parallelism, and adaptive model routing.',
+          zh: '用 Cursor SDK、Windsurf+Devin、worktree 并行和自适应模型路由编排多 IDE Agent 工作流。',
+        },
+        order: 1,
+        examples: {
+          en: [
+            'Set up parallel worktrees for frontend, backend, and tests',
+            'Configure Windsurf Devin for cloud-based debugging',
+            'Route code review tasks to the strongest model',
+          ],
+          zh: [
+            '为前端、后端和测试设置并行 worktree',
+            '配置 Windsurf Devin 做云端调试',
+            '把代码审查任务路由到最强模型',
+          ],
+        },
+      },
+      {
+        slug: 'openclaw/github',
+        reason: {
+          en: 'Manage PRs, CI, and issues from any agent — keep your repo in sync across parallel workstreams.',
+          zh: '从任意 Agent 管理 PR、CI 和 Issue——让仓库在并行工作流中保持同步。',
+        },
+        order: 2,
+        examples: {
+          en: [
+            'Check CI status across all my worktrees',
+            'Create a PR from the frontend worktree',
+            'Review PRs while the backend agent is still running',
+          ],
+          zh: [
+            '检查所有 worktree 的 CI 状态',
+            '从前端 worktree 创建 PR',
+            '在后端 Agent 仍在运行时审查 PR',
+          ],
+        },
+      },
+      {
+        slug: 'openclaw/coding-agent',
+        reason: {
+          en: 'Delegate to Claude Code or Codex when you need deep coding — the self-driving dev delegates everything except architecture decisions.',
+          zh: '需要深度编码时委托给 Claude Code 或 Codex——自动驾驶开发者只做架构决策，其余全委托。',
+        },
+        order: 3,
+        examples: {
+          en: [
+            'Delegate the API migration to a background coding agent',
+            'Have Codex write tests for all three worktrees',
+            'Run this refactor in a parallel Claude Code session',
+          ],
+          zh: [
+            '把 API 迁移委托给后台 coding agent',
+            '让 Codex 为三个 worktree 写测试',
+            '在并行 Claude Code 会话中运行这个重构',
+          ],
+        },
+      },
+    ],
+    installAll: 'clawhub install openclaw/cursor-sdk openclaw/github openclaw/coding-agent',
+    curator: 'clawhub',
+    created: '2026-04-30',
   },
   // Chinese Mentors → 中文专区
   {
