@@ -1,0 +1,3 @@
+[submodule "clawhub.md-experts"]
+	path = clawhub.md-experts
+	url = https://github.com/zc911/clawhub.md-experts.git
