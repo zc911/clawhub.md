@@ -40,7 +40,7 @@
 
 ## Deferred from CEO Review (2026-03-30)
 
-- **Register feishu / dingtalk / wecom as skills** — `openclaw/feishu`, `openclaw/dingtalk`, `openclaw/wecom` are referenced by 4 experts (`feishu-expert`, `dingtalk-expert`, `wecom-expert`, `ops-cn-expert`) but have no entries in `src/data/skills.ts`. Expert pages render (defensive guard in `expertMarkdown.ts`), but skill pages 404 and the browse page omits them. **Context:** Add 3 skill entries to `skills.ts` with name, description, setupSteps, and example prompts. Effort: XS (CC: ~10 min). Priority: P2.
+- ~~**Register feishu / dingtalk / wecom as skills**~~ ✅ Done — `openclaw/feishu`, `openclaw/dingtalk`, `openclaw/wecom` added to `src/data/skills.ts` with name, description, setupSteps, and example prompts. Skill pages at `/openclaw/feishu`, `/openclaw/dingtalk`, `/openclaw/wecom` now render correctly.
 
 ## Deferred from CEO Review (2026-03-27)
 
