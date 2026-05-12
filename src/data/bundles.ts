@@ -2642,6 +2642,322 @@ export const experts: Expert[] = [
     curator: 'clawhub',
     created: '2026-04-13',
   },
+  {
+    slug: 'vibe-coder',
+    name: { en: 'Vibe Coder', zh: 'Vibe 编程助理' },
+    division: 'Engineering',
+    description: {
+      en: 'ship full apps by describing what you want — no CS degree required',
+      zh: '用自然语言描述需求，直接交付完整 app，无需计算机背景',
+    },
+    goal: { en: 'Ship apps by describing them', zh: '用描述代替编程，直接交付 app' },
+    outcome: {
+      en: 'Turn product ideas into working apps without a CS degree. Describe what you want in plain language — your agent scaffolds the project, writes the code, wires up APIs, and iterates on your feedback. Vibe coding at its best: you stay in the creative loop, the agent handles the implementation.',
+      zh: '无需计算机背景，把产品想法变成可用的 app。用自然语言描述需求——你的 Agent 搭建项目结构、编写代码、接入 API，并根据你的反馈迭代。Vibe 编程的核心：你负责创意和方向，Agent 负责实现。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'openclaw/coding-agent',
+        reason: {
+          en: 'Your coding co-pilot — scaffold projects, write features, run tests, and fix bugs on command. You describe the outcome; the agent writes the code.',
+          zh: '你的编程副驾——搭建项目、编写功能、运行测试、修复 bug，全部按需执行。你描述目标，Agent 写代码。',
+        },
+        order: 1,
+        examples: {
+          en: [
+            'Build a landing page for my SaaS idea',
+            'Add user authentication to this app',
+            'Fix the bug where the form doesn\'t submit',
+          ],
+          zh: [
+            '为我的 SaaS 想法构建一个落地页',
+            '给这个 app 加上用户认证',
+            '修复表单提交失败的 bug',
+          ],
+        },
+      },
+      {
+        slug: 'openclaw/cursor-sdk',
+        reason: {
+          en: 'Supercharge Cursor with agent-native workflows — multi-file edits, context-aware refactors, and tab completions that understand your whole codebase.',
+          zh: '用 Agent 原生工作流强化 Cursor——多文件编辑、上下文感知重构，以及理解整个代码库的智能补全。',
+        },
+        order: 2,
+        examples: {
+          en: [
+            'Refactor this component across all my files',
+            'Generate a full CRUD API from this schema',
+            'Explain what this codebase does and where to start',
+          ],
+          zh: [
+            '重构这个组件并更新所有相关文件',
+            '根据这个 schema 生成完整的 CRUD API',
+            '解释这个代码库的功能和入手位置',
+          ],
+        },
+      },
+      {
+        slug: 'anthropics/claude-api',
+        reason: {
+          en: 'When your app needs AI inside — add Claude-powered features like summarization, Q&A, or generation without becoming an ML engineer.',
+          zh: '当你的 app 需要内置 AI——添加 Claude 驱动的功能，如摘要、问答或生成，无需成为 ML 工程师。',
+        },
+        order: 3,
+        examples: {
+          en: [
+            'Add an AI chat feature to my app',
+            'Summarize user submissions automatically',
+            'Generate personalized content for each user',
+          ],
+          zh: [
+            '给我的 app 添加 AI 对话功能',
+            '自动摘要用户提交内容',
+            '为每个用户生成个性化内容',
+          ],
+        },
+      },
+    ],
+    installAll: 'clawhub install openclaw/coding-agent openclaw/cursor-sdk anthropics/claude-api',
+    curator: 'clawhub',
+    created: '2026-05-12',
+  },
+  {
+    slug: 'eval-expert',
+    name: { en: 'AI Eval Engineer', zh: 'AI 评测工程师' },
+    division: 'Engineering',
+    description: {
+      en: 'measure, benchmark, and systematically improve your AI system quality',
+      zh: '测量、基准测试并系统性地提升 AI 系统质量',
+    },
+    goal: { en: 'Measure and improve AI quality', zh: '测量并持续改进 AI 质量' },
+    outcome: {
+      en: 'Build eval suites that catch regressions before users do. Write LLM-as-judge evaluators, create golden datasets, run CI evals on every model change, and track quality metrics over time. Turn "it feels worse" into a reproducible test.',
+      zh: '在用户之前发现质量退化。编写 LLM-as-judge 评估器、创建黄金数据集、对每次模型变更运行 CI 评测，并追踪质量指标趋势。把"感觉变差了"转化为可复现的测试。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'anthropics/claude-api',
+        reason: {
+          en: 'Use Claude as a judge — score outputs, detect hallucinations, compare model versions side by side with the Agent SDK\'s structured output and tool use.',
+          zh: '用 Claude 作为裁判——评分输出、检测幻觉、用 Agent SDK 的结构化输出对比不同模型版本。',
+        },
+        order: 1,
+        examples: {
+          en: [
+            'Write a Claude-as-judge evaluator for my chatbot',
+            'Compare my current prompt vs a new version on 50 test cases',
+            'Build an eval that detects hallucinations in my RAG pipeline',
+          ],
+          zh: [
+            '为我的聊天机器人编写 Claude-as-judge 评估器',
+            '在 50 个测试用例上对比当前 prompt 和新版本',
+            '构建一个检测 RAG 流水线幻觉的评测',
+          ],
+        },
+      },
+      {
+        slug: 'openclaw/coding-agent',
+        reason: {
+          en: 'Scaffold eval harnesses, generate test datasets, and wire up CI pipelines — so evals run automatically on every commit.',
+          zh: '搭建评测框架、生成测试数据集、接入 CI 流水线——让评测在每次提交时自动运行。',
+        },
+        order: 2,
+        examples: {
+          en: [
+            'Scaffold a pytest eval suite for my LLM app',
+            'Generate 100 diverse test cases from my production logs',
+            'Wire evals into my GitHub Actions CI',
+          ],
+          zh: [
+            '为我的 LLM 应用搭建 pytest 评测套件',
+            '从生产日志生成 100 个多样化测试用例',
+            '把评测接入我的 GitHub Actions CI',
+          ],
+        },
+      },
+      {
+        slug: 'openclaw/github',
+        reason: {
+          en: 'Track eval results across PRs — comment score diffs on pull requests, block merges when quality drops, and keep a history of model quality over time.',
+          zh: '跨 PR 追踪评测结果——在 Pull Request 上评论分数变化，质量下降时阻止合并，保留模型质量的历史记录。',
+        },
+        order: 3,
+        examples: {
+          en: [
+            'Post eval score diff as a PR comment',
+            'Block merge if eval score drops below threshold',
+            'List all eval regressions since the last release',
+          ],
+          zh: [
+            '将评测分数差异作为 PR 评论发布',
+            '如果评测分数低于阈值则阻止合并',
+            '列出上次发布以来的所有评测退化',
+          ],
+        },
+      },
+    ],
+    installAll: 'clawhub install anthropics/claude-api openclaw/coding-agent openclaw/github',
+    curator: 'clawhub',
+    created: '2026-05-12',
+  },
+  {
+    slug: 'data-analyst-expert',
+    name: { en: 'Data Analyst', zh: 'AI 数据分析师' },
+    division: 'Productivity',
+    description: {
+      en: 'answer data questions, write SQL, and build dashboards without writing code yourself',
+      zh: '回答数据问题、生成 SQL 查询、构建报表，无需自己写代码',
+    },
+    goal: { en: 'Turn data into answers, fast', zh: '快速把数据变成洞察' },
+    outcome: {
+      en: 'Ask your data questions in plain English — your agent writes the SQL, runs the query, interprets the results, and builds a shareable report. No data engineering background needed. Works with Postgres, BigQuery, Snowflake, CSVs, and spreadsheets.',
+      zh: '用自然语言提问——Agent 生成 SQL、执行查询、解读结果、输出可分享报告。无需数据工程背景。支持 Postgres、BigQuery、Snowflake、CSV 和电子表格。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'openclaw/coding-agent',
+        reason: {
+          en: 'Write SQL, Python data scripts, and visualization code on demand — describe the analysis you need, get working code back.',
+          zh: '按需生成 SQL、Python 数据脚本和可视化代码——描述你需要的分析，获得可运行的代码。',
+        },
+        order: 1,
+        examples: {
+          en: [
+            'Write a SQL query for monthly active users by cohort',
+            'Plot churn rate over the last 6 months',
+            'Find the top 10 customers by revenue this quarter',
+          ],
+          zh: [
+            '按用户群体编写月活跃用户 SQL 查询',
+            '绘制过去 6 个月的流失率趋势图',
+            '找出本季度收入最高的 10 个客户',
+          ],
+        },
+      },
+      {
+        slug: 'openclaw/notion',
+        reason: {
+          en: 'Push analysis results directly into Notion — auto-generate weekly data reports, update dashboards, and share findings without copying and pasting.',
+          zh: '将分析结果直接推送到 Notion——自动生成周度数据报告、更新仪表板、分享洞察，无需复制粘贴。',
+        },
+        order: 2,
+        examples: {
+          en: [
+            'Write this week\'s data summary to my Notion report page',
+            'Update the KPI dashboard with today\'s numbers',
+            'Create a new Notion page with the cohort analysis results',
+          ],
+          zh: [
+            '把本周数据摘要写入我的 Notion 报告页面',
+            '用今天的数据更新 KPI 仪表板',
+            '用用户群分析结果创建新的 Notion 页面',
+          ],
+        },
+      },
+      {
+        slug: 'openclaw/summarize',
+        reason: {
+          en: 'Summarize long reports, research papers, or data exports into executive-ready takeaways — key numbers, trends, and recommended actions.',
+          zh: '将长篇报告、研究论文或数据导出摘要为高管可读的要点——关键数字、趋势和建议行动。',
+        },
+        order: 3,
+        examples: {
+          en: [
+            'Summarize this 50-page analytics report into 5 bullet points',
+            'What are the key trends in this dataset?',
+            'Extract the most important metrics from this CSV',
+          ],
+          zh: [
+            '把这份 50 页的分析报告摘要为 5 个要点',
+            '这个数据集中有哪些关键趋势？',
+            '从这个 CSV 中提取最重要的指标',
+          ],
+        },
+      },
+    ],
+    installAll: 'clawhub install openclaw/coding-agent openclaw/notion openclaw/summarize',
+    curator: 'clawhub',
+    created: '2026-05-12',
+  },
+  {
+    slug: 'voice-expert',
+    name: { en: 'Voice Agent Builder', zh: '语音 Agent 开发者' },
+    division: 'Engineering',
+    description: {
+      en: 'build voice-first AI apps with Realtime API, ElevenLabs, and speech-to-text pipelines',
+      zh: '用 Realtime API、ElevenLabs 和语音转文字流水线构建语音优先的 AI 应用',
+    },
+    goal: { en: 'Build voice AI apps end to end', zh: '端到端构建语音 AI 应用' },
+    outcome: {
+      en: 'Go from zero to a production voice AI app: wire up speech-to-text, route through Claude for reasoning, and synthesize responses with natural-sounding voice output. Build phone agents, voice assistants, real-time translators, and accessibility tools — all without a PhD in audio engineering.',
+      zh: '从零到生产级语音 AI 应用：接入语音转文字、通过 Claude 进行推理、用自然语音合成响应。构建电话 Agent、语音助手、实时翻译和无障碍工具——无需音频工程背景。',
+    },
+    skillsWithReason: [
+      {
+        slug: 'anthropics/claude-api',
+        reason: {
+          en: 'The reasoning brain of your voice app — process transcribed speech, maintain conversation context, decide when to speak vs. wait, and generate natural responses.',
+          zh: '语音应用的推理大脑——处理转录语音、维护对话上下文、决定何时响应、生成自然回复。',
+        },
+        order: 1,
+        examples: {
+          en: [
+            'Build a voice assistant that books calendar events',
+            'Create a phone agent that answers customer questions',
+            'Add voice input/output to my existing Claude app',
+          ],
+          zh: [
+            '构建一个可以预订日历事件的语音助手',
+            '创建一个回答客户问题的电话 Agent',
+            '为我现有的 Claude 应用添加语音输入/输出',
+          ],
+        },
+      },
+      {
+        slug: 'openclaw/coding-agent',
+        reason: {
+          en: 'Scaffold the voice pipeline — WebSocket handlers for streaming audio, VAD (voice activity detection), chunked transcription, and TTS integration.',
+          zh: '搭建语音流水线——用于流式音频的 WebSocket 处理器、VAD（语音活动检测）、分块转录和 TTS 集成。',
+        },
+        order: 2,
+        examples: {
+          en: [
+            'Build a WebSocket server for real-time audio streaming',
+            'Add voice activity detection to my app',
+            'Integrate ElevenLabs TTS into my voice pipeline',
+          ],
+          zh: [
+            '构建用于实时音频流的 WebSocket 服务器',
+            '给我的应用添加语音活动检测',
+            '将 ElevenLabs TTS 集成到我的语音流水线',
+          ],
+        },
+      },
+      {
+        slug: 'anthropics/mcp-builder',
+        reason: {
+          en: 'Expose voice capabilities as MCP tools — let any agent trigger TTS, transcription, or phone calls via a standardized interface.',
+          zh: '将语音能力暴露为 MCP 工具——让任何 Agent 通过标准接口触发 TTS、转录或电话呼叫。',
+        },
+        order: 3,
+        examples: {
+          en: [
+            'Build an MCP tool that triggers a phone call',
+            'Expose my TTS endpoint as an MCP tool for other agents',
+            'Create a transcription MCP server for my audio files',
+          ],
+          zh: [
+            '构建一个触发电话呼叫的 MCP 工具',
+            '将我的 TTS 端点作为 MCP 工具暴露给其他 Agent',
+            '为我的音频文件创建转录 MCP Server',
+          ],
+        },
+      },
+    ],
+    installAll: 'clawhub install anthropics/claude-api openclaw/coding-agent anthropics/mcp-builder',
+    curator: 'clawhub',
+    created: '2026-05-12',
+  },
 ];
 
 export function getExpert(slug: string): Expert | undefined {
