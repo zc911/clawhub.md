@@ -56,6 +56,7 @@ const enPath = path.startsWith('/zh') ? path.slice(3) || '/' : path;
         <a href={lang === 'zh' ? '/zh/experts' : '/experts'}>{lang === 'zh' ? 'Experts' : 'Experts'}</a>
         <a href="/browse">{lang === 'zh' ? '技能库' : 'Browse'}</a>
         <a href="/r/">{lang === 'zh' ? '任意技能' : 'Any skill'}</a>
+        <a href="/sponsor" class="nav-sponsor">Sponsor</a>
         <a href="https://clawhub.ai" target="_blank" rel="noopener" class="nav-external">clawhub.ai ↗</a>
         <span class="lang-switcher">
           {lang === 'zh'
@@ -117,6 +118,15 @@ const enPath = path.startsWith('/zh') ? path.slice(3) || '/' : path;
 }
 
 .lang-link:hover {
+  color: var(--accent);
+}
+
+nav.site-nav .nav-links a.nav-sponsor {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+nav.site-nav .nav-links a.nav-sponsor:hover {
   color: var(--accent);
 }
 </style>
