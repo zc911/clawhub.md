@@ -1,6 +1,8 @@
 ---
 import Base from '@/layouts/Base.astro';
 import { skills } from '@/data/skills';
+import SponsorSlot from '@/components/SponsorSlot.astro';
+import { currentSponsor } from '@/data/sponsor';
 
 const namespaces = [
   {
@@ -36,6 +38,12 @@ const regularSkillCount = skills.filter(s => s.category !== 'mentor').length;
   <p style="color: var(--text-secondary); font-size: 15px; margin-bottom: 48px;">
     {regularSkillCount} curated skills across {namespaces.length} namespaces · {mentorSkills.length} mentor personas
   </p>
+
+  {currentSponsor?.active && <hr />}
+
+  <SponsorSlot sponsor={currentSponsor} />
+
+  {currentSponsor?.active && <hr />}
 
   {grouped.map(ns => ns.skills.length > 0 && (
     <section class="namespace-section">
