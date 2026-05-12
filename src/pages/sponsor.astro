@@ -1,0 +1,79 @@
+---
+// src/pages/sponsor.astro
+import Base from '@/layouts/Base.astro';
+---
+
+<Base
+  title="Sponsor"
+  description="Reach developers building with AI agents. One text sponsor slot on clawhub.md."
+>
+  <h1 style="margin-bottom: 10px;">Sponsor clawhub.md</h1>
+  <p style="color: var(--text-secondary); font-size: 15px; margin-bottom: 48px;">
+    clawhub.md reaches developers who are actively building with AI agents.<br />
+    One sponsor slot per week — text only, no tracking pixels.
+  </p>
+
+  <hr />
+
+  <section style="margin-bottom: 40px;">
+    <p class="section-label">WHAT YOU GET</p>
+    <ul class="sponsor-list">
+      <li>Homepage + Browse page text placement</li>
+      <li>One company name, one line of copy, one link</li>
+      <li>Your slot is the only ad on the page</li>
+    </ul>
+  </section>
+
+  <section style="margin-bottom: 40px;">
+    <p class="section-label">TERMS</p>
+    <ul class="sponsor-list">
+      <li>Minimum 2-week commitment</li>
+      <li>Text only — no images, no scripts, no tracking pixels</li>
+      <li>We reserve the right to decline any sponsor</li>
+    </ul>
+  </section>
+
+  <hr />
+
+  <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 8px;">
+    Interested? Email us and we'll send details.
+  </p>
+  <a
+    href="mailto:sponsor@clawhub.md"
+    style="font-size: 15px; color: var(--accent);"
+  >sponsor@clawhub.md →</a>
+</Base>
+
+<style>
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.sponsor-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sponsor-list li {
+  font-size: 14px;
+  color: var(--text-secondary);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.sponsor-list li::before {
+  content: '›';
+  color: var(--accent);
+  flex-shrink: 0;
+}
+</style>
