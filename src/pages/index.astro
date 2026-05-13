@@ -12,9 +12,11 @@ const experts = await loadExperts();
 const FEATURED_EXPERT_SLUGS = ['dev-expert', 'agent-security-expert', 'founder-expert', 'pm-expert', 'mcp-integrator'];
 const featuredExperts = FEATURED_EXPERT_SLUGS.map(s => findExpert(experts, s)).filter(Boolean);
 
+const daysSinceEpoch = Math.floor(Date.now() / 86400000);
+const dailyExpert = experts.length > 0 ? experts[daysSinceEpoch % experts.length] : null;
 const featuredExpert = sotw
-  ? findExpert(experts, sotw.expert) ?? experts[0] ?? null
-  : experts[0] ?? null;
+  ? findExpert(experts, sotw.expert) ?? dailyExpert
+  : dailyExpert;
 const featuredReason = featuredExpert && sotw?.expert === featuredExpert.slug ? sotw.reason : null;
 const agentPrompt = featuredExpert
   ? `Read https://clawhub.md/expert/${featuredExpert.slug}.md and set me up as ${t(featuredExpert.name, locale)}`
@@ -44,7 +46,7 @@ const featuredExamples = featuredExpert
   {featuredExpert && agentPrompt && (
     <section style="margin-bottom: 48px;">
       <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 16px;">
-        Expert pick this week
+        Expert pick today
       </p>
 
       <a href={`/expert/${featuredExpert.slug}`} style="display: block; text-decoration: none; margin-bottom: 6px;">
