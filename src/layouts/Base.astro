@@ -81,6 +81,9 @@ const enPath = path.startsWith('/zh') ? path.slice(3) || '/' : path;
           <a href="https://github.com/zc911/clawhub.md" target="_blank" rel="noopener">GitHub</a>
           <a href="mailto:zack.mm.chen@gmail.com">{lang === 'zh' ? '联系我们' : 'Contact'}</a>
         </div>
+        <div class="footer-also">
+          Also: <a href="https://vlm.md" target="_blank" rel="noopener">vlm.md</a> · <a href="https://agentos.md" target="_blank" rel="noopener">agentos.md</a>
+        </div>
       </div>
     </footer>
   </body>
@@ -127,6 +130,21 @@ nav.site-nav .nav-links a.nav-sponsor {
 }
 
 nav.site-nav .nav-links a.nav-sponsor:hover {
+  color: var(--accent);
+}
+
+.footer-also {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+
+.footer-also a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.footer-also a:hover {
   color: var(--accent);
 }
 </style>
