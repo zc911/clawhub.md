@@ -21,9 +21,22 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Prepare dist for deploy
+        run: |
+          cat > dist/wrangler.toml << 'EOF'
+          name = "clawhub-md"
+          main = "_worker.js"
+          compatibility_date = "2024-09-23"
+          compatibility_flags = ["nodejs_compat_v2"]
+
+          [assets]
+          directory = "."
+          binding = "ASSETS"
+          EOF
+
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          workingDirectory: .
-          command: deploy --config=wrangler.deploy.toml
+          workingDirectory: dist
+          command: deploy
