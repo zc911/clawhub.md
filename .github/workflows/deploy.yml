@@ -25,6 +25,9 @@ jobs:
         run: |
           mkdir -p dist/server
           find dist -mindepth 1 -maxdepth 1 -not -name server -exec cp -r {} dist/server/ \;
+          # Copy wrangler config with main entry point
+          cp wrangler.toml dist/server/wrangler.toml
+          echo 'main = "_worker.js"' >> dist/server/wrangler.toml
 
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
