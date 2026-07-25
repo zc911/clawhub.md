@@ -55,7 +55,7 @@ const featuredExamples = featuredExpert
         <span class="home-step-badge">①</span>
         <div style="flex: 1; min-width: 0;">
           <p class="home-step-title">Expert 安装</p>
-          <InstallBox command={agentPrompt} label="对你的 Agent 说" />
+          <InstallBox command={agentPrompt} label="对你的 Agent 说" trackingSlug={`expert:${featuredExpert.slug}`} />
         </div>
       </div>
 

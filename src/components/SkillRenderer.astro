@@ -34,7 +34,7 @@ const sourceDomain = `github.com/${sourceRepo}`;
   {description && <p class="skill-tagline">{description}</p>}
 </div>
 
-<InstallBox command={install} />
+<InstallBox command={install} trackingSlug={`skill:${sourceRepo}`} />
 
 <div class="skill-source">
   Source: <a href={githubUrl} target="_blank" rel="noopener">{sourceDomain}</a>

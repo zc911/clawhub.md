@@ -55,7 +55,7 @@ const allExamples = expert.skillsWithReason.filter(e => e.examples && (e.example
       </div>
     </div>
     <div style="margin-top: 16px;">
-      <InstallBox command={agentPrompt} label="Say to your agent" />
+      <InstallBox command={agentPrompt} label="Say to your agent" trackingSlug={`expert:${expert.slug}`} />
       <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px; line-height: 1.6;">
         Works on OpenClaw, Claude Code, Telegram, Feishu, and any agent interface. Your agent reads
         <a href={mdUrl} target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px;">{expert.slug}.md</a>

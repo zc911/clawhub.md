@@ -32,7 +32,7 @@ const githubUrl = `https://github.com/${entry.repo}/blob/main/${entry.path}`;
   </div>
 
   <div style="margin-bottom: 32px;">
-    <InstallBox command={entry.install} />
+    <InstallBox command={entry.install} trackingSlug={`skill:${entry.author}/${entry.slug}`} />
   </div>
 
   {entry.examples && entry.examples.length > 0 && (

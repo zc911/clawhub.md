@@ -2,9 +2,11 @@
 interface Props {
   command: string | null;
   label?: string;
+  /** Slug identifying what's being installed — e.g. "dev-expert" or "openclaw/github" */
+  trackingSlug?: string;
 }
 
-const { command, label = 'Install' } = Astro.props;
+const { command, label = 'Install', trackingSlug } = Astro.props;
 ---
 
 {command ? (
@@ -16,6 +18,7 @@ const { command, label = 'Install' } = Astro.props;
         class="copy-btn"
         aria-label="Copy install command"
         data-command={command}
+        data-tracking-slug={trackingSlug}
       >
         Copy
       </button>
@@ -42,6 +45,16 @@ const { command, label = 'Install' } = Astro.props;
         await navigator.clipboard.writeText(command);
         btn.textContent = 'Copied!';
         btn.classList.add('copied');
+        // Track install conversion
+        const slug = btn.dataset.trackingSlug;
+        if (slug) {
+          fetch('/api/track-install', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ slug }),
+            keepalive: true,
+          }).catch(() => {}); // fire-and-forget — never block the UI
+        }
         setTimeout(() => {
           btn.textContent = 'Copy';
           btn.classList.remove('copied');
