@@ -29,6 +29,16 @@ jobs:
           cp wrangler.toml dist/server/wrangler.toml
           echo 'main = "_worker.js"' >> dist/server/wrangler.toml
 
+      - name: Verify secrets
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "CLOUDFLARE_API_TOKEN is EMPTY or MISSING"
+          else
+            echo "CLOUDFLARE_API_TOKEN is set (length: ${#TOKEN})"
+          fi
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
       - name: Deploy
         working-directory: dist/server
         env:
