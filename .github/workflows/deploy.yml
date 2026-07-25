@@ -21,14 +21,14 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Prepare dist for deploy
+      - name: Prepare deploy directory
         run: |
-          cp wrangler.toml dist/wrangler.toml
-          echo 'main = "_worker.js"' >> dist/wrangler.toml
+          mkdir -p dist/server
+          find dist -mindepth 1 -maxdepth 1 -not -name server -exec cp -r {} dist/server/ \;
 
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          workingDirectory: dist
+          workingDirectory: dist/server
           command: deploy
