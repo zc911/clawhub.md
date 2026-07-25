@@ -1,6 +1,11 @@
 name = "clawhub-md"
+main = "dist/_worker.js"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat_v2"]
 
 # KV binding (SKILL_CACHE) is configured in Cloudflare Pages Dashboard
 # Settings → Functions → KV namespace bindings → Add binding: SKILL_CACHE
+
+[assets]
+directory = "dist"
+binding = "ASSETS"
