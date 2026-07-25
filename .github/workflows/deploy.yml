@@ -28,10 +28,6 @@ jobs:
           main = "_worker.js"
           compatibility_date = "2024-09-23"
           compatibility_flags = ["nodejs_compat_v2"]
-
-          [assets]
-          directory = "."
-          binding = "ASSETS"
           EOF
 
       - name: Deploy
