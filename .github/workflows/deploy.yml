@@ -23,12 +23,8 @@ jobs:
 
       - name: Prepare dist for deploy
         run: |
-          cat > dist/wrangler.toml << 'EOF'
-          name = "clawhub-md"
-          main = "_worker.js"
-          compatibility_date = "2024-09-23"
-          compatibility_flags = ["nodejs_compat_v2"]
-          EOF
+          cp wrangler.toml dist/wrangler.toml
+          echo 'main = "_worker.js"' >> dist/wrangler.toml
 
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
